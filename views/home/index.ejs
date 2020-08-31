@@ -1,0 +1,206 @@
+<script>
+  $("#home").addClass("active")
+</script>
+
+<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">notification_important</i>
+              </div>
+              <p class="card-category">Số học viên đang chờ</p>
+              <h3 class="card-title">184</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-danger">settings_phone</i>
+                <a href="#pablo">Liên hệ đặt lịch</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-rose card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">commute</i>
+              </div>
+              <p class="card-category">Số học viên đang theo học</p>
+              <h3 class="card-title">382</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-warning">wysiwyg</i> Xem chi tiết
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon">
+              <div class="card-icon">
+                <i class="material-icons">verified</i>
+              </div>
+              <p class="card-category">Đã tốt nghiệp</p>
+              <h3 class="card-title">462</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-warning">wysiwyg</i> Hiện thị tất cả
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="card card-stats">
+            <div class="card-header card-header-info card-header-icon">
+              <div class="card-icon">
+                <i class="fa fa-home"></i>
+              </div>
+              <p class="card-category">Số lớp hiện tại</p>
+              <h3 class="card-title">20</h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons text-success">event</i> Đến lịch học
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-rose" data-header-animation="true">
+              <div class="ct-chart" id="websiteViewsChart"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-actions">
+                <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                  <i class="material-icons">build</i> Fix Header!
+                </button>
+                <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                  <i class="material-icons">refresh</i>
+                </button>
+                <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
+                  <i class="material-icons">edit</i>
+                </button>
+              </div>
+              <h4 class="card-title">Website Views</h4>
+              <p class="card-category">Last Campaign Performance</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> campaign sent 2 days ago
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-success" data-header-animation="true">
+              <div class="ct-chart" id="dailySalesChart"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-actions">
+                <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                  <i class="material-icons">build</i> Fix Header!
+                </button>
+                <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                  <i class="material-icons">refresh</i>
+                </button>
+                <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
+                  <i class="material-icons">edit</i>
+                </button>
+              </div>
+              <h4 class="card-title">Tỉ lệ học viên tham gia</h4>
+              <p class="card-category">
+                <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> tỷ lệ đõ.</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> updated 4 minutes ago
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-info" data-header-animation="true">
+              <div class="ct-chart" id="completedTasksChart"></div>
+            </div>
+            <div class="card-body">
+              <div class="card-actions">
+                <button type="button" class="btn btn-danger btn-link fix-broken-card">
+                  <i class="material-icons">build</i> Fix Header!
+                </button>
+                <button type="button" class="btn btn-info btn-link" rel="tooltip" data-placement="bottom" title="Refresh">
+                  <i class="material-icons">refresh</i>
+                </button>
+                <button type="button" class="btn btn-default btn-link" rel="tooltip" data-placement="bottom" title="Change Date">
+                  <i class="material-icons">edit</i>
+                </button>
+              </div>
+              <h4 class="card-title">Thống kê học viên hoàn thành </h4>
+              <p class="card-category">Trong tháng 8</p>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <i class="material-icons">access_time</i> campaign sent 2 days ago
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">      <div class="card">
+        <div class="card-header card-header-text card-header-warning">
+          <div class="card-text">
+            <h4 class="card-title">Lịch hẹn hôm nay 
+              </h4>
+            <p class="card-category">Tổng số học viên có ngày hẹn hôm nay</p>
+          </div>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover">
+            <thead class="text-warning">
+              <tr><th>#</th>
+              <th>Họ tên</th>
+              <th>Số CMND /Căn cước / Hộ chiếu</th>
+              <th>Số điện thoại </th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Nguyễn Văn Vở </td>
+                <td>03100965844</td>
+                <td>0967123456</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Trần Văn Thí Sinh </td>
+                <td>03100636984</td>
+                <td>0967553976</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Nguyễn Văn Vở </td>
+                <td>03100965844</td>
+                <td>0967123456</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Trần Văn Thí Sinh </td>
+                <td>03100636984</td>
+                <td>0967553976</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>
+    </div>
+  </div>
