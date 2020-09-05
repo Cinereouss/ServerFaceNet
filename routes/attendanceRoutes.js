@@ -6,8 +6,12 @@ const router = express.Router();
 router
   .route('/')
   .post(
-    attendanceController.upLoadAttendancePhoto,
-    attendanceController.rollUp
+    attendanceController.upLoadAttendancePhoto('imageCheckIn'),
+    attendanceController.checkIn
+  )
+  .patch(
+    attendanceController.upLoadAttendancePhoto('imageCheckOut'),
+    attendanceController.checkOut
   );
 
 module.exports = router;

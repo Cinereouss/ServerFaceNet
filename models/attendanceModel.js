@@ -1,22 +1,34 @@
 const mongoose = require('mongoose');
 
-const AttendanceSchema = new mongoose.Schema(
+const attendanceSchema = new mongoose.Schema(
   {
     idLearner: {
-      type: String,
-      required: [true, 'Id learner can not be empty !']
+      type: mongoose.Schema.ObjectId,
+      ref: 'FaceID'
     },
-    name: {
+    imageCheckIn: {
       type: String,
-      required: [true, 'Name can not be empty !']
+      required: [true, 'Image check-in can not be empty !'],
+      default: 'missing'
     },
-    image: {
+    imageCheckOut: {
       type: String,
-      required: [true, 'Image can not be empty !']
+      required: [true, 'Image check-out can not be empty !'],
+      default: 'missing'
     },
-    attemptAt: {
+    checkInAt: {
       type: String,
-      required: [true, 'Attemp time can not be empty !']
+      required: [true, 'Check-in time can not be empty !'],
+      default: 'missing'
+    },
+    checkOutAt: {
+      type: String,
+      required: [true, 'Check-out time can not be empty !'],
+      default: 'missing'
+    },
+    totalTime: {
+      type: Number,
+      default: 0
     }
   },
   {
@@ -25,6 +37,6 @@ const AttendanceSchema = new mongoose.Schema(
   }
 );
 
-const Attendance = mongoose.model('Attendance', AttendanceSchema);
+const Attendance = mongoose.model('Attendance', attendanceSchema);
 
 module.exports = Attendance;
