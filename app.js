@@ -8,6 +8,16 @@ const compression = require('compression');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
+const Pusher = require('pusher')
+
+var pusher = new Pusher({
+  appId: '1066353',
+  key: 'e77c032e415e2ba21c7d',
+  secret: 'e88c552bf30a0f062b01',
+  cluster: 'ap1',
+  encrypted: true
+});
+
 
 const faceIdRouter = require('./routes/faceIdRoutes');
 const attendanceRouter = require('./routes/attendanceRoutes');
