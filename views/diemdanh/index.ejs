@@ -1,0 +1,31 @@
+<script>
+    $("#diemdanh").addClass("active")
+</script>
+<style>
+    .img-icon{
+        float: left;
+        padding-top: 4%;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <% data.forEach(function (rec) { %>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <img class="img-icon" src="img/attendance/<%=rec.imageCheckIn%>" height="70px">
+                        <h4 class="card-title" style="padding-top: 6%"><%=rec.idLearner.name%></h4>
+                        <p class="card-category">Check In : <% timeIn = new Date(rec.checkInAt); %> <%=timeIn.getHours() +":"+ timeIn.getMinutes() +"p ngày "+ timeIn.getDay() +"/"+ timeIn.getMonth()%></p>
+                        <p class="card-category">Check Out: <% timeOut = new Date(rec.checkOutAt); %> <%=timeOut.getHours() +":"+ timeOut.getMinutes() +"p ngày "+ timeOut.getDay() +"/"+ timeOut.getMonth()%></p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons text-danger">assignment</i>
+                            <a href="#pablo">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <%})%>
+    </div>
+</div>
