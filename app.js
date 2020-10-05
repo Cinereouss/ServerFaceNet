@@ -9,8 +9,8 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 
-const faceIdRouter = require('./routes/faceIdRoutes');
-const attendanceRouter = require('./routes/attendanceRoutes');
+// const faceIdRouter = require('./routes/faceIdRoutes');
+// const attendanceRouter = require('./routes/attendanceRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
 const AppError = require('./utils/appError');
@@ -72,8 +72,8 @@ app.use('/api', limiter);
 // ROUTES
 app.use('/', viewRouter);
 
-app.use('/api/v1/face_id', faceIdRouter);
-app.use('/api/v1/attendance', attendanceRouter);
+// app.use('/api/v1/face_id', faceIdRouter);
+// app.use('/api/v1/attendance', attendanceRouter);
 
 // If there is no middleware was matched and run above, this is the final middlewares in req-res-cycle
 // Therefore, it will handle all route was not declared.
