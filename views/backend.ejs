@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('layout/header'); -%>
+
+<body data-sidebar="dark">
+<!-- Begin page -->
+<div id="layout-wrapper">
+    <%- include('layout/navbar'); -%>
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <%- include('layout/menu'); -%>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        <div class="page-content">
+            <%- include(page + '/index'); -%>
+        </div>
+        <!-- End Page-content -->
+        <!-- Modal -->
+        <%- include('modal/index'); -%>
+        <!-- end modal -->
+        <!-- end main content-->
+        <%- include('layout/footer'); -%>
+    </div>
+    <!-- END layout-wrapper -->
+
+    <!-- Right Sidebar -->
+    <%- include('layout/rightbar'); -%>
+    <!-- /Right-bar -->
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+    <script src="assets\libs\jquery\jquery.min.js"></script>
+    <script src="assets\libs\bootstrap\js\bootstrap.bundle.min.js"></script>
+    <script src="assets\libs\metismenu\metisMenu.min.js"></script>
+    <script src="assets\libs\simplebar\simplebar.min.js"></script>
+    <script src="assets\libs\node-waves\waves.min.js"></script>
+
+    <!-- apexcharts -->
+    <script src="\assets\libs\apexcharts\apexcharts.min.js"></script>
+
+    <script src="\assets\js\pages\dashboard.init.js"></script>
+
+    <!-- App js -->
+    <script src="/assets/js/app.js"></script>
+</body>
+
+</html>
