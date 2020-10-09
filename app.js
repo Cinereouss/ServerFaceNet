@@ -8,18 +8,9 @@ const compression = require('compression');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
-const passport = require('passport')
-const flash = require('express-flash')
-const session = require('express-session')
-const User = require('./models/User');
-
-const initializePassport = require('./middlewares/passport')
-initializePassport(
-  passport,
-  username => User.find(User => User.username === username)
-)
 
 const viewRoutes = require('./routes/viewRouter');
+const userRoutes = require('./routes/userRouters');
 
 const AppError = require('./utils/appError');
 const globalErrorHandller = require('./controllers/errorController');
@@ -30,15 +21,6 @@ const app = express();
 // Set up Ejs (Template Engine)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(flash())
-app.use(session({
-  secret : process.env.SESSION_SECRET,
-  resave : false,
-  saveUninitialized : false
-}))
-app.use(passport.initialize())
-app.use(passport.session())
-
 
 // Serving static file, means we can access file in this dir using dir path in query string
 // So file in "public" folder can be query like "http://127.0.0.1:3000/img/favicon.png"
@@ -89,6 +71,7 @@ app.use('/api', limiter);
 
 // ROUTES
 app.use('/', viewRoutes);
+app.use('/api/v1/users', userRoutes);
 
 // If there is no middleware was matched and run above, this is the final middlewares in req-res-cycle
 // Therefore, it will handle all route was not declared.
