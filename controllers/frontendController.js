@@ -1,8 +1,8 @@
 const catchAsync = require('./../utils/catchAsync');
-const User = require('../models/User')
 
-exports.showHomePage = (req, res, next) => {
-    res.render('frontend', {page : "F_home"})
+const User = require('../models/userModel')
+exports.showPLHomePage = (req, res, next) => {
+    res.render('frontend')
 }
 
 exports.showLoginPage = (req, res, next) => {
@@ -18,13 +18,4 @@ exports.dangKyOnline = (req, res, next) => {
 }
 
 exports.register = (req, res, next) => {
-    if(User.uniqueUser(req.body.username)){
-        var newUser = new User;
-        User.email = req.body.email;
-        User.username = req.body.username;
-        User.password = User.encryptPassword(req.body.username);
-        newUser.save()
-    }else{
-        return false;
-    }
 }
