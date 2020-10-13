@@ -1,8 +1,9 @@
 const catchAsync = require('./../utils/catchAsync');
 
 const User = require('../models/userModel')
-exports.showPLHomePage = (req, res, next) => {
-    res.render('frontend')
+
+exports.showHomePage = (req, res, next) => {
+    res.render('frontend', {page : "F_home"})
 }
 
 exports.showLoginPage = (req, res, next) => {

@@ -1,9 +1,13 @@
 const crypto = require('crypto');
 const { promisify } = require('util');
+const messagebird = require('messagebird')(process.env.MESSAGEBIRD_API_KEY)
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
+const { response } = require('../app');
+const fetch = require('node-fetch');
+
 // const Email = require('./../utils/email');
 
 const signToken = id => {
@@ -270,3 +274,46 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     // 4. Log user in, send JWT
     createSendToken(user, 200, res);
 });
+
+exports.sendMessage = function (req, res, next) {
+    var phoneNumber = req.body.phone;
+    messagebird.verify.create(phoneNumber, {
+        template : "Mã xác nhận của bạn là %token."
+    }), function(err, response){
+        if(err){
+            console.log(err);
+            return err.error[0].description
+        }else{
+            console.log(response);
+            return response
+        }
+    }
+};
+
+exports.verifyPhoneNumber = (req, res, next) => {
+    var id = req.body.id;
+    var token = req.body.token;
+
+    messagebird.verify.verify(id, token, function(err, response){
+        if(err){
+            console.log(err);
+            return err.error[0].description
+        }else{
+            console.log(response);
+            return "Ok"
+        }
+    })
+};
+
+exports.handleCapcha = (req, res, next) => {
+    const secret_key = process.env.SECRET_KEY;
+    const token = req.body.token;
+    const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secret_key}&response=${token}`;
+
+    fetch(url, {
+        method: 'post'
+    })
+        .then(response => response.json())
+        .then(google_response => res.json({ google_response }))
+        .catch(error => res.json({ error }));
+}
