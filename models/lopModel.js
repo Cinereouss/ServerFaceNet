@@ -13,10 +13,6 @@ const LopHoc = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'GiangVien'
     },
-    idHocvien: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'ocVien'
-    },
     idLoaiBang: {
         type: mongoose.Schema.ObjectId,
         ref: 'LoaiBang'
