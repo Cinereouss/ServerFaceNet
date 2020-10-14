@@ -1210,16 +1210,18 @@ hr {
   width: 100%;
   height: 42px;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #27b92c;
   font: 15px/24px 'Lato', Arial, sans-serif;
-  color: #333;
+  color: #27b92c;
   margin-top: 13%;
+  border-radius: 3px;
 }
 
 #confirm:hover {
-  background-color : #4caf50;
-  border: 1px solid #164d18;
-  box-shadow: 0 4px 20px #4caf50;
+  background-color : #27b92c;
+  border: 1px solid #27b92c;
+  box-shadow: 0 4px 20px #27b92c;
+  color: white;
 }
 
 #sendotp {
@@ -1227,14 +1229,16 @@ hr {
   width: 100%;
   height: 42px;
   background-color: white;
-  border: 1px solid #ccc;
+  border: 1px solid #834486;
   font: 15px/24px 'Lato', Arial, sans-serif;
-  color: #333;
+  color: #834486;
   margin-top: 13%;
+  border-radius: 3px;
 }
 
 #sendotp:hover {
-  background-color : #9dac1b;
-  border: 1px solid #164d18;
-  box-shadow: 0 4px 20px #0381a0;
+  background-color : #834486;
+  border: 1px solid #834486;
+  box-shadow: 0 4px 20px #834486;
+  color: white;
 }
