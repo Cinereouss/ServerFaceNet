@@ -1,46 +1,76 @@
 const mongoose = require('mongoose');
 
-const HocVien = new mongoose.Schema({
-    idNguoi : {
+const hocVienSchema = new mongoose.Schema({
+    ten: {
+        type: String,
+        required: [true, 'Tên học viên không được để trống !'],
+    },
+    ngaySinh: {
+        type: Date,
+        required: [true, 'Ngày sinh không được để trống !'],
+    },
+    gioiTinh: {
+        type: Boolean,
+        required: [true, 'Giới tính không được để trống !'],
+        default: false,
+    },
+    cmnd: {
+        type: String,
+        required: [true, 'CMND / CCCD / Hộ chiếu không được để trống !'],
+    },
+    sdt: {
+        type: String,
+        default: null,
+    },
+    diaChi: {
+        type: String,
+        required: [true, 'Địa chỉ không được để trống !'],
+    },
+    email: {
+        type : String,
+    },
+    idLop: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Nguoi'
+        ref: 'LopHoc',
+        default: null,
     },
-    idLop : {
-        type: mongoose.Schema.ObjectId,
-        ref: 'LopHoc'
+    pending: {
+        type: Boolean,
+        default: true,
     },
-    pending : {
-        type : Boolean,
-        default : 0
+    embedding: {
+        type: String,
+        default: null,
     },
-    idface : {
-        type : String
+    ngayTao: {
+        type: Date,
+        default: Date.now()
     },
-    ngaytao : {
-        type : Date,
-        default : Date.now()
+    hasCmnd: {
+        type: Boolean,
+        default: false,
     },
-    hascmnd : {
-        type : Boolean,
-        default : 0
+    hasGksk: {
+        type: Boolean,
+        default: false,
     },
-    hasgksk : {
-        type : Boolean,
-        default : 0
+    hasSyll: {
+        type: Boolean,
+        default: false,
     },
-    hassyll : {
-        type : Boolean,
-        default : 0
+    hasAnh: {
+        type: Boolean,
+        default: false,
     },
-    hasanh : {
-        type : Boolean,
-        default : 0
+    hasDongdangky: {
+        type: Boolean,
+        default: false
     },
-    hasdongdangky : {
-        type : Boolean,
-        default : 0
-    },
+    isPassLyThuyet: {
+        type: Boolean,
+        default: false,
+    }
 })
 
-const HocVien = mongoose.model('HocVien', HocVien)
+const HocVien = mongoose.model('HocVien', hocVienSchema)
 module.exports = HocVien;
