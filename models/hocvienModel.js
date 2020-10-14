@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const hocVienSchema = new mongoose.Schema({
     ten: {
         type: String,

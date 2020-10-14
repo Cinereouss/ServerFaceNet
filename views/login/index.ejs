@@ -1,3 +1,10 @@
+<script>
+  var session = document.cookie;
+  console.log(session)
+  // if (session != null) {
+  //   window.location = '/admin';
+  // }
+</script>
 
 <div class="account-pages my-5 pt-sm-5">
   <div class="container">
@@ -14,7 +21,7 @@
               </div>
               <div class="col-5 align-self-end">
                 <img
-                  src="\assets\images\profile-img.png"
+                  src="assets/images/profile-img.png"
                   alt=""
                   class="img-fluid"
                 />
@@ -27,7 +34,7 @@
                 <div class="avatar-md profile-user-wid mb-4">
                   <span class="avatar-title rounded-circle bg-light">
                     <img
-                      src="/assets/images/favicon.ico"
+                      src="assets/images/favicon.ico"
                       alt=""
                       class="rounded-circle"
                       height="66"
@@ -37,26 +44,27 @@
               </a>
             </div>
             <div class="p-2">
-              <form class="form-horizontal" action="/signin" method="POST">
+              <form
+                class="form-horizontal"
+                action="/api/v1/users/login"
+                method="POST"
+              >
                 <div class="form-group">
-                  <% if (messages.error) { %>
-                    <%= messages.error %> 
-                    <% } %>                     
-                  <label for="username">Username</label>
+                  <label for="email">Email</label>
                   <input
                     type="text"
                     class="form-control"
-                    name="username"
-                    placeholder="Enter username"
+                    id="email"
+                    placeholder="Enter Email"
                   />
                 </div>
 
                 <div class="form-group">
-                  <label for="userpassword">Password</label>
+                  <label for="password">Password</label>
                   <input
                     type="password"
                     class="form-control"
-                    name="password"
+                    id="password"
                     placeholder="Enter password"
                   />
                 </div>
@@ -74,8 +82,9 @@
 
                 <div class="mt-3">
                   <button
+                    id="btn-login"
                     class="btn btn-primary btn-block waves-effect waves-light"
-                    type="submit"
+                    type="button"
                   >
                     Log In
                   </button>
@@ -139,3 +148,26 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(()=>{
+    $('#btn-login').on('click', () => {
+      $.ajax({
+        type: "POST",
+        url : "/api/v1/users/login",
+        data : {
+          email : $("#email").val(),
+          password : $("#password").val()
+        }
+      }).done((response) => {
+        console.log(response['status'])
+        if(response['status'] === "success")
+          window.location = '/admin';
+        else
+          window.location = '/login';
+      }).fail((error) => {
+        console.log(error)
+      })
+    })
+  })
+</script>

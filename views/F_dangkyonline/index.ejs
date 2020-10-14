@@ -1,0 +1,293 @@
+<!-- Font Icon -->
+<!-- Main css -->
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="container" id="ctn-form">
+  <form method="POST" id="signup-form" class="signup-form" action="#">
+    <div>
+      <h3>Thông tin cá nhân</h3>
+      <fieldset>
+        <div class="mahi_holder">
+          <div class="row bg_3">
+            <h2><i>Thông tin người đăng ký</i></h2>
+            <p>
+              Vui lòng điền thông tin cá nhân của bạn vào mẫu sau, sau đó tiếp
+              tục bước 2.
+            </p>
+            <div class="row" style="padding-left: 1%; padding-right: 0.5%">
+              <div class="col-md-6">
+                <div class="col-3 input-effect">
+                  <input class="effect-19" type="text" name="ten"/>
+                  <label>Họ và tên <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              
+              <div class="col-md-2" id="select-sex">
+                <ul>
+                  <li>
+                    <input type="radio" id="f-option" value="1" name="gioitinh" checked = "checked">
+                    <label for="f-option">Nam</label>
+                    <div class="check"></div>
+                  </li>
+                  
+                  <li>
+                    <input type="radio" id="s-option" value="0" name="gioitinh">
+                    <label for="s-option">Nữ</label>
+                    <div class="check"><div class="inside"></div></div>
+                  </li>
+                </ul>                   
+              </div>
+
+              <div class="col-md-4">
+                <div class="col-3 input-effect">
+                  <input class="effect-21" type="date" name="ngaysinh"/>
+                  <label>Ngày sinh <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="padding-left: 1.5%; padding-right: 0.8%">
+              <div class="col-md-3">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="text" name="quoctich" required/>
+                  <label>Quốc tịch <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>                  </span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="col-3 input-effect">
+                  <input class="effect-19" type="text" name="cmnd" required/>
+                  <label>CMND/CCCD/Hộ chiếu <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="col-3 input-effect">
+                  <input class="effect-21" type="date" name="ngaycap"/>
+                  <label>Cấp ngày <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="col-3 input-effect">
+                  <input class="effect-19" type="text" name="noicap" required/>
+                  <label>Nơi cấp <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-3 input-effect">
+                  <input class="effect-21" type="text" name="hokhau" required/>
+                  <label>Nơi đăng ký hộ khẩu thường trú <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="text" name="cuutru" required/>
+                  <label>Nơi cư trú</label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="padding-left: 1.5%; padding-right: 0.8%">
+              <div class="col-md-3">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="text" name="gplx" required/>
+                  <label>Đã có GPLX số</label>
+                  <span class="focus-border">
+                    <i></i>                  </span>
+                </div>
+              </div>
+              <div class="col-md-3" style="top: -8px">
+                <label for="selected" style="
+                margin-bottom: 0;
+                top: -25px;
+                left: 0;
+                font-size: 12px;
+                color: #4caf50;">Loại bằng</label>
+                <div class="dropdown" id="lever">
+                  <div id="selected" class="select">
+                    <span>--Chọn loại bằng--</span>
+                    <i class="fa fa-chevron-left"></i>
+                  </div>
+                  <input type="hidden" name="loaibang">
+                  <ul class="dropdown-menu">
+                    <li id="A1">A1</li>
+                    <li id="A2">A2</li>
+                    <li id="A3">A3</li>
+                    <li id="A4">A4</li>
+                    <li id="B1">B1</li>
+                    <li id="B2">B2</li>
+                    <li id="C">C</li>
+                    <li id="D">D</li>
+                    <li id="E">E</li>
+                    <li id="F">F</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="col-3 input-effect">
+                  <input class="effect-21" type="date" name="ngaycapbang"/>
+                  <label>Cấp ngày</label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="col-3 input-effect">
+                  <input class="effect-19" type="text" name="noicap" required/>
+                  <label>Nơi cấp</label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+                </div>
+            </div>
+            
+        </div>
+        <hr/>
+      </fieldset>
+
+      <h3>Giấy tờ liên quan</h3>
+      <fieldset>
+        <div class="mahi_holder">
+          <div class="row bg_3">
+            <h2><i>Giấy tờ liên quan</i></h2>
+            <p>
+              Upload các giấy tờ liên quan trong mục yêu cầu để hoành thành thủ tục đăng ký.
+            </p>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="file" name="scanGksk"/>
+                  <label>Bản scan giấy khám sức khỏe<em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="file" name="scanCmnd"/>
+                  <label>Bản scan 2 mặt CMND / CCCD / Hộ chiếu<em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="file" name="anhthe"/>
+                  <label>Ảnh thẻ 3x4 (Nền trắng) <em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="file" name="scanGplx"/>
+                  <label>Bản scan 2 mặt GPLX (nếu đã có)</label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+        </div>      
+        <hr/>
+      </fieldset>
+
+
+      
+      <h3>Xác nhận và hoàn thành</h3>
+      <fieldset>
+        <div class="mahi_holder">
+          <div class="row bg_3">
+            <h2><i>Điều khoản và các lệ phí liên quan</i></h2>
+            <p>
+              Xin gửi kèm theo:<br/>
+              - 01 giấy chứng nhận đủ sức khỏe;<br/>
+              - 02 ảnh màu cỡ 3 cm x 4 cm, chụp không quá 06 tháng;<br/>
+              - Bản sao giấy chứng minh nhân dân hoặc thẻ căn cước công dân hoặc hộ chiếu còn thời hạn có ghi số giấy chứng minh nhân dân hoặc thẻ căn cước công dân (đối với người Việt Nam) hoặc hộ chiếu (đối với người nước ngoài);
+            </p>
+            <br/>
+            <p style="text-align: justify;"><span>Lệ phí đăng kí hồ sơ thi bằng lái xe ô tô B1, B2 theo quy định sẽ bao gồm những khoản lệ phí sau đây:</span></p>
+            <ul style="text-align: justify;">
+              <li><span>- Lệ&nbsp;phí làm hồ sơ đăng ký học lái xe ô tô tại Trung tâm.</span></li>
+              <li><span>- Lệ phí khám sức khỏe</span></li>
+              <li><span>- Chi phí đào tạo&nbsp;phần lý thuyết, các tài liệu (sách, đĩa), phần mềm thi thử trực tuyến 450 câu hỏi trắc nghiệm.</span></li>
+              <li><span>- Lệ phí&nbsp;thi cấp bằng tốt nghiệp</span></li>
+              <li><span>- Lệ&nbsp;phí đăng ký thi sát hạch lái xe ô tô của Sở GTVT. (*)</span></li>
+              </ul>
+              <br/>
+              <p style="text-align: justify;"><span >Đây là toàn bộ&nbsp;các chi phí từ lúc&nbsp;bạn bắt đầu đăng ký hồ sơ vào các trung tâm dạy học&nbsp;lái xe ô tô đến khi thi. Theo như thông thường là bạn sẽ phải đóng hết khoản lệ phí này ngay lúc&nbsp;nộp hồ sơ vào. Theo quy định của Sở GTVT hiện nay lệ&nbsp;phí hồ sơ thi bằng lái toàn bộ thường sẽ rơi vào khoảng từ 6.400.000 đồng – 7.100.000 đồng đối với trường hợp&nbsp;thi bằng lái xe hạng B1, B11, B2.</span> </p>
+       
+              
+              <div class="row">
+                <em style="color:red; padding-left : 3%;" >* Chúng tôi sẽ gửi tới số điện thoại của bạn 1 mã OTP, vui lòng cung cấp số điện thoại kiểm tra và xác nhận</em>
+                <div class="col-md-4">
+                  <div class="col-3 input-effect">
+                    <input class="effect-20" type="text" id="phone" required/>
+                    <label>Số điện thoại<em style="color : red">(*)</em></label>
+                    <span class="focus-border">
+                      <i></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <input class="button-effect" type="button" id="sendotp" value="Gửi mã OTP"/>
+              </div>
+
+                <div class="col-md-4">
+                  <div class="col-3 input-effect">
+                    <input class="effect-20" type="text" id="OPT" required/>
+                    <label>Mã OTP<em style="color : red">(*)</em></label>
+                    <span class="focus-border">
+                      <i></i>
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                    <input class="button-effect" type="button" id="confirm" value="Xác nhận"/>
+                </div>
+              </div>
+              <script src="https://www.google.com/recaptcha/api.js?render=6Lc8rdYZAAAAAAouHQUBMRO-uos1bCD4lMJpEYI_"></script>
+            </div>
+          </div>
+          <hr/>
+      </fieldset>
+    </div>
+  </form>
+</form>
+</div>
+
+<!-- JS -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="vendor/jquery-steps/jquery.steps.min.js"></script>
+<script src="vendor/minimalist-picker/dobpicker.js"></script>
+<script src="js/main.js"></script>

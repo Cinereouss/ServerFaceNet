@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const giangVienSchema = new mongoose.Schema({
     ten: {
         type: String,
@@ -21,6 +22,7 @@ const giangVienSchema = new mongoose.Schema({
     cmnd: {
         type: String,
         required: [true, 'CMND / CCCD / Hộ chiếu không được để trống !'],
+
     },
     sdt: {
         type: String,

@@ -13,6 +13,7 @@ const lopHocSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'GiangVien',
         default: null,
+
     },
     idLoaiBang: {
         type: mongoose.Schema.ObjectId,
