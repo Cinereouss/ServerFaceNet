@@ -19,6 +19,6 @@ router.route('/login').get(frontendController.showLoginPage);
 **       backend       **
 *************************/
 
-router.route('/admin').get(authController.protect, authController.isLoggedIn, backendController.showHomePage);
+router.route('/admin').get(authController.protect, authController.restrictTo("admin"), backendController.showHomePage);
 
 module.exports = router;
