@@ -1,17 +1,16 @@
-module.exports = timeInString => {
-  const arrOfDay = timeInString.split(' ');
-  const weekday = arrOfDay[0];
-  const day = +arrOfDay[2];
-  const month = arrOfDay[1];
-  const year = +arrOfDay[5];
+exports.javaTimeExtractor = timeInString => {
+  const data = timeInString.split(' ');
+  const dateData = data[0].split('/');
+  const day = +dateData[0];
+  const month = +dateData[1];
+  const year = +dateData[2];
 
-  const arrOfTime = arrOfDay[3].split(':');
-  const hour = +arrOfTime[0];
-  const minute = +arrOfTime[1];
-  const second = +arrOfTime[2];
+  const timeData = data[1].split(':');
+  const hour = +timeData[0];
+  const minute = +timeData[1];
+  const second = +timeData[2];
 
   return {
-    weekday,
     day,
     month,
     year,
@@ -20,3 +19,23 @@ module.exports = timeInString => {
     second
   };
 };
+
+exports.localTimeExtractor = UTCTime => {
+  const localTime = new Date(UTCTime);
+  const day = localTime.getDate();
+  const month = localTime.getMonth() + 1;
+  const year = localTime.getFullYear();
+  const hour = localTime.getHours();
+  const minute = localTime.getMinutes();
+  const second = localTime.getSeconds();
+
+  return {
+    day,
+    month,
+    year,
+    hour,
+    minute,
+    second
+
+  }
+}
