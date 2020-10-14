@@ -1,41 +1,51 @@
 const mongoose = require('mongoose');
 
-const GiangVien = new mongoose.Schema({
-    ten : {
-        type : String,
-        required : [true, 'Tên giảng viên không được để trống !'],
+
+const giangVienSchema = new mongoose.Schema({
+    ten: {
+        type: String,
+        required: [true, 'Tên giảng viên không được để trống !'],
     },
     embedding: {
         type: String,
         default: null,
     },
-    ngaysinh : {
-        type : Date,
-        required : [true, 'Ngày sinh không được để trống !'],
+    ngaySinh: {
+        type: Date,
+        required: [true, 'Ngày sinh không được để trống !'],
     },
-    gioitinh : {
+    gioiTinh: {
         type: Boolean,
-        default: 0
+        required: [true, 'Giới tính không được để trống !'],
+        default: false,
     },
-    cmnd : {
-        type : String,
-        required : [true, 'CMND / CCCD / Hộ chiếu không được để trống !'],
+    cmnd: {
+        type: String,
+        required: [true, 'CMND / CCCD / Hộ chiếu không được để trống !'],
+
     },
-    sdt : {
-        type : String,
+    sdt: {
+        type: String,
+        required: [true, 'Số điện thoại không được để trống !'],
     },
-    diachi : {
-        type : String,
-        required : [true, 'Địa chỉ không được để trống !'],
+    diaChi: {
+        type: String,
+        required: [true, 'Địa chỉ không được để trống !'],
     },
-    email : {
-        type : String,
+    email: {
+        type: String,
+        required: [true, 'Email không được để trống !'],
     },
-    isbienche : {
-        type : Boolean,
-        default : 0
+    isBienChe: {
+        type: Boolean,
+        default: false,
+    },
+    account: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        default: null,
     }
 })
 
-const GiangVien = mongoose.model('GiangVien', GiangVien)
+const GiangVien = mongoose.model('GiangVien', giangVienSchema)
 module.exports = GiangVien;

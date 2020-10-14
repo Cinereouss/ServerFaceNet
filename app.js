@@ -8,9 +8,11 @@ const compression = require('compression');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 const viewRoutes = require('./routes/viewRouter');
 const userRoutes = require('./routes/userRouters');
+const attendanceRoutes = require('./routes/attendanceRoutes');
 
 const AppError = require('./utils/appError');
 const globalErrorHandller = require('./controllers/errorController');
@@ -31,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Limit amount of data from req.body to 10kb to protect server from attacker(overload server)
 app.use(express.json({ limit: '10kb' })); // Like body-parser, using this middleware to attach req.body property, default in express
 app.use(express.urlencoded({ extended: true, limit: '10kb' })); // for using req.body when data was submitted by html-form
+app.use(cookieParser());
 
 // IMPLEMENT CORS (Cross-Origin-Resource-Sharing)
 // We can set 'cors' in specific route -> Read doc
@@ -72,6 +75,7 @@ app.use('/api', limiter);
 // ROUTES
 app.use('/', viewRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/attendance', attendanceRoutes);
 
 // If there is no middleware was matched and run above, this is the final middlewares in req-res-cycle
 // Therefore, it will handle all route was not declared.

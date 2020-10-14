@@ -1,72 +1,75 @@
 const mongoose = require('mongoose');
-
-const HocVien = new mongoose.Schema({
-    ten : {
+const hocVienSchema = new mongoose.Schema({
+    ten: {
+        type: String,
+        required: [true, 'Tên học viên không được để trống !'],
+    },
+    ngaySinh: {
+        type: Date,
+        required: [true, 'Ngày sinh không được để trống !'],
+    },
+    gioiTinh: {
+        type: Boolean,
+        required: [true, 'Giới tính không được để trống !'],
+        default: false,
+    },
+    cmnd: {
+        type: String,
+        required: [true, 'CMND / CCCD / Hộ chiếu không được để trống !'],
+    },
+    sdt: {
+        type: String,
+        default: null,
+    },
+    diaChi: {
+        type: String,
+        required: [true, 'Địa chỉ không được để trống !'],
+    },
+    email: {
         type : String,
-        required : [true, 'Tên giảng viên không được để trống !'],
+    },
+    idLop: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'LopHoc',
+        default: null,
+    },
+    pending: {
+        type: Boolean,
+        default: true,
     },
     embedding: {
         type: String,
-        required: [true, 'Embedding can not be empty !']
+        default: null,
     },
-    ngaysinh : {
-        type : Date,
-        required : [true, 'Ngày sinh không được để trống !'],
+    ngayTao: {
+        type: Date,
+        default: Date.now()
     },
-    gioitinh : {
+    hasCmnd: {
         type: Boolean,
-        default: 0
+        default: false,
     },
-    cmnd : {
-        type : String,
-        required : [true, 'CMND / CCCD / Hộ chiếu không được để trống !'],
+    hasGksk: {
+        type: Boolean,
+        default: false,
     },
-    sdt : {
-        type : String,
+    hasSyll: {
+        type: Boolean,
+        default: false,
     },
-    diachi : {
-        type : String,
-        required : [true, 'Địa chỉ không được để trống !'],
+    hasAnh: {
+        type: Boolean,
+        default: false,
     },
-    email : {
-        type : String,
+    hasDongdangky: {
+        type: Boolean,
+        default: false
     },
-    idLop : {
-        type: mongoose.Schema.ObjectId,
-        ref: 'LopHoc'
-    },
-    pending : {
-        type : Boolean,
-        default : 0
-    },
-    idface : {
-        type : String
-    },
-    ngaytao : {
-        type : Date,
-        default : Date.now()
-    },
-    hascmnd : {
-        type : Boolean,
-        default : 0
-    },
-    hasgksk : {
-        type : Boolean,
-        default : 0
-    },
-    hassyll : {
-        type : Boolean,
-        default : 0
-    },
-    hasanh : {
-        type : Boolean,
-        default : 0
-    },
-    hasdongdangky : {
-        type : Boolean,
-        default : 0
-    },
+    isPassLyThuyet: {
+        type: Boolean,
+        default: false,
+    }
 })
 
-const HocVien = mongoose.model('HocVien', HocVien)
+const HocVien = mongoose.model('HocVien', hocVienSchema)
 module.exports = HocVien;

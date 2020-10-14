@@ -3,6 +3,7 @@ const { promisify } = require('util');
 const messagebird = require('messagebird')(process.env.MESSAGEBIRD_API_KEY)
 const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
+const GiangVien = require('./../models/giangvienModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const { response } = require('../app');
@@ -79,8 +80,18 @@ exports.login = catchAsync(async (req, res, next) => {
         return next(new AppError('Incorrect email or password !', 401));
     }
 
-    // 3. If everything is ok, send token to client
-    createSendToken(user, 200, res);
+    if (user.role === "admin") {
+        // 3. If everything is ok, send token to client
+        createSendToken(user, 200, res);
+    } else {
+        const giangVien = await GiangVien.findOne({ account: user._id});
+        if (giangVien) {
+            user.set( "beLongTo", giangVien._id, { strict: false });
+            createSendToken(user, 200, res);
+        } else {
+            return next(new AppError('Tài khoản này chưa có giáo viên sở hữu', 404));
+        }
+    }
 });
 
 exports.logout = (req, res) => {
@@ -94,13 +105,13 @@ exports.logout = (req, res) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
     // 1. Getting token and check if it's there
-    let token;
+    let token = null;
     if (
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
     ) {
         token = req.headers.authorization.split(' ')[1];
-    } else if (req.cookies.jwt) {
+    } else if (req.cookies && req.cookies.jwt) {
         token = req.cookies.jwt;
     }
 
@@ -269,12 +280,25 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     // 3. If so, update password
     user.password = req.body.password;
     user.passwordConfirm = req.body.passwordConfirm;
-    await user.save(); //Must use save() findbyIDAndUpdate() will not works beause findbyIDAndUpdate() can not trigger validator
+    await user.save(); //Must use save() findByIDAndUpdate() will not works beause findbyIDAndUpdate() can not trigger validator
 
     // 4. Log user in, send JWT
     createSendToken(user, 200, res);
 });
 
+exports.loginWithFaceId = catchAsync(async (req, res, next) => {
+    const { userId } = req.body;
+
+    const user = await User.findOne({ id: userId });
+
+    if (!user) {
+        return next(
+            new AppError('There is no user with that face Id !', 404)
+        );
+    }
+
+    createSendToken(user, 200, res);
+});
 exports.sendMessage = function (req, res, next) {
     var phoneNumber = req.body.phone;
     messagebird.verify.create(phoneNumber, {
