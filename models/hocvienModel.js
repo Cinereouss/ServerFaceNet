@@ -100,6 +100,13 @@ const hocVienSchema = new mongoose.Schema({
     isPassLyThuyet: {
         type: Boolean,
         default: false,
+    },
+    ghiChu: {
+        type: String,
+    },
+    ngayHen: {
+        type: Date,
+        required: [true, 'Ngày hẹn không được để trống !'],
     }
 })
 

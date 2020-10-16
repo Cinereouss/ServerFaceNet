@@ -1,3 +1,8 @@
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="\assets\libs\toastr\build\toastr.min.css"
+/>
 <% function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
 temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" +
 temp.getFullYear(); } %>
@@ -203,7 +208,7 @@ temp.getFullYear(); } %>
   </div>
 </div>
 <% if(hocvien.pending) { %>
-  <div
+<div
   class="modal fade bs-example-modal-center"
   tabindex="-1"
   role="dialog"
@@ -213,7 +218,14 @@ temp.getFullYear(); } %>
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mt-0"> Đặt lịch hẹn cho <%= hocvien.ten %></h5>
+        <h5 class="modal-title mt-0">Đặt lịch hẹn cho <%= hocvien.ten %></h5>
+        <input
+          id="code"
+          type="text"
+          value="<%= hocvien._id %>"
+          hidden
+          readonly
+        />
         <button
           type="button"
           class="close"
@@ -223,69 +235,147 @@ temp.getFullYear(); } %>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="#" method="POST">
       <div class="modal-body">
-            <label for="example-datetime-local-input" class=" col-form-label">Ngày hẹn:</label>
-            <input class="form-control" type="datetime-local" id="example-datetime-local-input" name="ngayHen">
-            <label for="message" class=" col-form-label">Ghi chú:</label>
-            <textarea id="message" class="form-control" name="ghiChu"></textarea> 
+        <label for="appointment" class=" col-form-label">Ngày hẹn:</label>
+        <input
+          class="form-control"
+          type="datetime-local"
+          id="appointment"
+          required
+        />
+        <label for="note" class=" col-form-label">Ghi chú:</label>
+        <textarea id="note" class="form-control" name="ghiChu"></textarea>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Đặt lịch hẹn</button>
+        <button
+          type="button"
+          id="btn-close"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" id="datlich" class="btn btn-success">
+          Đặt lịch hẹn
+        </button>
       </div>
-      </form>
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<!-- toastr plugin -->
+<script src="\js\jquery.js"></script>
+<script src="\assets\libs\toastr\build\toastr.min.js"></script>
 
-<% } else { %>
-  <div
-    class="modal fade bs-example-modal-center"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="mySmallModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title mt-0">QR code của <%= hocvien.ten %></h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <input id='code' type="text" value="<%= hocvien._id %>" hidden readonly>
-        </div>
-        <div class="modal-body">
-            <div id="id_qrcode" style="margin-left: 30%"></div>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
-  <script type="text/javascript" src="/js/qrcode.min.js"></script>
-  <script>
-    window.onload = function(e) {
-      var code = document.getElementById('code').value;
-      console.log(code);
-      var qrcode = new QRCode('id_qrcode', {
-        text: code,
-        width: 200,
-        height: 200,
-        colorDark: '#000000',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.M
+<script>
+  $(document).ready(() => {
+    $('#datlich').on('click', () => {
+      $.ajax({
+        url: '/api/v1/student/setappointment',
+        type: 'post',
+        data: {
+          _id: $('#code').val(),
+          ngayHen: $('#appointment').val(),
+          ghiChu: $('#note').val()
+        },
+        success: function(data) {
+          if (data === 'success') {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr['success']('Yub! Đặt lịch hẹn thành công ^^', 'Thành công!');
+          } else {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr['error']('Đặt lịch hẹn thất bại. Kiểm tra lại!', 'Ops! Thất bại');
+          }
+        }
       });
-    };
-  </script>
+    });
+  });
+</script>
+<% } else { %>
+<div
+  class="modal fade bs-example-modal-center"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">QR code của <%= hocvien.ten %></h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <input
+          id="code"
+          type="text"
+          value="<%= hocvien._id %>"
+          hidden
+          readonly
+        />
+      </div>
+      <div class="modal-body">
+        <div id="id_qrcode" style="margin-left: 30%"></div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script type="text/javascript" src="/js/qrcode.min.js"></script>
+<script>
+  window.onload = function(e) {
+    var code = document.getElementById('code').value;
+    var qrcode = new QRCode('id_qrcode', {
+      text: code,
+      width: 200,
+      height: 200,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  };
+</script>
 <% } %>

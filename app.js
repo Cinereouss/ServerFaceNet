@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');
 
 const viewRoutes = require('./routes/viewRouter');
 const userRoutes = require('./routes/userRouters');
+const studentRoutes = require('./routes/hocVienRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 
 const AppError = require('./utils/appError');
@@ -74,6 +75,7 @@ app.use('/api', limiter);
 
 // ROUTES
 app.use('/', viewRoutes);
+app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
 
