@@ -223,9 +223,18 @@ temp.getFullYear(); } %>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form action="#" method="POST">
       <div class="modal-body">
-          <h1>Đặt lịch hẹn</h1>
+            <label for="example-datetime-local-input" class=" col-form-label">Ngày hẹn:</label>
+            <input class="form-control" type="datetime-local" id="example-datetime-local-input" name="ngayHen">
+            <label for="message" class=" col-form-label">Ghi chú:</label>
+            <textarea id="message" class="form-control" name="ghiChu"></textarea> 
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Đặt lịch hẹn</button>
+      </div>
+      </form>
     </div>
     <!-- /.modal-content -->
   </div>
