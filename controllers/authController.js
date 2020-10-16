@@ -289,7 +289,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 exports.loginWithFaceId = catchAsync(async (req, res, next) => {
     const { userId } = req.body;
 
-    const user = await User.findOne({ id: userId });
+    const user = await User.findById(userId);
 
     if (!user) {
         return next(
@@ -297,7 +297,18 @@ exports.loginWithFaceId = catchAsync(async (req, res, next) => {
         );
     }
 
-    createSendToken(user, 200, res);
+    if (user.role === "admin") {
+        // 3. If everything is ok, send token to client
+        createSendToken(user, 200, res);
+    } else {
+        const giangVien = await GiangVien.findOne({ account: user._id});
+        if (giangVien) {
+            user.set( "beLongTo", giangVien._id, { strict: false });
+            createSendToken(user, 200, res);
+        } else {
+            return next(new AppError('Tài khoản này chưa có giáo viên sở hữu', 404));
+        }
+    }
 });
 exports.sendMessage = function (req, res, next) {
     var phoneNumber = req.body.phone;
