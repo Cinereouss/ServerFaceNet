@@ -6,12 +6,11 @@ exports.getStudentInfo = catchAsync(async (req, res, next) => {
         const data = await HocVien.find({ id: req.params.id });
         res.status(200).json({
             status: 'success',
-            data
         })
     } catch (err) {
         res.status(404).json({
             status: 'fail',
-            message: 'Can not find HocVien with this id'
+            message: err
         })
     }
 });
@@ -31,3 +30,13 @@ exports.updateStudentEmbedding = catchAsync(async (req, res, next) => {
     }
 });
 
+exports.dangKyOnline = catchAsync(async (req, res, next) => {
+    console.log(req.body)
+    try {
+        const dataCreated = await HocVien.create(req.body);
+        res.status(200).send('success');
+    } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+    }
+});

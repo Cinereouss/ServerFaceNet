@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="css/style.css" />
 
 <div class="container" id="ctn-form">
-  <form method="POST" id="signup-form" class="signup-form" action="#">
+  <form method="POST" id="signup-form" class="signup-form" action="/dangkyonline">
     <div>
       <h3>Thông tin cá nhân</h3>
       <fieldset>
@@ -17,7 +17,7 @@
             <div class="row" style="padding-left: 1%; padding-right: 0.5%">
               <div class="col-md-6">
                 <div class="col-3 input-effect">
-                  <input class="effect-19" type="text" name="ten"/>
+                  <input class="effect-19" type="text" name="ten" required/>
                   <label>Họ và tên <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -28,13 +28,13 @@
               <div class="col-md-2" id="select-sex">
                 <ul>
                   <li>
-                    <input type="radio" id="f-option" value="1" name="gioitinh" checked = "checked">
+                    <input type="radio" id="f-option" value="true" name="gioiTinh" checked = "checked">
                     <label for="f-option">Nam</label>
                     <div class="check"></div>
                   </li>
                   
                   <li>
-                    <input type="radio" id="s-option" value="0" name="gioitinh">
+                    <input type="radio" id="s-option" value="false" name="gioiTinh">
                     <label for="s-option">Nữ</label>
                     <div class="check"><div class="inside"></div></div>
                   </li>
@@ -43,7 +43,7 @@
 
               <div class="col-md-4">
                 <div class="col-3 input-effect">
-                  <input class="effect-21" type="date" name="ngaysinh"/>
+                  <input class="effect-21" type="date" name="ngaySinh" required/>
                   <label>Ngày sinh <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -54,7 +54,7 @@
             <div class="row" style="padding-left: 1.5%; padding-right: 0.8%">
               <div class="col-md-3">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="text" name="quoctich" required/>
+                  <input class="effect-20" type="text" name="quocTich" required/>
                   <label>Quốc tịch <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>                  </span>
@@ -71,7 +71,7 @@
               </div>
               <div class="col-md-3">
                 <div class="col-3 input-effect">
-                  <input class="effect-21" type="date" name="ngaycap"/>
+                  <input class="effect-21" type="date" name="ngayCapcmnd"/>
                   <label>Cấp ngày <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -80,7 +80,7 @@
               </div>
               <div class="col-md-3">
                 <div class="col-3 input-effect">
-                  <input class="effect-19" type="text" name="noicap" required/>
+                  <input class="effect-19" type="text" name="noiCapcmnd"/>
                   <label>Nơi cấp <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -92,7 +92,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="col-3 input-effect">
-                  <input class="effect-21" type="text" name="hokhau" required/>
+                  <input class="effect-21" type="text" name="noiDkhktt" required/>
                   <label>Nơi đăng ký hộ khẩu thường trú <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -101,7 +101,7 @@
               </div>
               <div class="col-md-12">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="text" name="cuutru" required/>
+                  <input class="effect-20" type="text" name="diaChi" required/>
                   <label>Nơi cư trú</label>
                   <span class="focus-border">
                     <i></i>
@@ -112,7 +112,7 @@
             <div class="row" style="padding-left: 1.5%; padding-right: 0.8%">
               <div class="col-md-3">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="text" name="gplx" required/>
+                  <input class="effect-20" type="text" name="gplx"/>
                   <label>Đã có GPLX số</label>
                   <span class="focus-border">
                     <i></i>                  </span>
@@ -130,7 +130,7 @@
                     <span>--Chọn loại bằng--</span>
                     <i class="fa fa-chevron-left"></i>
                   </div>
-                  <input type="hidden" name="loaibang">
+                  <input type="hidden" name="loaiGplx">
                   <ul class="dropdown-menu">
                     <li id="A1">A1</li>
                     <li id="A2">A2</li>
@@ -147,7 +147,7 @@
               </div>
               <div class="col-md-3">
                 <div class="col-3 input-effect">
-                  <input class="effect-21" type="date" name="ngaycapbang"/>
+                  <input class="effect-21" type="date" name="ngayCapgplx"/>
                   <label>Cấp ngày</label>
                   <span class="focus-border">
                     <i></i>
@@ -156,7 +156,7 @@
               </div>
               <div class="col-md-3">
                 <div class="col-3 input-effect">
-                  <input class="effect-19" type="text" name="noicap" required/>
+                  <input class="effect-19" type="text" name="noiCapgplx"/>
                   <label>Nơi cấp</label>
                   <span class="focus-border">
                     <i></i>
@@ -180,7 +180,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="file" name="scanGksk"/>
+                  <input class="effect-20" type="file" name="hasGksk"/>
                   <label>Bản scan giấy khám sức khỏe<em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -189,7 +189,7 @@
               </div>
               <div class="col-md-12">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="file" name="scanCmnd"/>
+                  <input class="effect-20" type="file" name="hasCmnd"/>
                   <label>Bản scan 2 mặt CMND / CCCD / Hộ chiếu<em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -198,7 +198,16 @@
               </div>
               <div class="col-md-12">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="file" name="anhthe"/>
+                  <input class="effect-20" type="file" name="hasSyll"/>
+                  <label>Bản scan sơ yếu lí lịch<em style="color : red">(*)</em></label>
+                  <span class="focus-border">
+                    <i></i>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-3 input-effect">
+                  <input class="effect-20" type="file" name="hasAnh"/>
                   <label>Ảnh thẻ 3x4 (Nền trắng) <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -207,7 +216,7 @@
               </div>
               <div class="col-md-12">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="file" name="scanGplx"/>
+                  <input class="effect-20" type="file" name="hasGplx"/>
                   <label>Bản scan 2 mặt GPLX (nếu đã có)</label>
                   <span class="focus-border">
                     <i></i>
@@ -249,7 +258,7 @@
                 <em style="color:red; padding-left : 3%;" >* Chúng tôi sẽ gửi tới số điện thoại của bạn 1 mã OTP, vui lòng cung cấp số điện thoại kiểm tra và xác nhận</em>
                 <div class="col-md-4">
                   <div class="col-3 input-effect">
-                    <input class="effect-20" type="text" id="phone" required/>
+                    <input class="effect-20" type="text" id="phone" name="sdt" required/>
                     <label>Số điện thoại<em style="color : red">(*)</em></label>
                     <span class="focus-border">
                       <i></i>
@@ -263,7 +272,7 @@
 
                 <div class="col-md-4">
                   <div class="col-3 input-effect">
-                    <input class="effect-20" type="text" id="OPT" required/>
+                    <input class="effect-20" type="text" id="OPT"/>
                     <label>Mã OTP<em style="color : red">(*)</em></label>
                     <span class="focus-border">
                       <i></i>

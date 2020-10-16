@@ -1,0 +1,281 @@
+<% function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
+temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" +
+temp.getFullYear(); } %>
+
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-flex align-items-center justify-content-between"
+    >
+      <h4 class="mb-0 font-size-18">Thông tin học viên <%= hocvien.ten %></h4>
+
+      <div class="page-title-right">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item">
+            <a href="javascript: void(0);">Hồ sơ học viên</a>
+          </li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="invoice-title">
+          <h4 class="float-right font-size-16">Mã số # <%= hocvien.id %></h4>
+          <div class="mb-4">
+            <img src="\assets\images\logo-dark.png" alt="logo" height="30" />
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-3" id="avt">
+            <div class="avatar-xl mx-auto mb-4">
+              <img
+                class="rounded-bottom avatar-xl"
+                src="/assets/images/users/avatar-7.jpg"
+                alt=""
+              />
+            </div>
+            <h3 class="text-lg-center">
+              <strong> ༺ <%= hocvien.ten %> ༻</strong>
+            </h3>
+            <h5 class="text-lg-center">
+              <strong><%= hocvien.quocTich %> 🇻🇳</strong>
+            </h5>
+          </div>
+          <style>
+            .card {
+              margin: auto;
+              max-width: 90%;
+            }
+            .avatar-xl {
+              height: 10rem;
+              width: 10rem;
+              border: 1px solid #c8c8d3;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            }
+            #avt {
+              border-right: 1px solid #ccc;
+            }
+          </style>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-sm-4">
+                <address>
+                  <strong>Thông tin cơ bản:</strong><br />
+                  Họ tên: <strong><%= hocvien.ten %></strong><br />
+                  Giới tính:
+                  <strong><%= hocvien.gioiTinh ? "Nam" : "Nữ" %></strong><br />
+                  Ngày sinh:
+                  <strong><%= getdate(hocvien.ngaySinh).split(" ")[1] %></strong
+                  ><br />
+                  Địa chỉ: <strong><%= hocvien.diaChi %></strong>
+                </address>
+              </div>
+              <div class="col-sm-4">
+                <address class="mt-2 mt-sm-0">
+                  <strong>Thông tin CMND / CCCD / Hộ Chiếu:</strong><br />
+                  Quốc tịch: <strong><%= hocvien.quocTich %></strong><br />
+                  Mã số: <strong><%= hocvien.cmnd %></strong><br />
+                  Cấp ngày:
+                  <strong
+                    ><%= getdate(hocvien.ngayCapcmnd).split(" ")[1] %></strong
+                  ><br />
+                  Nơi cấp: <strong><%= hocvien.noiCapcmnd %></strong><br />
+                  Địa chỉ đăng ký hktt:
+                  <strong><%= hocvien.noiDkhktt %></strong>
+                </address>
+              </div>
+              <div class="col-sm-4">
+                <address class="mt-2 mt-sm-0">
+                  <strong>Thông tin đăng ký:</strong><br />
+                  Loại bằng: <strong><%= hocvien.loaiGplx %></strong><br />
+                  Đăng ký tích hợp: <strong>Có</strong>
+                </address>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 mt-3">
+                <address>
+                  <strong>Thông tin liên hệ:</strong><br />
+                  Số điện thoại: <strong><%= hocvien.sdt %></strong><br />
+                  Email: <strong><%= hocvien.email %></strong>
+                </address>
+              </div>
+              <div class="col-sm-8 mt-3">
+                <address>
+                  <strong>Giấy tờ liên quan:</strong><br />
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasGksk ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label"
+                          >Giấy khám sức khỏe</label
+                        >
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasSyll ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label"
+                          >Sơ yếu lý lịch</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasAnh ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label">Ảnh 3x4</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasDongdangky ? 'checked' : ''
+                        %> readonly>
+                        <label class="custom-control-label">Đơn đăng ký</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasCmnd ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label"
+                          >Bản sao CMND / CCCD / Hộ chiếu</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </address>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="d-print-none">
+          <div class="float-right">
+            <a
+              href="javascript:window.print()"
+              class="btn btn-success waves-effect waves-light mr-1"
+              ><i class="fa fa-print"></i> In thông tin học viên</a
+            >
+            <a
+              href="mailto: <%= hocvien.email %>"
+              class="btn btn-primary w-md waves-effect waves-light"
+              ><i class="far fa-paper-plane"></i> Gửi email</a
+            >
+            <a
+              href="call: <%= hocvien.sdt %>"
+              class="btn btn-primary w-md waves-effect waves-light"
+              ><i class="fas fa-phone-alt"></i> Liên hệ qua số điện thoại</a
+            >
+            <% if(hocvien.pending) { %>
+            <button
+              data-toggle="modal"
+              data-target=".bs-example-modal-center"
+              class="btn btn-warning w-md waves-effect waves-light"
+            >
+              <i class="fas fa-calendar"></i> Đặt lịch hẹn
+            </button>
+            <% }else{ %>
+            <button
+              data-toggle="modal"
+              data-target=".bs-example-modal-center"
+              class="btn btn-warning w-md waves-effect waves-light"
+            >
+              <i class="fas fa-qrcode"></i> Nhận mã QR
+            </button>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if(hocvien.pending) { %>
+  <div
+    class="modal fade bs-example-modal-center"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="mySmallModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title mt-0">QR code của <%= hocvien.ten %></h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <input id='code' type="text" value="<%= hocvien._id %>" hidden readonly>
+        </div>
+        <div class="modal-body">
+            <div id="id_qrcode" style="margin-left: 30%"></div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <script type="text/javascript" src="/js/qrcode.min.js"></script>
+  <script>
+    window.onload = function(e) {
+      var code = document.getElementById('code').value;
+      console.log(code);
+      var qrcode = new QRCode('id_qrcode', {
+        text: code,
+        width: 200,
+        height: 200,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    };
+  </script>
+<% }else{ %>
+  <div
+  class="modal fade bs-example-modal-center"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Đặt lịch hẹn cho <%= hocvien.ten %></h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <h1>Đặt lịch hẹn</h1>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<% } %>
