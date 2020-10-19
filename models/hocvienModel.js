@@ -17,6 +17,18 @@ const hocVienSchema = new mongoose.Schema({
         type: String,
         required: [true, 'CMND / CCCD / Hộ chiếu không được để trống !'],
     },
+    gplx: {
+        type: String,
+    },
+    loaiGplx: {
+        type: String,
+    },
+    noiCapgplx: {
+        type: String,
+    },
+    ngayCapgplx: {
+        type: Date,
+    },
     sdt: {
         type: String,
         default: null,
@@ -24,6 +36,22 @@ const hocVienSchema = new mongoose.Schema({
     diaChi: {
         type: String,
         required: [true, 'Địa chỉ không được để trống !'],
+    },
+    quocTich: {
+        type: String,
+        required: [true, 'Quốc tịch không được để trống !'],
+    },
+    noiCapcmnd: {
+        type: String,
+        required: [true, 'Nơi cấp không được để trống !'],
+    },
+    noiDkhktt: {
+        type: String,
+        required: [true, 'Nơi đăng ký hộ khẩu thường trú không được để trống !'],
+    },
+    ngayCapcmnd: {
+        type: Date,
+        required: [true, 'Ngày cấp CMND / CCCD / Hộ chiếu không được để trống !'],
     },
     email: {
         type : String,
@@ -57,6 +85,10 @@ const hocVienSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    hasGplx: {
+        type: Boolean,
+        default: false,
+    },
     hasAnh: {
         type: Boolean,
         default: false,
@@ -68,8 +100,22 @@ const hocVienSchema = new mongoose.Schema({
     isPassLyThuyet: {
         type: Boolean,
         default: false,
+    },
+    ghiChu: {
+        type: String,
+    },
+    ngayHen: {
+        type: Date,
+        required: [true, 'Ngày hẹn không được để trống !'],
     }
 })
+
+hocVienSchema.method.getPending = function getPending(state){
+    return hocVienSchema.find({pending : state}).exec((err, data) => {
+        if(err) return err;
+        else return data;
+    })
+}
 
 const HocVien = mongoose.model('HocVien', hocVienSchema)
 module.exports = HocVien;

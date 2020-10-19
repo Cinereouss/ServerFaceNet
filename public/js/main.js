@@ -52,7 +52,20 @@
             return form.valid();
         },
         onFinished: function(event, currentIndex) {
-            alert('Submited');
+            $.ajax({
+                url: '/dangkyonline',
+                type: 'post',
+                data: $("#signup-form").serialize(),
+                success : function(data) {
+					console.log(data);
+					if(data === 'success'){
+						alert('Đăng ký thành công! Chúng tôi sẽ sớm liên hệ lại với bạn.');
+					}else{
+						console.log(data);
+					}
+					window.location="/";
+                }
+        	});
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
 

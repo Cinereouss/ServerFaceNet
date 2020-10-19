@@ -12,6 +12,7 @@ const cookieParser = require('cookie-parser');
 
 const viewRoutes = require('./routes/viewRouter');
 const userRoutes = require('./routes/userRouters');
+const studentRoutes = require('./routes/hocVienRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const hocVienRoutes = require('./routes/hocVienRoutes');
 const giangVienRoutes = require('./routes/giangVienRoutes');
@@ -31,7 +32,7 @@ app.set('views', path.join(__dirname, 'views'));
 // So file in "public" folder can be query like "http://127.0.0.1:3000/img/favicon.png"
 // The way html finds css file the same like this
 // app.use(express.static(`${__dirname}/public`)); //Or below
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Limit amount of data from req.body to 10kb to protect server from attacker(overload server)
 app.use(express.json({ limit: '10kb' })); // Like body-parser, using this middleware to attach req.body property, default in express
@@ -77,6 +78,7 @@ app.use('/api', limiter);
 
 // ROUTES
 app.use('/', viewRoutes);
+app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
 app.use('/api/v1/student', hocVienRoutes);

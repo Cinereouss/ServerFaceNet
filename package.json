@@ -40,6 +40,7 @@
     "passport-local": "^1.0.0",
     "push.js": "^1.0.12",
     "pusher": "^3.0.1",
+    "qrcode": "^1.4.4",
     "validator": "^13.1.17",
     "xss-clean": "^0.1.1"
   },

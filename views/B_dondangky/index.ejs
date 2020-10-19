@@ -1,0 +1,616 @@
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-0 font-size-18">Đơn đăng ký chờ xác nhận</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">
+              <a href="javascript: void(0);">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Đơn đăng ký</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+
+  <div class="row">
+      <% for(item of hocvien) {%> 
+        <div class="col-xl-3 col-sm-6">
+            <div class="card text-center">
+              <div class="card-body">
+                <% if(item.pending) { %>
+                  <div class="ribbon ribbon-top-left"><span>Đang chờ</span></div>
+                  <% } else if (item.embedding==null){ %>
+                  <div class="ribbon2 ribbon-top-left"><span>Đã hẹn</span></div>
+                  <% } else { %>
+                  <div class="ribbon1 ribbon-top-left"><span>Hoàn thành</span></div>
+                  <% } %>
+                <div class="mb-4">
+                  <img
+                    class="rounded-circle avatar-sm"
+                    src="/assets/images/users/avatar-7.jpg"
+                    alt=""
+                  />
+                </div>
+                <h5 class="font-size-15">
+                  <a href="#" class="text-dark"><%= item.ten %></a>
+                </h5>
+                <p class="text-muted">Đăng ký loại bằng <%= item.loaiGplx %></p>
+      
+                <div>
+                  <a href="#" class="badge badge-primary font-size-11 m-1"
+                    ><%= item.gioiTinh ? "Nam" : "Nữ" %></a
+                  >
+                  <a href="#" class="badge badge-primary font-size-11 m-1"
+                    >1998</a
+                  >
+                  <a href="#" class="badge badge-primary font-size-11 m-1"
+                    >Đăng ký lần đầu</a
+                  >
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-top">
+                <div class="contact-links d-flex font-size-20">
+                  <div class="flex-fill">
+                    <a
+                      href="phone:<%= item.sdt %>"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Liên hệ qua điện thoại"
+                      ><i class="bx bx bx-phone-call"></i
+                    ></a>
+                  </div>
+                  <div class="flex-fill">
+                    <a
+                      href="/profile/<%= item._id %> "
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Thông tin chi tiết"
+                      ><i class="bx bx-user-circle"></i
+                    ></a>
+                  </div>
+                  <div class="flex-fill">
+                    <a
+                      href="mailto:<%= item.email %>"
+                      data-toggle="tooltip"
+                      data-placement="top"
+                      title="Gửi qua email"
+                      ><i class="bx bx-mail-send"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% }%> 
+    
+    <div class="col-xl-3 col-sm-6">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="mb-4">
+            <img
+              class="rounded-circle avatar-sm"
+              src="/assets/images/users/avatar-2.jpg"
+              alt=""
+            />
+          </div>
+          <h5 class="font-size-15">
+            <a href="#" class="text-dark">Frank Kirk</a>
+          </h5>
+          <p class="text-muted">Frontend Developer</p>
+
+          <div>
+            <a href="#" class="badge badge-primary font-size-11 m-1">Html</a>
+            <a href="#" class="badge badge-primary font-size-11 m-1">Css</a>
+            <a href="#" class="badge badge-primary font-size-11 m-1"
+              >2 + more</a
+            >
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top">
+          <div class="d-flex font-size-20 contact-links">
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Message"
+                ><i class="bx bx-message-square-dots"></i
+              ></a>
+            </div>
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Projects"
+                ><i class="bx bx-pie-chart-alt"></i
+              ></a>
+            </div>
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Profile"
+                ><i class="bx bx-user-circle"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="mb-4">
+            <img
+              class="rounded-circle avatar-sm"
+              src="/assets/images/users/avatar-3.jpg"
+              alt=""
+            />
+          </div>
+          <h5 class="font-size-15">
+            <a href="#" class="text-dark">Rafael Morales</a>
+          </h5>
+          <p class="text-muted">Backend Developer</p>
+
+          <div>
+            <a href="#" class="badge badge-primary font-size-11 m-1">Php</a>
+            <a href="#" class="badge badge-primary font-size-11 m-1">Java</a>
+            <a href="#" class="badge badge-primary font-size-11 m-1">Python</a>
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top">
+          <div class="d-flex font-size-20 contact-links">
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Message"
+                ><i class="bx bx-message-square-dots"></i
+              ></a>
+            </div>
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Projects"
+                ><i class="bx bx-pie-chart-alt"></i
+              ></a>
+            </div>
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Profile"
+                ><i class="bx bx-user-circle"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="avatar-sm mx-auto mb-4">
+            <span
+              class="avatar-title rounded-circle bg-soft-success text-success font-size-16"
+            >
+              M
+            </span>
+          </div>
+          <h5 class="font-size-15">
+            <a href="#" class="text-dark">Mark Ellison</a>
+          </h5>
+          <p class="text-muted">Full Stack Developer</p>
+
+          <div>
+            <a href="#" class="badge badge-primary font-size-11 m-1">Ruby</a>
+            <a href="#" class="badge badge-primary font-size-11 m-1">Php</a>
+            <a href="#" class="badge badge-primary font-size-11 m-1"
+              >2 + more</a
+            >
+          </div>
+        </div>
+        <div class="card-footer bg-transparent border-top">
+          <div class="d-flex font-size-20 contact-links">
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Message"
+                ><i class="bx bx-message-square-dots"></i
+              ></a>
+            </div>
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Projects"
+                ><i class="bx bx-pie-chart-alt"></i
+              ></a>
+            </div>
+            <div class="flex-fill">
+              <a
+                href=""
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Profile"
+                ><i class="bx bx-user-circle"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="mb-4">
+              <img
+                class="rounded-circle avatar-sm"
+                src="/assets/images/users/avatar-4.jpg"
+                alt=""
+              />
+            </div>
+            <h5 class="font-size-15">
+              <a href="#" class="text-dark">Minnie Walter</a>
+            </h5>
+            <p class="text-muted">Frontend Developer</p>
+  
+            <div>
+              <a href="#" class="badge badge-primary font-size-11 m-1">Html</a>
+              <a href="#" class="badge badge-primary font-size-11 m-1">Css</a>
+              <a href="#" class="badge badge-primary font-size-11 m-1"
+                >2 + more</a
+              >
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top">
+            <div class="contact-links d-flex font-size-20">
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Message"
+                  ><i class="bx bx-message-square-dots"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Projects"
+                  ><i class="bx bx-pie-chart-alt"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Profile"
+                  ><i class="bx bx-user-circle"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="mb-4">
+              <img
+                class="rounded-circle avatar-sm"
+                src="/assets/images/users/avatar-5.jpg"
+                alt=""
+              />
+            </div>
+            <h5 class="font-size-15">
+              <a href="#" class="text-dark">Shirley Smith</a>
+            </h5>
+            <p class="text-muted">UI/UX Designer</p>
+  
+            <div>
+              <a href="#" class="badge badge-primary font-size-11 m-1"
+                >Photoshop</a
+              >
+              <a href="#" class="badge badge-primary font-size-11 m-1"
+                >illustrator</a
+              >
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top">
+            <div class="d-flex font-size-20 contact-links">
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Message"
+                  ><i class="bx bx-message-square-dots"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Projects"
+                  ><i class="bx bx-pie-chart-alt"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Profile"
+                  ><i class="bx bx-user-circle"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="avatar-sm mx-auto mb-4">
+              <span
+                class="avatar-title rounded-circle bg-soft-info text-info font-size-16"
+              >
+                J
+              </span>
+            </div>
+            <h5 class="font-size-15">
+              <a href="#" class="text-dark">John Santiago</a>
+            </h5>
+            <p class="text-muted">Full Stack Developer</p>
+  
+            <div>
+              <a href="#" class="badge badge-primary font-size-11 m-1">Ruby</a>
+              <a href="#" class="badge badge-primary font-size-11 m-1">Php</a>
+              <a href="#" class="badge badge-primary font-size-11 m-1"
+                >2 + more</a
+              >
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top">
+            <div class="d-flex font-size-20 contact-links">
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Message"
+                  ><i class="bx bx-message-square-dots"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Projects"
+                  ><i class="bx bx-pie-chart-alt"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Profile"
+                  ><i class="bx bx-user-circle"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6">
+        <div class="card text-center">
+          <div class="card-body">
+            <div class="mb-4">
+              <img
+                class="rounded-circle avatar-sm"
+                src="/assets/images/users/avatar-7.jpg"
+                alt=""
+              />
+            </div>
+            <h5 class="font-size-15">
+              <a href="#" class="text-dark">Colin Melton</a>
+            </h5>
+            <p class="text-muted">Backend Developer</p>
+  
+            <div>
+              <a href="#" class="badge badge-primary font-size-11 m-1">Php</a>
+              <a href="#" class="badge badge-primary font-size-11 m-1">Java</a>
+              <a href="#" class="badge badge-primary font-size-11 m-1">Python</a>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent border-top">
+            <div class="d-flex font-size-20 contact-links">
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Message"
+                  ><i class="bx bx-message-square-dots"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Projects"
+                  ><i class="bx bx-pie-chart-alt"></i
+                ></a>
+              </div>
+              <div class="flex-fill">
+                <a
+                  href=""
+                  data-toggle="tooltip"
+                  data-placement="top"
+                  title="Profile"
+                  ><i class="bx bx-user-circle"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!-- end row -->
+
+  <!-- <div class="row">
+  </div> -->
+  <!-- end row -->
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center my-3">
+        <a href="javascript:void(0);" class="text-success"
+          ><i class="bx bx-hourglass bx-spin mr-2"></i> Load more
+        </a>
+      </div>
+    </div>
+    <!-- end col-->
+  </div>
+  <!-- end row -->
+</div>
+<!-- container-fluid -->
+<!-- End Page-content -->
+<!-- end main content-->
+<style>
+  /* common */
+  .ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon::before,
+  .ribbon::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+  }
+  .ribbon span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .ribbon1 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon1::before,
+  .ribbon1::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #105812;
+  }
+  .ribbon1 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #4caf50;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .ribbon2 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon2::before,
+  .ribbon2::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #6e640b;
+  }
+  .ribbon2 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #ffd752;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* top left*/
+  .ribbon-top-left {
+    top: -10px;
+    left: -10px;
+  }
+  .ribbon-top-left::before,
+  .ribbon-top-left::after {
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  .ribbon-top-left::before {
+    top: 0;
+    right: 0;
+  }
+  .ribbon-top-left::after {
+    bottom: 0;
+    left: 0;
+  }
+  .ribbon-top-left span {
+    right: -25px;
+    top: 30px;
+    transform: rotate(-45deg);
+  }
+</style>

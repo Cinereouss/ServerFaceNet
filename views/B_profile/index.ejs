@@ -1,0 +1,622 @@
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="\assets\libs\toastr\build\toastr.min.css"
+/>
+<script src="\js\jquery.js"></script>
+
+<% 
+function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
+temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" +
+temp.getFullYear(); } 
+var total = 0;
+for(item of log) total += item.totalTime;
+total = total / 3600;   
+%>
+
+<!-- start page title -->
+<div class="row">
+  <div class="col-12">
+    <div
+      class="page-title-box d-flex align-items-center justify-content-between"
+    >
+      <h4 class="mb-0 font-size-18">Thông tin học viên <%= hocvien.ten %></h4>
+
+      <div class="page-title-right">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item">
+            <a href="javascript: void(0);">Hồ sơ học viên</a>
+          </li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <% if(hocvien.pending) { %>
+        <div class="ribbon ribbon-top-left"><span>Đang chờ</span></div>
+        <% } else if (hocvien.embedding==null){ %>
+        <div class="ribbon2 ribbon-top-left"><span>Đã hẹn</span></div>
+        <% } else { %>
+        <div class="ribbon1 ribbon-top-left"><span>Hoàn thành</span></div>
+        <% } %>
+
+        <div class="invoice-title" style="margin-left: 7%;">
+          <h4 class="float-right font-size-16" style="padding: auto;">
+            Mã số # <%= hocvien.id %>
+          </h4>
+          <div class="mb-4" style="margin-bottom: 0px;">
+            <img src="\assets\images\logo-dark.png" alt="logo" height="50" />
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-3" id="avt">
+            <div class="avatar-xl mx-auto mb-4">
+              <img
+                class="rounded-bottom avatar-xl"
+                src="/assets/images/users/avatar-7.jpg"
+                alt=""
+              />
+            </div>
+            <h3 class="text-lg-center">
+              <strong> ༺ <%= hocvien.ten %> ༻</strong>
+            </h3>
+            <h5 class="text-lg-center">
+              <strong><%= hocvien.quocTich %> 🇻🇳</strong>
+            </h5>
+          </div>
+          <style>
+            .card {
+              margin: auto;
+              max-width: 90%;
+            }
+            .avatar-xl {
+              height: 10rem;
+              width: 10rem;
+              border: 1px solid #c8c8d3;
+              box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            }
+            #avt {
+              border-right: 1px solid #ccc;
+            }
+          </style>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-sm-4">
+                <address>
+                  <strong>Thông tin cơ bản:</strong><br />
+                  Họ tên: <strong><%= hocvien.ten %></strong><br />
+                  Giới tính:
+                  <strong><%= hocvien.gioiTinh ? "Nam" : "Nữ" %></strong><br />
+                  Ngày sinh:
+                  <strong><%= getdate(hocvien.ngaySinh).split(" ")[1] %></strong
+                  ><br />
+                  Địa chỉ: <strong><%= hocvien.diaChi %></strong>
+                </address>
+              </div>
+              <div class="col-sm-4">
+                <address class="mt-2 mt-sm-0">
+                  <strong>Thông tin CMND / CCCD / Hộ Chiếu:</strong><br />
+                  Quốc tịch: <strong><%= hocvien.quocTich %></strong><br />
+                  Mã số: <strong><%= hocvien.cmnd %></strong><br />
+                  Cấp ngày:
+                  <strong
+                    ><%= getdate(hocvien.ngayCapcmnd).split(" ")[1] %></strong
+                  ><br />
+                  Nơi cấp: <strong><%= hocvien.noiCapcmnd %></strong><br />
+                  Địa chỉ đăng ký hktt:
+                  <strong><%= hocvien.noiDkhktt %></strong>
+                </address>
+              </div>
+              <div class="col-sm-4">
+                <address class="mt-2 mt-sm-0">
+                  <strong>Thông tin đăng ký:</strong><br />
+                  Loại bằng: <strong><%= hocvien.loaiGplx %></strong><br />
+                  Đăng ký tích hợp: <strong>Có</strong>
+                </address>
+                <% if(!hocvien.pending && hocvien.embedding==null){ %>
+                <address class="mt-2 mt-sm-0">
+                  <strong>Thông tin lịch hẹn:</strong><br />
+                  Ngày hẹn: <strong><%= getdate(hocvien.ngayHen) %></strong
+                  ><br />
+                  Ghi chú:<strong><%= hocvien.ghiChu %></strong>
+                </address>
+                <% } %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 mt-3">
+                <address>
+                  <strong>Thông tin liên hệ:</strong><br />
+                  Số điện thoại: <strong><%= hocvien.sdt %></strong><br />
+                  Email: <strong><%= hocvien.email %></strong>
+                </address>
+              </div>
+              <div class="col-sm-8 mt-3">
+                <address>
+                  <strong>Giấy tờ liên quan:</strong><br />
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasGksk ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label"
+                          >Giấy khám sức khỏe</label
+                        >
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasSyll ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label"
+                          >Sơ yếu lý lịch</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasAnh ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label">Ảnh 3x4</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasDongdangky ? 'checked' : ''
+                        %> readonly>
+                        <label class="custom-control-label">Đơn đăng ký</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input
+                        input-mini" <%= hocvien.hasCmnd ? 'checked' : '' %>
+                        readonly>
+                        <label class="custom-control-label"
+                          >Bản sao CMND / CCCD / Hộ chiếu</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </address>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if(hocvien.embedding != null){ %>
+        <hr />
+        <div class="row">
+          <div class="col-md-6" style="border-right: 1px solid #ccc ;">
+            <address class="mt-2 mt-sm-0" style="padding-left:5%;">
+              <strong>Thông tin lớp học:</strong><br />
+              Lớp: <strong><%= hocvien.idLop.tenLop %></strong><br />
+              Ngày khai giảng:
+              <strong
+                ><%= getdate(hocvien.idLop.khaiGiang).split(' ')[1] %></strong
+              ><br />
+              Loại bằng: <strong><%= hocvien.idLop.idLoaiBang.tenBang %></strong
+              ><br />
+            </address>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <address class="mt-2 mt-sm-0" style="padding-left:5%;">
+                <strong>Thông tin giảng viên hướng dẫn:</strong><br />
+                Lớp: <strong><%= hocvien.idLop.idGiangVien.ten %></strong><br />
+                Ngày khai giảng:
+                <strong><%= hocvien.idLop.idGiangVien.sdt %></strong><br />
+                Loại bằng:
+                <strong><%= hocvien.idLop.idGiangVien.email %></strong><br />
+              </address>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card-body"style="padding-top: 0">
+            <div class="">
+              <strong>Thời gian học (<%=total%> giờ) / Tổng thời gian  (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong><br />
+              <div class="progress">
+                <div
+                  class="progress-bar progress-bar-striped progress-bar-animated"
+                  role="progressbar"
+                  aria-valuenow=""
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc %>%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div style="height : 30vh; overflow-y : auto">
+          <table id="tech-companies-1" class="table table-striped">
+            <thead>
+              <tr>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Học viên
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Thời gian vào
+                </th>
+                <th
+                  style="position: sticky; top : -1px  ;background-color: white;"
+                >
+                  Thời gian ra
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Tổng thời gian (s)
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Ảnh lúc vào
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Ảnh lúc ra
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(item of log) {%>
+              <tr>
+                <th><span class="co-name"><%= hocvien.ten %></span></th>
+                <td><%= getdate(item.checkInAt) %></td>
+                <td><%= getdate(item.checkOutAt) %></td>
+                <td><%= item.totalTime %></td>
+                <td><a href="#"><%= item.imageCheckIn %></a></td>
+                <td><a href="#"><%= item.imageCheckOut %></a></td>
+              </tr>
+              <% total+= item.totalTime; } %>
+            </tbody>
+          </table>
+        </div>
+        <% } %>
+
+        <hr />
+        <div class="d-print-none">
+          <div class="float-right">
+            <a
+              href="javascript:window.print()"
+              class="btn btn-success waves-effect waves-light mr-1"
+              ><i class="fa fa-print"></i> In thông tin học viên</a
+            >
+            <a
+              href="mailto: <%= hocvien.email %>"
+              class="btn btn-primary w-md waves-effect waves-light"
+              ><i class="far fa-paper-plane"></i> Gửi email</a
+            >
+            <a
+              href="call: <%= hocvien.sdt %>"
+              class="btn btn-primary w-md waves-effect waves-light"
+              ><i class="fas fa-phone-alt"></i> Liên hệ qua số điện thoại</a
+            >
+            <% if(hocvien.pending) { %>
+            <button
+              data-toggle="modal"
+              data-target=".bs-example-modal-center"
+              class="btn btn-warning w-md waves-effect waves-light"
+            >
+              <i class="fas fa-calendar"></i> Đặt lịch hẹn
+            </button>
+            <% }else{ %>
+            <button
+              data-toggle="modal"
+              data-target=".bs-example-modal-center"
+              class="btn btn-warning w-md waves-effect waves-light"
+            >
+              <i class="fas fa-qrcode"></i> Nhận mã QR
+            </button>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% if(hocvien.pending) { %>
+<div
+  class="modal fade bs-example-modal-center"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Đặt lịch hẹn cho <%= hocvien.ten %></h5>
+        <input
+          id="code"
+          type="text"
+          value="<%= hocvien._id %>"
+          hidden
+          readonly
+        />
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="appointment" class=" col-form-label">Ngày hẹn:</label>
+        <input
+          class="form-control"
+          type="datetime-local"
+          id="appointment"
+          required
+        />
+        <label for="note" class=" col-form-label">Ghi chú:</label>
+        <textarea id="note" class="form-control" name="ghiChu"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="btn-close"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" id="datlich" class="btn btn-success">
+          Đặt lịch hẹn
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- toastr plugin -->
+<script src="\assets\libs\toastr\build\toastr.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+    $('#datlich').on('click', () => {
+      $.ajax({
+        url: '/api/v1/student/setappointment',
+        type: 'post',
+        data: {
+          _id: $('#code').val(),
+          ngayHen: $('#appointment').val(),
+          ghiChu: $('#note').val()
+        },
+        success: function(data) {
+          if (data === 'success') {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['success']('Yub! Đặt lịch hẹn thành công ^^', 'Thành công!');
+          } else {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.on.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['error'](
+              'Đặt lịch hẹn thất bại. Kiểm tra lại!',
+              'Ops! Thất bại'
+            );
+          }
+        }
+      });
+    });
+  });
+</script>
+<% } else { %>
+<div
+  class="modal fade bs-example-modal-center"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">QR code của <%= hocvien.ten %></h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <input
+          id="code"
+          type="text"
+          value="<%= hocvien._id %>"
+          hidden
+          readonly
+        />
+      </div>
+      <div class="modal-body">
+        <div id="id_qrcode" style="margin-left: 30%"></div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<script type="text/javascript" src="/js/qrcode.min.js"></script>
+<script>
+  window.onload = function(e) {
+    var code = document.getElementById('code').value;
+    var qrcode = new QRCode('id_qrcode', {
+      text: code,
+      width: 200,
+      height: 200,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  };
+</script>
+<% } %>
+<style>
+  /* common */
+  .ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon::before,
+  .ribbon::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+  }
+  .ribbon span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .ribbon1 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon1::before,
+  .ribbon1::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #105812;
+  }
+  .ribbon1 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #4caf50;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .ribbon2 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon2::before,
+  .ribbon2::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #6e640b;
+  }
+  .ribbon2 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #ffd752;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* top left*/
+  .ribbon-top-left {
+    top: -10px;
+    left: -10px;
+  }
+  .ribbon-top-left::before,
+  .ribbon-top-left::after {
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  .ribbon-top-left::before {
+    top: 0;
+    right: 0;
+  }
+  .ribbon-top-left::after {
+    bottom: 0;
+    left: 0;
+  }
+  .ribbon-top-left span {
+    right: -25px;
+    top: 30px;
+    transform: rotate(-45deg);
+  }
+</style>
