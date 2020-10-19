@@ -26,5 +26,10 @@ router.route('/login').get(frontendController.showLoginPage);
 router.route('/admin').get(authController.protect, authController.restrictTo("admin"), backendController.showHomePage);
 router.route('/dondangkyonline').get(authController.protect, authController.restrictTo("admin"), backendController.showDondkoPage);
 router.route('/profile/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showProfilePage);
+router.route('/student').get(authController.protect, authController.restrictTo("admin"), backendController.showAllStudentPage);
+router.route('/lichhen').get(authController.protect, authController.restrictTo("admin"), backendController.showLichHenPage);
+router.route('/diemdanh').get(authController.protect, authController.restrictTo("admin"), backendController.showDiemDanhPage);
+
+
 
 module.exports = router;

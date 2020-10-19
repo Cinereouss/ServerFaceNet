@@ -3,13 +3,16 @@
   type="text/css"
   href="\assets\libs\toastr\build\toastr.min.css"
 />
-<!-- Responsive Table css -->
-<link href="\assets\libs\admin-resources\rwd-table\rwd-table.min.css" rel="stylesheet" type="text/css">
 <script src="\js\jquery.js"></script>
 
-<% function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
+<% 
+function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
 temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" +
-temp.getFullYear(); } %>
+temp.getFullYear(); } 
+var total = 0;
+for(item of log) total += item.totalTime;
+total = total / 3600;   
+%>
 
 <!-- start page title -->
 <div class="row">
@@ -37,16 +40,17 @@ temp.getFullYear(); } %>
     <div class="card">
       <div class="card-body">
         <% if(hocvien.pending) { %>
-          <div class="ribbon ribbon-top-left"><span>Đang chờ</span></div>
+        <div class="ribbon ribbon-top-left"><span>Đang chờ</span></div>
         <% } else if (hocvien.embedding==null){ %>
-          <div class="ribbon2 ribbon-top-left"><span>Đã hẹn</span></div>
+        <div class="ribbon2 ribbon-top-left"><span>Đã hẹn</span></div>
         <% } else { %>
-          <div class="ribbon1 ribbon-top-left"><span>Hoàn thành</span></div>
+        <div class="ribbon1 ribbon-top-left"><span>Hoàn thành</span></div>
         <% } %>
 
-
         <div class="invoice-title" style="margin-left: 7%;">
-          <h4 class="float-right font-size-16" style="padding: auto;">Mã số # <%= hocvien.id %></h4>
+          <h4 class="float-right font-size-16" style="padding: auto;">
+            Mã số # <%= hocvien.id %>
+          </h4>
           <div class="mb-4" style="margin-bottom: 0px;">
             <img src="\assets\images\logo-dark.png" alt="logo" height="50" />
           </div>
@@ -120,18 +124,11 @@ temp.getFullYear(); } %>
                 <% if(!hocvien.pending && hocvien.embedding==null){ %>
                 <address class="mt-2 mt-sm-0">
                   <strong>Thông tin lịch hẹn:</strong><br />
-                  Ngày hẹn: <strong><%= getdate(hocvien.ngayHen) %></strong><br />
+                  Ngày hẹn: <strong><%= getdate(hocvien.ngayHen) %></strong
+                  ><br />
                   Ghi chú:<strong><%= hocvien.ghiChu %></strong>
-                  </address>
+                </address>
                 <% } %>
-                <% if(!hocvien.pending && hocvien.embedding!=null){ %>
-                  <address class="mt-2 mt-sm-0">
-                    <strong>Thông tin lớp học:</strong><br />
-                    Lớp: <strong><%= lop.tenLop %></strong><br />
-                    Ngày khai giảng: <strong><%= getdate(lop.khaiGiang).split(' ')[1] %></strong><br />
-                    Tên giảng viên: <strong><%= lop.idGiangVien %></strong><br />
-                    </address>
-                  <% } %>
               </div>
             </div>
             <div class="row">
@@ -195,38 +192,101 @@ temp.getFullYear(); } %>
           </div>
         </div>
         <% if(hocvien.embedding != null){ %>
-          <hr />
-          <div style = "height : 30vh; overflow-y : auto">
-            <div class="table-rep-plugin">
-              <div class="table-responsive mb-0" data-pattern="priority-columns">
-                  <table id="tech-companies-1" class="table table-striped">
-                      <thead style="position: sticky; top: 75">
-                      <tr>
-                          <th>Học viên</th>
-                          <th data-priority="1">Thời gian vào</th>
-                          <th data-priority="3">Thời gian ra</th>
-                          <th data-priority="1">Tổng thời gian (s)</th>
-                          <th data-priority="3">Ảnh lúc vào</th>
-                          <th data-priority="3">Ảnh lúc ra</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <% for(item of log) {%>
-                        <tr>
-                          <th><span class="co-name"><%= hocvien.ten %></span></th>
-                          <td><%= getdate(item.checkInAt) %></td>
-                          <td><%= getdate(item.checkOutAt) %></td>
-                          <td><%= item.totalTime %></td>
-                          <td><a href="#"><%= item.imageCheckIn %></a></td>
-                          <td><a href="#"><%= item.imageCheckOut %></a></td>
-                      </tr>
-                      <% } %>
-                      </tbody>
-                  </table>
-              </div>
-
+        <hr />
+        <div class="row">
+          <div class="col-md-6" style="border-right: 1px solid #ccc ;">
+            <address class="mt-2 mt-sm-0" style="padding-left:5%;">
+              <strong>Thông tin lớp học:</strong><br />
+              Lớp: <strong><%= hocvien.idLop.tenLop %></strong><br />
+              Ngày khai giảng:
+              <strong
+                ><%= getdate(hocvien.idLop.khaiGiang).split(' ')[1] %></strong
+              ><br />
+              Loại bằng: <strong><%= hocvien.idLop.idLoaiBang.tenBang %></strong
+              ><br />
+            </address>
           </div>
-          </div>          
+          <div class="col-md-6">
+            <div class="row">
+              <address class="mt-2 mt-sm-0" style="padding-left:5%;">
+                <strong>Thông tin giảng viên hướng dẫn:</strong><br />
+                Lớp: <strong><%= hocvien.idLop.idGiangVien.ten %></strong><br />
+                Ngày khai giảng:
+                <strong><%= hocvien.idLop.idGiangVien.sdt %></strong><br />
+                Loại bằng:
+                <strong><%= hocvien.idLop.idGiangVien.email %></strong><br />
+              </address>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card-body"style="padding-top: 0">
+            <div class="">
+              <strong>Thời gian học (<%=total%> giờ) / Tổng thời gian  (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong><br />
+              <div class="progress">
+                <div
+                  class="progress-bar progress-bar-striped progress-bar-animated"
+                  role="progressbar"
+                  aria-valuenow=""
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  style="width: <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc %>%"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div style="height : 30vh; overflow-y : auto">
+          <table id="tech-companies-1" class="table table-striped">
+            <thead>
+              <tr>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Học viên
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Thời gian vào
+                </th>
+                <th
+                  style="position: sticky; top : -1px  ;background-color: white;"
+                >
+                  Thời gian ra
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Tổng thời gian (s)
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Ảnh lúc vào
+                </th>
+                <th
+                  style="position: sticky; top : -1px ;background-color: white;"
+                >
+                  Ảnh lúc ra
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(item of log) {%>
+              <tr>
+                <th><span class="co-name"><%= hocvien.ten %></span></th>
+                <td><%= getdate(item.checkInAt) %></td>
+                <td><%= getdate(item.checkOutAt) %></td>
+                <td><%= item.totalTime %></td>
+                <td><a href="#"><%= item.imageCheckIn %></a></td>
+                <td><a href="#"><%= item.imageCheckOut %></a></td>
+              </tr>
+              <% total+= item.totalTime; } %>
+            </tbody>
+          </table>
+        </div>
         <% } %>
 
         <hr />
@@ -362,7 +422,9 @@ temp.getFullYear(); } %>
               showMethod: 'fadeIn',
               hideMethod: 'fadeOut'
             };
-            toastr.options.onHidden = () => { location.reload(); } ;
+            toastr.options.onHidden = () => {
+              location.reload();
+            };
             toastr['success']('Yub! Đặt lịch hẹn thành công ^^', 'Thành công!');
           } else {
             $('#btn-close').click();
@@ -383,8 +445,13 @@ temp.getFullYear(); } %>
               showMethod: 'fadeIn',
               hideMethod: 'fadeOut'
             };
-            toastr.on.options.onHidden = () => { location.reload(); };
-            toastr['error']('Đặt lịch hẹn thất bại. Kiểm tra lại!', 'Ops! Thất bại');
+            toastr.on.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['error'](
+              'Đặt lịch hẹn thất bại. Kiểm tra lại!',
+              'Ops! Thất bại'
+            );
           }
         }
       });
@@ -443,116 +510,113 @@ temp.getFullYear(); } %>
   };
 </script>
 <% } %>
-
-        <!-- Responsive Table js -->
-<script src="\assets\libs\admin-resources\rwd-table\rwd-table.min.js"></script>
 <style>
   /* common */
-.ribbon {
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  position: absolute;
-}
-.ribbon::before,
-.ribbon::after {
-  position: absolute;
-  z-index: -1;
-  content: '';
-  display: block;
-  border: 5px solid #2980b9;
-}
-.ribbon span {
-  position: absolute;
-  display: block;
-  width: 225px;
-  padding: 15px 0;
-  background-color: #3498db;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
-  color: #fff;
-  font: 700 18px/1 'Lato', sans-serif;
-  text-shadow: 0 1px 1px rgba(0,0,0,.2);
-  text-transform: uppercase;
-  text-align: center;
-}
+  .ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon::before,
+  .ribbon::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+  }
+  .ribbon span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
 
-.ribbon1 {
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  position: absolute;
-}
-.ribbon1::before,
-.ribbon1::after {
-  position: absolute;
-  z-index: -1;
-  content: '';
-  display: block;
-  border: 5px solid #105812;
-}
-.ribbon1 span {
-  position: absolute;
-  display: block;
-  width: 225px;
-  padding: 15px 0;
-  background-color: #4caf50;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
-  color: #fff;
-  font: 700 18px/1 'Lato', sans-serif;
-  text-shadow: 0 1px 1px rgba(0,0,0,.2);
-  text-transform: uppercase;
-  text-align: center;
-}
+  .ribbon1 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon1::before,
+  .ribbon1::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #105812;
+  }
+  .ribbon1 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #4caf50;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
 
-.ribbon2 {
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-  position: absolute;
-}
-.ribbon2::before,
-.ribbon2::after {
-  position: absolute;
-  z-index: -1;
-  content: '';
-  display: block;
-  border: 5px solid #6e640b;
-}
-.ribbon2 span {
-  position: absolute;
-  display: block;
-  width: 225px;
-  padding: 15px 0;
-  background-color: #ffd752;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
-  color: #fff;
-  font: 700 18px/1 'Lato', sans-serif;
-  text-shadow: 0 1px 1px rgba(0,0,0,.2);
-  text-transform: uppercase;
-  text-align: center;
-}
+  .ribbon2 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon2::before,
+  .ribbon2::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #6e640b;
+  }
+  .ribbon2 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #ffd752;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
 
-/* top left*/
-.ribbon-top-left {
-  top: -10px;
-  left: -10px;
-}
-.ribbon-top-left::before,
-.ribbon-top-left::after {
-  border-top-color: transparent;
-  border-left-color: transparent;
-}
-.ribbon-top-left::before {
-  top: 0;
-  right: 0;
-}
-.ribbon-top-left::after {
-  bottom: 0;
-  left: 0;
-}
-.ribbon-top-left span {
-  right: -25px;
-  top: 30px;
-  transform: rotate(-45deg);
-}
+  /* top left*/
+  .ribbon-top-left {
+    top: -10px;
+    left: -10px;
+  }
+  .ribbon-top-left::before,
+  .ribbon-top-left::after {
+    border-top-color: transparent;
+    border-left-color: transparent;
+  }
+  .ribbon-top-left::before {
+    top: 0;
+    right: 0;
+  }
+  .ribbon-top-left::after {
+    bottom: 0;
+    left: 0;
+  }
+  .ribbon-top-left span {
+    right: -25px;
+    top: 30px;
+    transform: rotate(-45deg);
+  }
 </style>
