@@ -14,6 +14,9 @@ const viewRoutes = require('./routes/viewRouter');
 const userRoutes = require('./routes/userRouters');
 const studentRoutes = require('./routes/hocVienRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
+const hocVienRoutes = require('./routes/hocVienRoutes');
+const giangVienRoutes = require('./routes/giangVienRoutes');
+const classRoutes = require('./routes/classRoutes');
 
 const AppError = require('./utils/appError');
 const globalErrorHandller = require('./controllers/errorController');
@@ -78,6 +81,9 @@ app.use('/', viewRoutes);
 app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
+app.use('/api/v1/student', hocVienRoutes);
+app.use('/api/v1/teacher', giangVienRoutes);
+app.use('/api/v1/class', classRoutes);
 
 // If there is no middleware was matched and run above, this is the final middlewares in req-res-cycle
 // Therefore, it will handle all route was not declared.

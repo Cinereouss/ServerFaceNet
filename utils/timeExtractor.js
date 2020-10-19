@@ -39,3 +39,28 @@ exports.localTimeExtractor = UTCTime => {
 
   }
 }
+
+exports.convertSecondToTime = (seconds) => {
+  const ss = seconds % 60;
+  let hh = Math.floor(seconds / 60);
+  const mm = hh % 60;
+  hh = Math.floor(hh / 60);
+
+  let hour = '';
+  let minute = '';
+  let second = '';
+
+  if(hh !== 0) {
+    hour = hh + 'giờ ';
+  }
+
+  if(mm !== 0) {
+    minute = mm + 'phút ';
+  }
+
+  if(ss !== 0) {
+    second = ss + 'giây';
+  }
+
+  return `${hour}${minute}${second}`;
+}
