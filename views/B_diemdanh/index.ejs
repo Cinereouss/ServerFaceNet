@@ -71,8 +71,7 @@ temp.getFullYear(); } %>
               <tbody>
                 <% for(item of log) { %>
 
-                <tr <%="item.totalTime">
-                  0 ? '' : 'style="background: rgb(255 156 0 / 27%);"'%>>
+                <tr style="background: <%- item.totalTime > 0 ? '' : 'rgb(255 156 0 / 27%);'%>">
                   <th>
                     <a href="/profile/<%= item.idHocVien._id %>"
                       ><%= item.idHocVien.ten %></a
@@ -168,7 +167,7 @@ temp.getFullYear(); } %>
                                 Thời gian vào : <strong><%= getdate(item.checkInAt) %></strong></br>
                                 Hình ảnh lúc vào:
                             </div>
-                            <div>
+                            <div style="border: 5px solid #ccc;">
                                 <img class="rounded" src="/img/attendance/<%= item.imageCheckIn %>"  alt="anh-hoc-vien" width="100%">
                             </div>
                         </div>
@@ -178,12 +177,15 @@ temp.getFullYear(); } %>
                             Thời gian ra : <strong><%= getdate(item.checkOutAt) %></strong></br>
                             Hình ảnh lúc ra: 
                             </div>
-                            <div >
+                            <div style="border: 5px solid #ccc;">
                                 <img class="rounded" src="/img/attendance/<%= item.imageCheckOut %>"  alt="anh-hoc-vien" width="100%">
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+              </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
