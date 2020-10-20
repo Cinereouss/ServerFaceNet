@@ -19,7 +19,6 @@ exports.getStudentInfoByIdentity = catchAsync(async (req, res, next) => {
 
 exports.updateStudentEmbedding = catchAsync(async (req, res, next) => {
     const { id, embeddings } = req.body;
-
     const data = await HocVien.findByIdAndUpdate(id, { embedding: embeddings }, { new: true });
 
     if (data) {
@@ -52,6 +51,7 @@ exports.getAllStudents = catchAsync(async (req, res, next) => {
         result: data.length,
         data,
     });
+});
 exports.getStudentInfo = catchAsync(async (req, res, next) => {
   try {
     const data = await HocVien.find({ id: req.params.id });
@@ -62,24 +62,6 @@ exports.getStudentInfo = catchAsync(async (req, res, next) => {
     res.status(404).json({
       status: 'fail',
       message: err
-    });
-  }
-});
-
-exports.updateStudentEmbedding = catchAsync(async (req, res, next) => {
-  try {
-    const data = await HocVien.findByIdAndUpdate(
-      { id: req.params.id },
-      { embedding: req.body.embedding }
-    );
-    res.status(200).json({
-      status: 'success',
-      data
-    });
-  } catch (err) {
-    res.status(404).json({
-      status: 'fail',
-      message: 'Can not find HocVien with this id'
     });
   }
 });

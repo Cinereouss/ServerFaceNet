@@ -81,7 +81,6 @@ app.use('/', viewRoutes);
 app.use('/api/v1/student', studentRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/attendance', attendanceRoutes);
-app.use('/api/v1/student', hocVienRoutes);
 app.use('/api/v1/teacher', giangVienRoutes);
 app.use('/api/v1/class', classRoutes);
 
