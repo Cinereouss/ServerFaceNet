@@ -106,7 +106,6 @@ const hocVienSchema = new mongoose.Schema({
     },
     ngayHen: {
         type: Date,
-        required: [true, 'Ngày hẹn không được để trống !'],
     }
 })
 

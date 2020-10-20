@@ -17,6 +17,8 @@ router.route('/dangkyonline')
     .post(hocvienController.dangKyOnline);
 
 router.route('/login').get(frontendController.showLoginPage);
+router.route('/gioithieu').get(frontendController.showGioiThieuPage);
+
 
 
 /************************

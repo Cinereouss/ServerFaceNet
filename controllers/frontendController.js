@@ -20,3 +20,7 @@ exports.dangKyOnline = (req, res, next) => {
 
 exports.register = (req, res, next) => {
 }
+
+exports.showGioiThieuPage = (req, res, next) => {
+    res.render('frontend', {page : "F_gioithieu"})
+}

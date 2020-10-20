@@ -5,15 +5,18 @@
 />
 <script src="\js\jquery.js"></script>
 
-<% 
-function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
-temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" +
-temp.getFullYear(); } 
-var total = 0;
-for(item of log) total += item.totalTime;
-total = total / 3600;   
+<% function getdate(date){ 
+  temp = new Date(date); 
+  return temp.getHours() + ":" + temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" + temp.getFullYear()
+  } 
 %>
-
+<%
+if(hocvien.embedding != null){
+  var total = 0; 
+  for(item of log) total += item.totalTime;
+  total = total / 3600; 
+}
+ %>
 <!-- start page title -->
 <div class="row">
   <div class="col-12">
@@ -220,9 +223,12 @@ total = total / 3600;
           </div>
         </div>
         <div class="row">
-          <div class="card-body"style="padding-top: 0">
+          <div class="card-body" style="padding-top: 0">
             <div class="">
-              <strong>Thời gian học (<%=total%> giờ) / Tổng thời gian  (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong><br />
+              <strong
+                >Thời gian học (<%=total%> giờ) / Tổng thời gian
+                (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong
+              ><br />
               <div class="progress">
                 <div
                   class="progress-bar progress-bar-striped progress-bar-animated"
