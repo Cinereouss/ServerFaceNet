@@ -64,3 +64,25 @@ exports.convertSecondToTime = (seconds) => {
 
   return `${hour}${minute}${second}`;
 }
+
+exports.javaTimeExtractorToString = timeInString => {
+  const data = timeInString.split(' ');
+  const dateData = data[0].split('/');
+  const day = dateData[0];
+  const month = dateData[1];
+  const year = dateData[2];
+
+  const timeData = data[1].split(':');
+  const hour = timeData[0];
+  const minute = timeData[1];
+  const second = timeData[2];
+
+  return {
+    day,
+    month,
+    year,
+    hour,
+    minute,
+    second
+  };
+};

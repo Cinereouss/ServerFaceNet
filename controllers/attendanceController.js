@@ -42,7 +42,7 @@ exports.checkIn = catchAsync(async (req, res, next) => {
     if (await HocVien.findById(idHocVien)) {
 
         //TODO: Check clock to response "Check in not available at that moment"
-        const { day, month, year, hour, minute, second } = timeExtractor.javaTimeExtractor(checkInAt);
+        const { day, month, year, hour, minute, second } = timeExtractor.javaTimeExtractorToString(checkInAt);
 
         const data = {
             idHocVien,
@@ -80,7 +80,7 @@ exports.checkOut = catchAsync(async (req, res, next) => {
     // TODO: Check clock to response "Check out not available at that moment"
     const attendance = await Log.findById(id);
     if (attendance) {
-        const {day, month, year, hour, minute, second} = timeExtractor.javaTimeExtractor(checkOutAt);
+        const {day, month, year, hour, minute, second} = timeExtractor.javaTimeExtractorToString(checkOutAt);
 
         const totalTime = attendance.calculateTotalTime(checkOutAt)
         const data = {

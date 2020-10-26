@@ -1,13 +1,33 @@
 const HocVien = require('./../models/hocvienModel');
+const Log = require('./../models/logModel');
 const catchAsync = require('./../utils/catchAsync');
 
 
 exports.getStudentInfoByIdentity = catchAsync(async (req, res, next) => {
-    const data = await HocVien.findOne({ cmnd: req.body.identity })
-    if (data) {
+    const dataHocVien = await HocVien.find({ cmnd: req.params.identity }).populate({
+        path: 'idLop',
+        select: 'tenLop khaiGiang idGiangVien idLoaiBang -_id',
+    });
+
+    if (dataHocVien.length !== 0) {
+        const dataLog = await Log.aggregate([
+            {
+                $match: {
+                    idHocVien: dataHocVien[0]._id,
+                }
+            },
+            {
+                $group: {
+                    _id: 'idHocVien',
+                    numOfTime: { $sum: '$totalTime'}
+                }
+            }
+        ]);
+
         res.status(200).json({
             status: 'success',
-            data
+            totalTime: dataLog.length === 0 ? 0 : dataLog[0].numOfTime,
+            data: dataHocVien[0],
         });
     } else {
         res.status(404).json({
@@ -42,6 +62,8 @@ exports.getAllStudents = catchAsync(async (req, res, next) => {
     let { getEmbedding } = req.query;
     if (getEmbedding === "true") {
         fields = 'ten embedding _id';
+    } else if (getEmbedding === "false") {
+        fields = 'ten ngaySinh cmnd sdt';
     }
 
     const data = await HocVien.find(filter).select(fields);
