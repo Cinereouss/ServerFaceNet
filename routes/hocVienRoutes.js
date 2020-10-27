@@ -9,7 +9,7 @@ router
     .get(hocVienController.getAllStudents);
 
 router
-    .route('/stats')
+    .route('/stats/:identity')
     .get(hocVienController.getStudentInfoByIdentity);
 
 router

@@ -21,6 +21,14 @@ const lopHocSchema = new mongoose.Schema({
         ref: 'LoaiBang'
     },
 });
+lopHocSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'idLoaiBang',
+    }).populate({
+        path: 'idGiangVien',
+    });
 
+    next();
+});
 const LopHoc = mongoose.model('LopHoc', lopHocSchema)
 module.exports = LopHoc;
