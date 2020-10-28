@@ -3,12 +3,14 @@ const catchAsync = require('./../utils/catchAsync');
 
 exports.getAllTeachers = catchAsync(async (req, res, next) => {
     let fields = '';
+    let filter = {};
     let { getEmbedding } = req.query;
     if (getEmbedding === "true") {
         fields = 'ten embedding account';
+        filter = { embedding: { $ne: null } };
     }
 
-    const data = await GiangVien.find({}).select(fields);
+    const data = await GiangVien.find(filter).select(fields);
     res.status(200).json({
         status: 'success',
         result: data.length,

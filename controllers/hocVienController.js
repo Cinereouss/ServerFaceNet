@@ -62,6 +62,7 @@ exports.getAllStudents = catchAsync(async (req, res, next) => {
     let { getEmbedding } = req.query;
     if (getEmbedding === "true") {
         fields = 'ten embedding _id';
+        filter = { ...filter, embedding: { $ne: null } };
     } else if (getEmbedding === "false") {
         fields = 'ten ngaySinh cmnd sdt';
     }
