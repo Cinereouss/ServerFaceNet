@@ -9,7 +9,7 @@ router
     .get(hocVienController.getAllStudents);
 
 router
-    .route('/stats')
+    .route('/stats/:identity')
     .get(hocVienController.getStudentInfoByIdentity);
 
 router
@@ -17,5 +17,5 @@ router
     .patch(hocVienController.updateStudentEmbedding);
 
 router.route('/setappointment').post(authController.protect, authController.restrictTo("admin"),hocVienController.setAppointment)
-
+router.route('/xeplop').post(authController.protect, authController.restrictTo("admin"),hocVienController.setLop)
 module.exports = router;

@@ -20,7 +20,20 @@ const lopHocSchema = new mongoose.Schema({
         required: [true, 'Loại bằng không được để trống !'],
         ref: 'LoaiBang'
     },
+    status: {
+        type: String,
+        required: [true, 'Trạng thái không dược để trống !'],
+        default: 'Đang mở',
+    }
 });
+lopHocSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'idLoaiBang',
+    }).populate({
+        path: 'idGiangVien',
+    });
 
+    next();
+});
 const LopHoc = mongoose.model('LopHoc', lopHocSchema)
 module.exports = LopHoc;
