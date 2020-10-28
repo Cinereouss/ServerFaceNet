@@ -5,10 +5,19 @@
 />
 <script src="\js\jquery.js"></script>
 
-<% function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
-temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" +
-temp.getFullYear() } %> <% if(hocvien.embedding != null){ var total = 0;
-for(item of log) total += item.totalTime; total = total / 3600; } %>
+<% function getdate(date){ 
+  temp = new Date(date); 
+  return temp.getHours() + ":" + temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" + temp.getFullYear()
+  } 
+%>
+<%
+if(hocvien.embedding != null){
+  var total = 0; 
+  for(item of log) total += item.totalTime;
+  total = total / 3600; 
+}
+ %>
+
 <!-- start page title -->
 <div class="row">
   <div class="col-12">
