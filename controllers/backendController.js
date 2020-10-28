@@ -54,7 +54,7 @@ exports.showDiemDanhPage = async (req, res, next) => {
 
 exports.showLopHocPage = async (req, res, next) => {    
     const pending = await HocVien.find({pending : true})
-    const lop = await Lop.find()
+    const lop = await Lop.find().limit(8)
     res.render('backend', {page: "B_lophoc", pending: pending, lop : lop})
 }
 
