@@ -42,7 +42,7 @@ router.route('/tintucoto').get(frontendController.showTinTucoToPage);
 router.route('/tintuctrungtam').get(frontendController.showTinTucTrungTamPage);
 router.route('/thugian').get(frontendController.showThuGianPage);
 router.route('/menuhocphi').get(frontendController.showMeNuHocPhiPage);
-
+router.route('/cachthucdangky').get(frontendController.showCachThucDangKyPage);
 
 /************************
 **       backend       **
