@@ -120,3 +120,7 @@ exports.showThuGianPage = (req, res, next) => {
 exports.showMeNuHocPhiPage = (req, res, next) => {
     res.render('frontend', {page : "F_menuhocphi"})
 }
+
+exports.showCachThucDangKyPage = (req, res, next) => {
+    res.render('frontend', {page : "F_cachthucdangky"})
+}
