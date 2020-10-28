@@ -54,7 +54,8 @@ router.route('/profile/:id').get(authController.protect, authController.restrict
 router.route('/student').get(authController.protect, authController.restrictTo("admin"), backendController.showAllStudentPage);
 router.route('/lichhen').get(authController.protect, authController.restrictTo("admin"), backendController.showLichHenPage);
 router.route('/diemdanh').get(authController.protect, authController.restrictTo("admin"), backendController.showDiemDanhPage);
-
+router.route('/lophoc').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocPage);
+router.route('/lophoc/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocInfoPage);
 
 
 module.exports = router;
