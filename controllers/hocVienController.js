@@ -64,7 +64,7 @@ exports.getAllStudents = catchAsync(async (req, res, next) => {
         fields = 'ten embedding _id';
         filter = { ...filter, embedding: { $ne: null } };
     } else if (getEmbedding === "false") {
-        fields = 'ten ngaySinh cmnd sdt';
+        fields = 'ten ngaySinh cmnd sdt pickUpLocation';
     }
 
     const data = await HocVien.find(filter).select(fields);
@@ -121,4 +121,22 @@ exports.setAppointment = catchAsync(async (req, res, next) => {
     console.log(err);
     res.status(400).send(err);
   }
+});
+
+exports.updateStudentLocation = catchAsync(async (req, res, next) => {
+    const { location } = req.body;
+    const { id } = req.params;
+    const data = await HocVien.findByIdAndUpdate(id, { pickUpLocation: location }, { new: true });
+
+    if (data) {
+        res.status(200).json({
+            status: 'success',
+            data: data.pickUpLocation,
+        })
+    } else {
+        res.status(404).json({
+            status: 'fail',
+            message: 'Can not find student with this id provided !'
+        })
+    }
 });

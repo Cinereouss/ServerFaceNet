@@ -106,6 +106,10 @@ const hocVienSchema = new mongoose.Schema({
     },
     ngayHen: {
         type: Date,
+    },
+    pickUpLocation: {
+        type: String,
+        default: null,
     }
 })
 

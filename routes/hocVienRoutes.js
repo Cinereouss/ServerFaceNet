@@ -18,4 +18,8 @@ router
 
 router.route('/setappointment').post(authController.protect, authController.restrictTo("admin"),hocVienController.setAppointment)
 
+router
+    .route('/student-location/:id')
+    .patch(hocVienController.updateStudentLocation);
+
 module.exports = router;
