@@ -32,9 +32,11 @@ exports.showProfilePage = async (req, res, next) => {
     const pending = await HocVien.find({pending : true})
     if(hocvien.embedding != null){
         const log = await Log.find({
-            idHocvien : mongoose.Schema.Types.ObjectId(hocvien._id)
+            idHocVien : hocvien._id
         });
-        res.render('backend', {page: "B_profile", hocvien: hocvien, pending: pending, log: log});
+        const lop = await Lop.find({});
+        console.log(log)
+        res.render('backend', {page: "B_profile", hocvien: hocvien, pending: pending, log: log, lop : lop});
     }else{
         res.render('backend', {page: "B_profile", hocvien: hocvien, pending: pending})
     }
@@ -48,4 +50,17 @@ exports.showDiemDanhPage = async (req, res, next) => {
     const pending = await HocVien.find({pending : true})
     const log = await Log.find().populate('idHocVien')
     res.render('backend', {page: "B_diemdanh", pending: pending, log : log})
+}
+
+exports.showLopHocPage = async (req, res, next) => {    
+    const pending = await HocVien.find({pending : true})
+    const lop = await Lop.find().limit(8)
+    res.render('backend', {page: "B_lophoc", pending: pending, lop : lop})
+}
+
+exports.showLopHocInfoPage = async (req, res, next) => {    
+    const pending = await HocVien.find({pending : true})
+    const lop = await Lop.findById(req.params.id)
+    const hocvien = await HocVien.find({idLop : lop._id})
+    res.render('backend', {page: "B_lopprofile", pending: pending, lop : lop, hocvien : hocvien})
 }

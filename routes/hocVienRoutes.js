@@ -22,4 +22,6 @@ router
     .route('/student-location/:id')
     .patch(hocVienController.updateStudentLocation);
 
+router.route('/xeplop').post(authController.protect, authController.restrictTo("admin"),hocVienController.setLop)
+
 module.exports = router;

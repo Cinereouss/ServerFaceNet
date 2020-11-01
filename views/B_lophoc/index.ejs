@@ -1,0 +1,187 @@
+<% function getdate(date){ 
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+
+    temp = new Date(date); 
+    return  temp.getDate() + " " + monthNames[temp.getMonth()] + ", " +temp.getFullYear(); 
+} %>
+
+
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">Danh sách lớp học</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                        <li class="breadcrumb-item active">Lớp học</li>
+                    </ol>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-xl-4 col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="avatar-md mr-6" style="padding-left: 49%;">
+                        <span class="avatar-title rounded-circle bg-light text-danger font-size-16" style="margin: 36px 52%" > 
+                            <a href="javascript: void(0);" class="team-member d-inline-block" data-toggle="modal" data-target=".bs-example-modal-xl">
+                                <img src="assets\images\companies\images.png" alt="" height="60" data-toggle="tooltip" data-placement="top" title="" data-original-title="Thêm mới">
+                            </a>
+                        </span>
+                    </div>
+                </div>
+                <div class="px-4 py-3 border-top" style="text-align: center;">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item" data-toggle="tooltip" data-placement="top" data-original-title="Tạo lớp">
+                            <i class="bx bx bx-info-circle mr-1"></i>Nhấp vào đây để tạo lớp mới
+                        </li>
+                </div>
+            </div>
+        </div>
+        
+        <% for (item of lop) { %> 
+            <div class="col-xl-4 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media">
+                            <div class="avatar-md mr-4">
+                                <span class="avatar-title rounded-circle bg-light text-danger font-size-16">
+                                    <img src="assets\images\companies\img-<%= Math.floor(Math.random() * 6) + 1 %>.png" alt="" height="30">
+                                </span>
+                            </div>
+    
+                            <div class="media-body overflow-hidden">
+                                <h5 class="text-truncate font-size-15"><a href="#" class="text-dark">Tên lớp: <%= item.tenLop %></a></h5>
+                                <p class="text-muted mb-4">Giảng viên: <%= item.idGiangVien.ten %></p>
+                                <div class="team">
+                                    <a href="javascript: void(0);" class="team-member d-inline-block" data-toggle="tooltip" data-placement="top" title="" data-original-title="Daniel Canales">
+                                        <img src="assets\images\users\avatar-2.jpg" class="rounded-circle avatar-xs m-1" alt="">
+                                    </a>
+    
+                                    <a href="javascript: void(0);" class="team-member d-inline-block" data-toggle="tooltip" data-placement="top" title="" data-original-title="Jennifer Walker">
+                                        <img src="assets\images\users\avatar-1.jpg" class="rounded-circle avatar-xs m-1" alt="">
+                                    </a>
+                                    <a href="javascript: void(0);" class="team-member d-inline-block" data-toggle="tooltip" data-placement="top" title="" data-original-title="32 người khác">
+                                        <div class="avatar-xs m-1">
+                                            <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-10">
+                                                +32
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 border-top">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item mr-3" data-toggle="tooltip" data-placement="top" data-original-title="Trạng thái">
+                                <span class="badge badge-primary">Completed</span>
+                            </li>
+                            <li class="list-inline-item mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Ngày khai giảng">
+                                <i class="bx bx-calendar mr-1"></i> <%= getdate(item.khaiGiang) %> 
+                            </li>
+                            <li class="list-inline-item mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tổng thời gian học">
+                                <i class="bx bx bx-time-five mr-1"></i>  <%= item.idLoaiBang.thoiGianHoc + ' tuần' %>
+                            </li>
+                            <li class="list-inline-item mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Thông tin chi tiết">
+                                <a href="lophoc/profile/<%= item.id %> ">
+                                    <i class="bx bx bx-log-in-circle mr-1"></i> Chi tiết
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        <% } %> 
+    </div>
+    <!-- end row -->
+<% if (lop.length >= 8) {%>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="pagination pagination-rounded justify-content-center mt-2 mb-5">
+                <li class="page-item disabled">
+                    <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                </li>
+                <li class="page-item active">
+                    <a href="lophoc" class="page-link">1</a>
+                </li>
+                <li class="page-item">
+                    <a href="lophoc/2" class="page-link">2</a>
+                </li>
+                <li class="page-item">
+                    <a href="lophoc/3" class="page-link">3</a>
+                </li>
+                <li class="page-item">
+                    <a href="lophoc/4" class="page-link">4</a>
+                </li>
+                <li class="page-item">
+                    <a href="lophoc/5" class="page-link">5</a>
+                </li>
+                <li class="page-item">
+                    <a href="lophoc/6" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end row -->
+    <% }%>
+    <div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0" id="myExtraLargeModalLabel">Tạo lớp mới</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-md-1 col-form-label">Tên lớp</label>
+                        <div class="col-md-11">
+                            <input class="form-control" type="text" id="example-text-input">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-1 col-form-label">Loại bằng</label>
+                        <div class="col-md-11">
+                            <select class="form-control">
+                                <option>A1</option>
+                                <option>A2</option>
+                                <option>C</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-1 col-form-label">Giảng Viên</label>
+                        <div class="col-md-11">
+                            <select class="form-control">
+                                <option>Nguyễn Hữu Tuân</option>
+                                <option>A2</option>
+                                <option>C</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="example-date-input" class="col-md-1 col-form-label">Ngày khai giảng</label>
+                        <div class="col-md-11">
+                            <input class="form-control" type="date" value="2019-08-19" id="example-date-input">
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary waves-effect waves-light">Lưu thay đổi</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>

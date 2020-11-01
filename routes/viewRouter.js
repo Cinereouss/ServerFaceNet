@@ -43,7 +43,7 @@ router.route('/tintuctrungtam').get(frontendController.showTinTucTrungTamPage);
 router.route('/thugian').get(frontendController.showThuGianPage);
 router.route('/menuhocphi').get(frontendController.showMeNuHocPhiPage);
 router.route('/tracuu').get(frontendController.showTraCuuPage);
-
+router.route('/cachthucdangky').get(frontendController.showCachThucDangKyPage);
 
 /************************
 **       backend       **
@@ -55,7 +55,8 @@ router.route('/profile/:id').get(authController.protect, authController.restrict
 router.route('/student').get(authController.protect, authController.restrictTo("admin"), backendController.showAllStudentPage);
 router.route('/lichhen').get(authController.protect, authController.restrictTo("admin"), backendController.showLichHenPage);
 router.route('/diemdanh').get(authController.protect, authController.restrictTo("admin"), backendController.showDiemDanhPage);
-
+router.route('/lophoc').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocPage);
+router.route('/lophoc/profile/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocInfoPage);
 
 
 module.exports = router;

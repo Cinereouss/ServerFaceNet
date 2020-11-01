@@ -17,6 +17,7 @@ if(hocvien.embedding != null){
   total = total / 3600; 
 }
  %>
+
 <!-- start page title -->
 <div class="row">
   <div class="col-12">
@@ -194,7 +195,7 @@ if(hocvien.embedding != null){
             </div>
           </div>
         </div>
-        <% if(hocvien.embedding != null){ %>
+        <% if(hocvien.embedding != null && hocvien.idLop != null){ %>
         <hr />
         <div class="row">
           <div class="col-md-6" style="border-right: 1px solid #ccc ;">
@@ -321,7 +322,16 @@ if(hocvien.embedding != null){
             >
               <i class="fas fa-calendar"></i> Đặt lịch hẹn
             </button>
-            <% }else{ %>
+            <% }else{ %> <% if(hocvien.embedding != null) { %> <%
+            if(hocvien.idLop == null) { %>
+            <button
+              data-toggle="modal"
+              data-target=".bs-example-modal-center"
+              class="btn btn-warning w-md waves-effect waves-light"
+            >
+              <i class="fas fa-qrcode"></i> Xếp lớp
+            </button>
+            <% } %> <% } else { %>
             <button
               data-toggle="modal"
               data-target=".bs-example-modal-center"
@@ -329,7 +339,7 @@ if(hocvien.embedding != null){
             >
               <i class="fas fa-qrcode"></i> Nhận mã QR
             </button>
-            <% } %>
+            <% } %> <% }%>
           </div>
         </div>
       </div>
@@ -464,6 +474,130 @@ if(hocvien.embedding != null){
     });
   });
 </script>
+<% } else { %> <% if(hocvien.embedding != null) { %> <% if(hocvien.idLop ==
+null) { %>
+<div
+  class="modal fade bs-example-modal-center"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Xếp lớp cho <%= hocvien.ten %></h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <input
+          id="code"
+          type="text"
+          value="<%= hocvien._id %>"
+          hidden
+          readonly
+        />
+      </div>
+      <div class="modal-body">
+        <select class="form-control" id="lop">
+          <option value="" selected disabled hidden>--Chọn lớp--</option>
+          <% for(item of lop) { %>
+            <option value="<%= item._id %>" ><%= item.tenLop %></option>
+          <% } %>
+      </select>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="btn-close"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" id="xeplop" class="btn btn-success">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="\assets\libs\toastr\build\toastr.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+    $('#xeplop').on('click', () => {
+      $.ajax({
+        url: '/api/v1/student/xeplop',
+        type: 'post',
+        data: {
+          _id: $('#code').val(),
+          idLop: $('#lop').val(),
+        },
+        success: function(data) {
+          if (data === 'success') {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['success']('Yub! Đặt lịch hẹn thành công ^^', 'Thành công!');
+          } else {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.on.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['error'](
+              'Đặt lịch hẹn thất bại. Kiểm tra lại!',
+              'Ops! Thất bại'
+            );
+          }
+        }
+      });
+    });
+  });
+</script>
+<!-- /.modal -->
+<% } %>
 <% } else { %>
 <div
   class="modal fade bs-example-modal-center"
@@ -515,7 +649,8 @@ if(hocvien.embedding != null){
     });
   };
 </script>
-<% } %>
+<% } %> <% } %>
+
 <style>
   /* common */
   .ribbon {

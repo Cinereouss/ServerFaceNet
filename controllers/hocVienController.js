@@ -140,3 +140,25 @@ exports.updateStudentLocation = catchAsync(async (req, res, next) => {
         })
     }
 });
+  
+exports.setLop = catchAsync(async (req, res, next) => {
+  try {
+    let result = await HocVien.findOneAndUpdate(
+      { _id: req.body._id },
+      {
+        idLop: req.body.idLop,
+      },
+      {
+        rawResult: true // Return the raw result from the MongoDB driver
+      }
+    );
+    if (result.lastErrorObject.updatedExisting) {
+      res.status(200).send('success');
+    } else {
+      res.status(400).send('update fail!');
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
