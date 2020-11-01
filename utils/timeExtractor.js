@@ -51,15 +51,15 @@ exports.convertSecondToTime = (seconds) => {
   let second = '';
 
   if(hh !== 0) {
-    hour = hh + 'giờ ';
+    hour = hh + ' giờ ';
   }
 
   if(mm !== 0) {
-    minute = mm + 'phút ';
+    minute = mm + ' phút ';
   }
 
   if(ss !== 0) {
-    second = ss + 'giây';
+    second = ss + ' giây';
   }
 
   return `${hour}${minute}${second}`;
