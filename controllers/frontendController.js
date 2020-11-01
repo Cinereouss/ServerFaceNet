@@ -121,6 +121,11 @@ exports.showMeNuHocPhiPage = (req, res, next) => {
     res.render('frontend', {page : "F_menuhocphi"})
 }
 
+exports.showTraCuuPage = (req, res, next) => {
+    const identity = req.query.q;
+    res.render('frontend', {page : "F_tracuu", prefilledID: identity})
+}
+
 exports.showCachThucDangKyPage = (req, res, next) => {
     res.render('frontend', {page : "F_cachthucdangky"})
 }

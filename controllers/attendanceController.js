@@ -3,6 +3,7 @@ const Log = require('../models/logModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const timeExtractor = require('./../utils/timeExtractor');
+const Email = require('./../utils/email');
 
 // For seeding data
 const GiangVien = require('./../models/giangvienModel');
@@ -95,6 +96,15 @@ exports.checkOut = catchAsync(async (req, res, next) => {
                 message: 'Success check out !',
                 totalTime: totalTime
             });
+
+            const hocVienInfo = await HocVien.findById(attendance.idHocVien).select('ten email cmnd');
+
+            await new Email(hocVienInfo).send("thongTinDiemDanh",
+                "Thông tin điểm danh",
+                {
+                    totalTime: timeExtractor.convertSecondToTime(totalTime),
+                    url: `${req.protocol}://${req.get('host')}/tracuu?q=${hocVienInfo.cmnd}`,
+                });
         } catch (err) {
             res.status(404).json({
                 status: 'fail',
@@ -175,3 +185,10 @@ exports.seeding = catchAsync(async (req, res, next) => {
         });
     }
 });
+
+exports.checkServerConectionFromMobile = (req, res, next) => {
+    res.status(200).json({
+        status: 'success',
+        message: 'Connected to server !',
+    });
+}

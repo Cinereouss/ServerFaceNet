@@ -62,8 +62,9 @@ exports.getAllStudents = catchAsync(async (req, res, next) => {
     let { getEmbedding } = req.query;
     if (getEmbedding === "true") {
         fields = 'ten embedding _id';
+        filter = { ...filter, embedding: { $ne: null } };
     } else if (getEmbedding === "false") {
-        fields = 'ten ngaySinh cmnd sdt';
+        fields = 'ten ngaySinh cmnd sdt pickUpLocation';
     }
 
     const data = await HocVien.find(filter).select(fields);
@@ -122,7 +123,24 @@ exports.setAppointment = catchAsync(async (req, res, next) => {
   }
 });
 
+exports.updateStudentLocation = catchAsync(async (req, res, next) => {
+    const { location } = req.body;
+    const { id } = req.params;
+    const data = await HocVien.findByIdAndUpdate(id, { pickUpLocation: location }, { new: true });
 
+    if (data) {
+        res.status(200).json({
+            status: 'success',
+            data: data.pickUpLocation,
+        })
+    } else {
+        res.status(404).json({
+            status: 'fail',
+            message: 'Can not find student with this id provided !'
+        })
+    }
+});
+  
 exports.setLop = catchAsync(async (req, res, next) => {
   try {
     let result = await HocVien.findOneAndUpdate(

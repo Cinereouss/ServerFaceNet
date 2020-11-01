@@ -21,6 +21,7 @@ router
 
 router
     .route('/seeding-fake-data')
+    .get(attendanceController.checkServerConectionFromMobile)
     .post(attendanceController.seeding);
 
 
