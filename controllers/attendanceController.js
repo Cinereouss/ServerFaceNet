@@ -99,12 +99,22 @@ exports.checkOut = catchAsync(async (req, res, next) => {
 
             const hocVienInfo = await HocVien.findById(attendance.idHocVien).select('ten email cmnd');
 
-            await new Email(hocVienInfo).send("thongTinDiemDanh",
-                "Thông tin điểm danh",
-                {
-                    totalTime: timeExtractor.convertSecondToTime(totalTime),
-                    url: `${req.protocol}://${req.get('host')}/tracuu?q=${hocVienInfo.cmnd}`,
-                });
+            if (hocVienInfo.email) {
+                try {
+                    await new Email(hocVienInfo).send("thongTinDiemDanh",
+                        "Thông tin điểm danh",
+                        {
+                            totalTime: timeExtractor.convertSecondToTime(totalTime),
+                            url: `${req.protocol}://${req.get('host')}/tracuu?q=${hocVienInfo.cmnd}`,
+                        });
+                } catch (err) {
+                    return next(
+                        new AppError('There was an error sending email, try again !'),
+                        500
+                    );
+                }
+
+            }
         } catch (err) {
             res.status(404).json({
                 status: 'fail',
