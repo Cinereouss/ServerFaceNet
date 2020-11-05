@@ -2,6 +2,8 @@ const catchAsync = require('./../utils/catchAsync');
 const HocVien = require('../models/hocvienModel')
 const Log = require('../models/logModel')
 const Lop = require('../models/lopModel')
+const GiangVien = require('../models/giangvienModel')
+const LoaiBang = require('../models/loaibangModel')
 
 const mongoose = require('mongoose')
 
@@ -34,8 +36,8 @@ exports.showProfilePage = async (req, res, next) => {
         const log = await Log.find({
             idHocVien : hocvien._id
         });
-        const lop = await Lop.find({});
-        console.log(log)
+        const bang = await LoaiBang.find({tenBang : hocvien.loaiGplx})
+        const lop = await Lop.find({idLoaiBang : mongoose.Types.ObjectId(bang[0]._id)});
         res.render('backend', {page: "B_profile", hocvien: hocvien, pending: pending, log: log, lop : lop});
     }else{
         res.render('backend', {page: "B_profile", hocvien: hocvien, pending: pending})
@@ -54,8 +56,10 @@ exports.showDiemDanhPage = async (req, res, next) => {
 
 exports.showLopHocPage = async (req, res, next) => {    
     const pending = await HocVien.find({pending : true})
-    const lop = await Lop.find().limit(8)
-    res.render('backend', {page: "B_lophoc", pending: pending, lop : lop})
+    const lop = await Lop.find().limit(8).sort([['khaiGiang', -1]]);
+    const loaibang = await LoaiBang.find()
+    const giangvien = await GiangVien.find()
+    res.render('backend', {page: "B_lophoc", pending: pending, lop : lop, loaibang : loaibang, giangvien : giangvien})
 }
 
 exports.showLopHocInfoPage = async (req, res, next) => {    

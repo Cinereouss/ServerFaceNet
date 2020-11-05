@@ -18,9 +18,6 @@ exports.dangKyOnline = (req, res, next) => {
     res.render('frontend', {page : "F_dangkyonline"})
 }
 
-exports.register = (req, res, next) => {
-}
-
 exports.showGioiThieuPage = (req, res, next) => {
     res.render('frontend', {page : "F_gioithieu"})
 }

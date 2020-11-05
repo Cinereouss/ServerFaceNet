@@ -6,7 +6,8 @@ const router = express.Router({ mergeParams: true });
 
 router.use('/:idClass/student', hocVienRoutes);
 
-router
-    .get('/', classController.getAllClass);
+router.get('/', classController.getAllClass);
+
+router.post('/createClass', classController.create)
 
 module.exports = router;

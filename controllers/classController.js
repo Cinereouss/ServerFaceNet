@@ -13,3 +13,13 @@ exports.getAllClass = catchAsync(async (req, res, next) => {
         data,
     });
 });
+
+exports.create = catchAsync(async (req, res, next) => {
+    try {
+        const dataCreated = await Class.create(req.body);
+        res.status(200).send('success');
+      } catch (err) {
+        console.log(err);
+        res.status(400).send(err);
+      }
+}) 
