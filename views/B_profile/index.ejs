@@ -299,10 +299,10 @@ if(hocvien.embedding != null){
         <hr />
         <div class="d-print-none">
           <div class="float-right">
-            <a
-              href="javascript:window.print()"
+            <button
+            onclick="printDiv('printableArea')"
               class="btn btn-success waves-effect waves-light mr-1"
-              ><i class="fa fa-print"></i> In thông tin học viên</a
+              ><i class="fa fa-print"></i> In thông tin học viên</button
             >
             <a
               href="mailto: <%= hocvien.email %>"
@@ -761,3 +761,38 @@ null) { %>
     transform: rotate(-45deg);
   }
 </style>
+
+<div id="printableArea" style="visibility: hidden">
+  <p style="text-align: center;"><strong>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM <br> Độc lập - Tự do - Hạnh phúc<br>------------------------ </strong></p>
+  <h3 style="text-align: center;"><strong>ĐƠN ĐỀ NGHỊ HỌC, SÁT HẠCH<br> ĐỂ CẤP GIẤY PHÉP LÁI XE</strong></h3>
+  <p style="text-align: center;"><strong>Kính gửi:</strong> .....................................................</p>
+  <p>Tôi là: .........................................................Quốc tịch: ............................................</p>
+  <p>Sinh ngày:......tháng .....năm .....................................................................................</p>
+  <p>Nơi đăng ký hộ khẩu thường trú:................................................................................</p>
+  <p>Nơi cư trú:...............................................................................................................</p>
+  <p>Đơn vị công tác:.......................................................................................................</p>
+  <p>Số chứng minh thư nhân dân (hoặc hộ chiếu).............................................................</p>
+  <p>Cấp ngày .......... tháng ........... năm ............. Nơi cấp: .............................................</p>
+  <p>Đã có giấy phép lái xe số:............hạng ........do.........cấp ngày .............tháng ....năm .........</p>  
+  <p>Đề nghị cho tôi được học, dự sát hạch để cấp giấy phép lái xe hạng...........................</p>
+  <p><strong>Xin gửi kèm theo:</strong></p>
+  <p>- 01 giấy chứng nhận sức khỏe</p>
+  <p>- 06 ảnh màu cỡ 3 x 4 cm</p>
+  <p>- Bản photocopy chứng minh nhân dân (hoặc hộ chiếu)</p>
+  <p>- Các tài liệu khác có liên quan gồm:......................................................................</p>
+  <p style="text-align: justify;">Tôi xin cam đoan những điều ghi trên đây là đúng sự thật, nếu sai tôi xin hoàn toàn chịu trách nhiệm.</p>
+  <table style="width: 100%;" border="0"> <tbody> <tr> <td> </td> <td style="text-align: right;"><em>............., ngày....tháng....năm....</em></td> </tr> <tr> <td> </td> <td style="text-align: center;"><strong>NGƯỜI LÀM ĐƠN</strong><br><em>(Ký và ghi rõ họ tên)</em></td> </tr> </tbody> </table>
+</div>
+
+<script>
+  function printDiv(divName) {
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+
+     document.body.innerHTML = printContents;
+
+     window.print();
+
+     document.body.innerHTML = originalContents;
+}  
+</script>

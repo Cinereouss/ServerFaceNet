@@ -40,6 +40,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "print-js": "^1.5.0",
     "push.js": "^1.0.12",
     "pusher": "^3.0.1",
     "qrcode": "^1.4.4",
