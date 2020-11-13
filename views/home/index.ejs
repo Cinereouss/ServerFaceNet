@@ -1,15 +1,19 @@
+<% function getdate(date){ temp = new Date(date); return temp.getHours() + ":" +
+temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" +
+temp.getFullYear(); } %>
+
 <div class="container-fluid">
 
   <!-- start page title -->
   <div class="row">
     <div class="col-12">
       <div class="page-title-box d-flex align-items-center justify-content-between">
-        <h4 class="mb-0 font-size-18">Dashboard</h4>
+        <h4 class="mb-0 font-size-18">Trang chủ</h4>
 
         <div class="page-title-right">
           <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+            <li class="breadcrumb-item active">Trang chủ</li>
           </ol>
         </div>
 
@@ -25,8 +29,8 @@
           <div class="row">
             <div class="col-7">
               <div class="text-primary p-3">
-                <h5 class="text-primary">Welcome Back !</h5>
-                <p>Skote Dashboard</p>
+                <h5 class="text-primary">Chào mừng trở lại !</h5>
+                <p>Chúc bạn ngày mới vui vẻ</p>
               </div>
             </div>
             <div class="col-5 align-self-end">
@@ -40,8 +44,8 @@
               <div class="avatar-md profile-user-wid mb-4">
                 <img src="assets\images\users\avatar-1.jpg" alt="" class="img-thumbnail rounded-circle">
               </div>
-              <h5 class="font-size-15 text-truncate">Henry Price</h5>
-              <p class="text-muted mb-0 text-truncate">UI/UX Designer</p>
+              <h5 class="font-size-15 text-truncate"><%= user.name %></h5>
+              <p class="text-muted mb-0 text-truncate">Nhân viên trung tâm</p>
             </div>
 
             <div class="col-sm-8">
@@ -49,12 +53,12 @@
 
                 <div class="row">
                   <div class="col-6">
-                    <h5 class="font-size-15">125</h5>
-                    <p class="text-muted mb-0">Projects</p>
+                    <h5 class="font-size-15">5+ năm</h5>
+                    <p class="text-muted mb-0">Kinh nghiệm</p>
                   </div>
                   <div class="col-6">
-                    <h5 class="font-size-15">$1245</h5>
-                    <p class="text-muted mb-0">Revenue</p>
+                    <h5 class="font-size-15">Admin</h5>
+                    <p class="text-muted mb-0">Quản trị viên</p>
                   </div>
                 </div>
                 <div class="mt-4">
@@ -67,15 +71,15 @@
       </div>
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-4">Monthly Earning</h4>
+          <h4 class="card-title mb-4">Số lượng hồ sơ đăng ký / tháng</h4>
           <div class="row">
             <div class="col-sm-6">
-              <p class="text-muted">This month</p>
-              <h3>$34,252</h3>
-              <p class="text-muted"><span class="text-success mr-2"> 12% <i class="mdi mdi-arrow-up"></i> </span> From previous period</p>
+              <p class="text-muted">Tháng này</p>
+              <h3>35 hồ sơ mới</h3>
+              <p class="text-muted"><span class="text-success mr-2"> 12% <i class="mdi mdi-arrow-up"></i> </span> So với tháng trước</p>
 
               <div class="mt-4">
-                <a href="" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ml-1"></i></a>
+                <a href="javascript:void(0)" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ml-1"></i></a>
               </div>
             </div>
             <div class="col-sm-6">
@@ -84,7 +88,6 @@
               </div>
             </div>
           </div>
-          <p class="text-muted mb-0">We craft digital, graphic and dimensional thinking.</p>
         </div>
       </div>
     </div>
@@ -95,8 +98,8 @@
             <div class="card-body">
               <div class="media">
                 <div class="media-body">
-                  <p class="text-muted font-weight-medium">Orders</p>
-                  <h4 class="mb-0">1,235</h4>
+                  <p class="text-muted font-weight-medium">Số giảng viên</p>
+                  <h4 class="mb-0">20 người</h4>
                 </div>
 
                 <div class="mini-stat-icon avatar-sm rounded-circle bg-primary align-self-center">
@@ -113,8 +116,8 @@
             <div class="card-body">
               <div class="media">
                 <div class="media-body">
-                  <p class="text-muted font-weight-medium">Revenue</p>
-                  <h4 class="mb-0">$35, 723</h4>
+                  <p class="text-muted font-weight-medium">Số bằng cấp đaò tạo</p>
+                  <h4 class="mb-0">8 loại</h4>
                 </div>
 
                 <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
@@ -131,8 +134,8 @@
             <div class="card-body">
               <div class="media">
                 <div class="media-body">
-                  <p class="text-muted font-weight-medium">Average Price</p>
-                  <h4 class="mb-0">$16.2</h4>
+                  <p class="text-muted font-weight-medium">Hồ sơ mới</p>
+                  <h4 class="mb-0"><%= pending.length %> hồ sơ</h4>
                 </div>
 
                 <div class="avatar-sm rounded-circle bg-primary align-self-center mini-stat-icon">
@@ -149,17 +152,11 @@
 
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-4 float-sm-left">Email Sent</h4>
+          <h4 class="card-title mb-4 float-sm-left">Số lượng hồ sơ</h4>
           <div class="float-sm-right">
             <ul class="nav nav-pills">
               <li class="nav-item">
-                <a class="nav-link" href="#">Week</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Month</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Year</a>
+                <a class="nav-link active" href="javascript:void(0)">12 tháng gần nhất</a>
               </li>
             </ul>
           </div>
@@ -175,7 +172,7 @@
     <div class="col-xl-4">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-4">Social Source</h4>
+          <h4 class="card-title mb-4">Kênh mạng xã hội</h4>
           <div class="text-center">
             <div class="avatar-sm mx-auto mb-4">
                                                 <span class="avatar-title rounded-circle bg-soft-primary font-size-24">
@@ -183,9 +180,9 @@
                                                     </span>
             </div>
             <p class="font-16 text-muted mb-2"></p>
-            <h5><a href="#" class="text-dark">Facebook - <span class="text-muted font-16">125 sales</span> </a></h5>
-            <p class="text-muted">Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus tincidunt.</p>
-            <a href="#" class="text-primary font-16">Learn more <i class="mdi mdi-chevron-right"></i></a>
+            <h5><a href="#" class="text-dark">Facebook - <span class="text-muted font-16">Page chính đăng tải thông tin</span> </a></h5>
+            <p class="text-muted">Nơi đăng tải trực tiếp các thông tin về khóa học và các thông báo liên quan.</p>
+            <a href="https://www.facebook.com/Lucifer.NL" class="text-primary font-16">Đi tới page <i class="mdi mdi-chevron-right"></i></a>
           </div>
           <div class="row mt-4">
             <div class="col-4">
@@ -196,7 +193,7 @@
                                                             </span>
                 </div>
                 <h5 class="font-size-15">Facebook</h5>
-                <p class="text-muted mb-0">125 sales</p>
+                <p class="text-muted mb-0">2000 Follow</p>
               </div>
             </div>
             <div class="col-4">
@@ -207,7 +204,7 @@
                                                             </span>
                 </div>
                 <h5 class="font-size-15">Twitter</h5>
-                <p class="text-muted mb-0">112 sales</p>
+                <p class="text-muted mb-0">5200+ Follow</p>
               </div>
             </div>
             <div class="col-4">
@@ -218,7 +215,7 @@
                                                             </span>
                 </div>
                 <h5 class="font-size-15">Instagram</h5>
-                <p class="text-muted mb-0">104 sales</p>
+                <p class="text-muted mb-0">5200+ Follow</p>
               </div>
             </div>
           </div>
@@ -229,7 +226,7 @@
     <div class="col-xl-4">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-5">Activity</h4>
+          <h4 class="card-title mb-5">Lịch hẹn tuần này</h4>
           <ul class="verti-timeline list-unstyled">
             <li class="event-list">
               <div class="event-timeline-dot">
@@ -292,7 +289,7 @@
               </div>
             </li>
           </ul>
-          <div class="text-center mt-4"><a href="" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ml-1"></i></a></div>
+          <div class="text-center mt-4"><a href="/lichhen" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ml-1"></i></a></div>
         </div>
       </div>
     </div>
@@ -300,14 +297,15 @@
     <div class="col-xl-4">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-4">Top Cities Selling Product</h4>
+          <h4 class="card-title mb-4">Các điểm đón phổ biến</h4>
 
           <div class="text-center">
             <div class="mb-4">
               <i class="bx bx-map-pin text-primary display-4"></i>
             </div>
-            <h3>1,456</h3>
-            <p>San Francisco</p>
+            <h3>372 học viên</h3>
+            <p>Trường Đại học Hàng hải Việt Nam
+            </p>
           </div>
 
           <div class="table-responsive mt-4">
@@ -315,10 +313,10 @@
               <tbody>
               <tr>
                 <td style="width: 30%">
-                  <p class="mb-0">San Francisco</p>
+                  <p class="mb-0">Kiến An</p>
                 </td>
                 <td style="width: 25%">
-                  <h5 class="mb-0">1,456</h5></td>
+                  <h5 class="mb-0">210 học viên</h5></td>
                 <td>
                   <div class="progress bg-transparent progress-sm">
                     <div class="progress-bar bg-primary rounded" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
@@ -327,10 +325,10 @@
               </tr>
               <tr>
                 <td>
-                  <p class="mb-0">Los Angeles</p>
+                  <p class="mb-0">An Dương</p>
                 </td>
                 <td>
-                  <h5 class="mb-0">1,123</h5>
+                  <h5 class="mb-0">130 học viên</h5>
                 </td>
                 <td>
                   <div class="progress bg-transparent progress-sm">
@@ -340,10 +338,10 @@
               </tr>
               <tr>
                 <td>
-                  <p class="mb-0">San Diego</p>
+                  <p class="mb-0">Thủy Nguyên</p>
                 </td>
                 <td>
-                  <h5 class="mb-0">1,026</h5>
+                  <h5 class="mb-0">83 học viên</h5>
                 </td>
                 <td>
                   <div class="progress bg-transparent progress-sm">
@@ -364,7 +362,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-4">Latest Transaction</h4>
+          <h4 class="card-title mb-4">Điểm danh gần đây</h4>
           <div class="table-responsive">
             <table class="table table-centered table-nowrap mb-0">
               <thead class="thead-light">
@@ -375,186 +373,49 @@
                     <label class="custom-control-label" for="customCheck1">&nbsp;</label>
                   </div>
                 </th>
-                <th>Order ID</th>
-                <th>Billing Name</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Payment Status</th>
-                <th>Payment Method</th>
-                <th>View Details</th>
+                <th>Tên hoc viên</th>
+                  <th data-priority="3">Thời gian vào</th>
+                  <th data-priority="1">Thời gian ra</th>
+                  <th data-priority="3">Tổng thời gian (s)</th>
+                  <th data-priority="3">Ảnh lúc vào</th>
+                  <th data-priority="6">Ảnh lúc ra</th>
+                  <th data-priority="6">Trạng thái</th>
               </tr>
-              </thead>
               <tbody>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck2">
-                    <label class="custom-control-label" for="customCheck2">&nbsp;</label>
-                  </div>
-                </td>
-                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2540</a> </td>
-                <td>Neal Matthews</td>
-                <td>
-                  07 Oct, 2019
-                </td>
-                <td>
-                  $400
-                </td>
-                <td>
-                  <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
-                </td>
-                <td>
-                  <i class="fab fa-cc-mastercard mr-1"></i> Mastercard
-                </td>
-                <td>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
-                    View Details
-                  </button>
-                </td>
-              </tr>
+                <% for(item of log) { %>
 
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck3">
-                    <label class="custom-control-label" for="customCheck3">&nbsp;</label>
-                  </div>
-                </td>
-                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2541</a> </td>
-                <td>Jamal Burnett</td>
-                <td>
-                  07 Oct, 2019
-                </td>
-                <td>
-                  $380
-                </td>
-                <td>
-                  <span class="badge badge-pill badge-soft-danger font-size-12">Chargeback</span>
-                </td>
-                <td>
-                  <i class="fab fa-cc-visa mr-1"></i> Visa
-                </td>
-                <td>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
-                    View Details
-                  </button>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck4">
-                    <label class="custom-control-label" for="customCheck4">&nbsp;</label>
-                  </div>
-                </td>
-                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2542</a> </td>
-                <td>Juan Mitchell</td>
-                <td>
-                  06 Oct, 2019
-                </td>
-                <td>
-                  $384
-                </td>
-                <td>
-                  <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
-                </td>
-                <td>
-                  <i class="fab fa-cc-paypal mr-1"></i> Paypal
-                </td>
-                <td>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
-                    View Details
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck5">
-                    <label class="custom-control-label" for="customCheck5">&nbsp;</label>
-                  </div>
-                </td>
-                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2543</a> </td>
-                <td>Barry Dick</td>
-                <td>
-                  05 Oct, 2019
-                </td>
-                <td>
-                  $412
-                </td>
-                <td>
-                  <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
-                </td>
-                <td>
-                  <i class="fab fa-cc-mastercard mr-1"></i> Mastercard
-                </td>
-                <td>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
-                    View Details
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck6">
-                    <label class="custom-control-label" for="customCheck6">&nbsp;</label>
-                  </div>
-                </td>
-                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2544</a> </td>
-                <td>Ronald Taylor</td>
-                <td>
-                  04 Oct, 2019
-                </td>
-                <td>
-                  $404
-                </td>
-                <td>
-                  <span class="badge badge-pill badge-soft-warning font-size-12">Refund</span>
-                </td>
-                <td>
-                  <i class="fab fa-cc-visa mr-1"></i> Visa
-                </td>
-                <td>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
-                    View Details
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck7">
-                    <label class="custom-control-label" for="customCheck7">&nbsp;</label>
-                  </div>
-                </td>
-                <td><a href="javascript: void(0);" class="text-body font-weight-bold">#SK2545</a> </td>
-                <td>Jacob Hunter</td>
-                <td>
-                  04 Oct, 2019
-                </td>
-                <td>
-                  $392
-                </td>
-                <td>
-                  <span class="badge badge-pill badge-soft-success font-size-12">Paid</span>
-                </td>
-                <td>
-                  <i class="fab fa-cc-paypal mr-1"></i> Paypal
-                </td>
-                <td>
-                  <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-toggle="modal" data-target=".exampleModal">
-                    View Details
-                  </button>
-                </td>
-              </tr>
+                <tr style="background: <%- item.totalTime > 0 ? '' : 'rgb(255 156 0 / 27%);'%>">
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="customCheck6">
+                      <label class="custom-control-label" for="customCheck6">&nbsp;</label>
+                    </div>
+                  </td>
+                  <th>
+                    <a href="/profile/<%= item.idHocVien._id %>"
+                      ><%= item.idHocVien.ten %></a
+                    >
+                  </th>
+                  <td><%= getdate(item.checkInAt) %></td>
+                  <td><%= getdate(item.checkOutAt) %></td>
+                  <td><%= item.totalTime %></td>
+                  <td><a href="/img/attendance/<%= item.imageCheckIn %>"><%= item.imageCheckIn %></a></td>
+                  <td><a href="/img/attendance/<%= item.imageCheckIn %>"><%= item.imageCheckOut %></a></td>
+                  <td>
+                    <% if(item.totalTime > 0) { %>
+                    <span
+                      class="badge badge-pill badge-soft-success font-size-12"
+                      >Hoàn thành</span
+                    >
+                    <% } else { %>
+                    <span
+                      class="badge badge-pill badge-soft-danger font-size-12"
+                      >Thất bại</span
+                    >
+                    <% } %>
+                  </td>
+                </tr>
+                <% } %>
               </tbody>
             </table>
           </div>

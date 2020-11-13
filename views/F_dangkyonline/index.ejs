@@ -43,7 +43,7 @@
 
               <div class="col-md-4">
                 <div class="col-3 input-effect">
-                  <input class="effect-21" type="date" name="ngaySinh" required/>
+                  <input class="effect-21" type="date" name="ngaySinh"/>
                   <label>Ngày sinh <em style="color : red">(*)</em></label>
                   <span class="focus-border">
                     <i></i>
@@ -109,10 +109,12 @@
                 </div>
               </div>
             </div>
-            <div class="row" style="padding-left: 1.5%; padding-right: 0.8%">
+            <em style="color:red; padding-left : 3%;">* Vui lòng bỏ qua thông tin này nếu chưa có!</em>
+            <div class="row" style="padding-left: 1.5%; padding-top: 1%; padding-right: 0.8%">
+              
               <div class="col-md-3">
                 <div class="col-3 input-effect">
-                  <input class="effect-20" type="text" name="gplx"/>
+                  <input class="effect-20" type="text" name="oldgplx"/>
                   <label>Đã có GPLX số</label>
                   <span class="focus-border">
                     <i></i>                  </span>
@@ -253,7 +255,45 @@
               <br/>
               <p style="text-align: justify;"><span >Đây là toàn bộ&nbsp;các chi phí từ lúc&nbsp;bạn bắt đầu đăng ký hồ sơ vào các trung tâm dạy học&nbsp;lái xe ô tô đến khi thi. Theo như thông thường là bạn sẽ phải đóng hết khoản lệ phí này ngay lúc&nbsp;nộp hồ sơ vào. Theo quy định của Sở GTVT hiện nay lệ&nbsp;phí hồ sơ thi bằng lái toàn bộ thường sẽ rơi vào khoảng từ 6.400.000 đồng – 7.100.000 đồng đối với trường hợp&nbsp;thi bằng lái xe hạng B1, B11, B2.</span> </p>
        
-              
+              <div class="row">
+                <div class="col-md-6" style="top: -8px">
+                  <label for="selected" style="
+                  margin-bottom: 0;
+                  top: -25px;
+                  left: 0;
+                  font-size: 12px;
+                  color: #4caf50;">Loại bằng đăng ký</label>
+                  <div class="dropdown" id="lever" >
+                    <div id="selected" class="select" style="padding: 1.5%">
+                      <span>--Chọn loại bằng--</span>
+                      <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <input type="hidden" name="gplx">
+                    <ul class="dropdown-menu">
+                      <li id="A1">A1</li>
+                      <li id="A2">A2</li>
+                      <li id="A3">A3</li>
+                      <li id="A4">A4</li>
+                      <li id="B1">B1</li>
+                      <li id="B2">B2</li>
+                      <li id="C">C</li>
+                      <li id="D">D</li>
+                      <li id="E">E</li>
+                      <li id="F">F</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="col-3 input-effect">
+                    <input class="effect-20" type="text" id="" name="email" required/>
+                    <label>Email<em style="color : red">(*)</em></label>
+                    <span class="focus-border">
+                      <i></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               <div class="row">
                 <em style="color:red; padding-left : 3%;" >* Chúng tôi sẽ gửi tới số điện thoại của bạn 1 mã OTP, vui lòng cung cấp số điện thoại kiểm tra và xác nhận</em>
                 <div class="col-md-4">

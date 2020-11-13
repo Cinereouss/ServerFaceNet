@@ -9,6 +9,16 @@
   temp = new Date(date); 
   return temp.getHours() + ":" + temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" + temp.getFullYear()
   } 
+
+  function getday(date){ 
+    var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  return 'ngày ' + dd + ' tháng ' + mm + ' năm ' + yyyy;
+  } 
+
 %>
 <%
 if(hocvien.embedding != null){
@@ -43,12 +53,14 @@ if(hocvien.embedding != null){
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
-        <% if(hocvien.pending) { %>
+        <% if(hocvien.status == 1) { %>
         <div class="ribbon ribbon-top-left"><span>Đang chờ</span></div>
-        <% } else if (hocvien.embedding==null){ %>
+        <% } if (hocvien.status == 2){ %>
         <div class="ribbon2 ribbon-top-left"><span>Đã hẹn</span></div>
-        <% } else { %>
-        <div class="ribbon1 ribbon-top-left"><span>Hoàn thành</span></div>
+        <% } if (hocvien.status == 3){ %>
+          <div class="ribbon3 ribbon-top-left"><span>Chờ xếp lớp</span></div>
+        <% }if (hocvien.status == 4){ %>
+        <div class="ribbon1 ribbon-top-left"><span>Học viên</span></div>
         <% } %>
 
         <div class="invoice-title" style="margin-left: 7%;">
@@ -122,10 +134,10 @@ if(hocvien.embedding != null){
               <div class="col-sm-4">
                 <address class="mt-2 mt-sm-0">
                   <strong>Thông tin đăng ký:</strong><br />
-                  Loại bằng: <strong><%= hocvien.loaiGplx %></strong><br />
+                  Loại bằng: <strong><%= hocvien.gplx %></strong><br />
                   Đăng ký tích hợp: <strong>Có</strong>
                 </address>
-                <% if(!hocvien.pending && hocvien.embedding==null){ %>
+                <% if(hocvien.status == 2){ %>
                 <address class="mt-2 mt-sm-0">
                   <strong>Thông tin lịch hẹn:</strong><br />
                   Ngày hẹn: <strong><%= getdate(hocvien.ngayHen) %></strong
@@ -195,105 +207,105 @@ if(hocvien.embedding != null){
             </div>
           </div>
         </div>
-        <% if(hocvien.embedding != null && hocvien.idLop != null){ %>
-        <hr />
-        <div class="row">
-          <div class="col-md-6" style="border-right: 1px solid #ccc ;">
-            <address class="mt-2 mt-sm-0" style="padding-left:5%;">
-              <strong>Thông tin lớp học:</strong><br />
-              Lớp: <strong><%= hocvien.idLop.tenLop %></strong><br />
-              Ngày khai giảng:
-              <strong
-                ><%= getdate(hocvien.idLop.khaiGiang).split(' ')[1] %></strong
-              ><br />
-              Loại bằng: <strong><%= hocvien.idLop.idLoaiBang.tenBang %></strong
-              ><br />
-            </address>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
+        <% if(hocvien.status == 4){ %>
+          <hr />
+          <div class="row">
+            <div class="col-md-6" style="border-right: 1px solid #ccc ;">
               <address class="mt-2 mt-sm-0" style="padding-left:5%;">
-                <strong>Thông tin giảng viên hướng dẫn:</strong><br />
-                Lớp: <strong><%= hocvien.idLop.idGiangVien.ten %></strong><br />
+                <strong>Thông tin lớp học:</strong><br />
+                Lớp: <strong><%= hocvien.idLop.tenLop %></strong><br />
                 Ngày khai giảng:
-                <strong><%= hocvien.idLop.idGiangVien.sdt %></strong><br />
-                Loại bằng:
-                <strong><%= hocvien.idLop.idGiangVien.email %></strong><br />
+                <strong
+                  ><%= getdate(hocvien.idLop.khaiGiang).split(' ')[1] %></strong
+                ><br />
+                Loại bằng: <strong><%= hocvien.idLop.idLoaiBang.tenBang %></strong
+                ><br />
               </address>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="card-body" style="padding-top: 0">
-            <div class="">
-              <strong
-                >Thời gian học (<%=total%> giờ) / Tổng thời gian
-                (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong
-              ><br />
-              <div class="progress">
-                <div
-                  class="progress-bar progress-bar-striped progress-bar-animated"
-                  role="progressbar"
-                  aria-valuenow=""
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                  style="width: <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc %>%"
-                ></div>
+            <div class="col-md-6">
+              <div class="row">
+                <address class="mt-2 mt-sm-0" style="padding-left:5%;">
+                  <strong>Thông tin giảng viên hướng dẫn:</strong><br />
+                  Lớp: <strong><%= hocvien.idLop.idGiangVien.ten %></strong><br />
+                  Ngày khai giảng:
+                  <strong><%= hocvien.idLop.idGiangVien.sdt %></strong><br />
+                  Loại bằng:
+                  <strong><%= hocvien.idLop.idGiangVien.email %></strong><br />
+                </address>
               </div>
             </div>
           </div>
-        </div>
-        <hr />
-        <div style="height : 30vh; overflow-y : auto">
-          <table id="tech-companies-1" class="table table-striped">
-            <thead>
-              <tr>
-                <th
-                  style="position: sticky; top : -1px ;background-color: white;"
-                >
-                  Học viên
-                </th>
-                <th
-                  style="position: sticky; top : -1px ;background-color: white;"
-                >
-                  Thời gian vào
-                </th>
-                <th
-                  style="position: sticky; top : -1px  ;background-color: white;"
-                >
-                  Thời gian ra
-                </th>
-                <th
-                  style="position: sticky; top : -1px ;background-color: white;"
-                >
-                  Tổng thời gian (s)
-                </th>
-                <th
-                  style="position: sticky; top : -1px ;background-color: white;"
-                >
-                  Ảnh lúc vào
-                </th>
-                <th
-                  style="position: sticky; top : -1px ;background-color: white;"
-                >
-                  Ảnh lúc ra
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for(item of log) {%>
-              <tr>
-                <th><span class="co-name"><%= hocvien.ten %></span></th>
-                <td><%= getdate(item.checkInAt) %></td>
-                <td><%= getdate(item.checkOutAt) %></td>
-                <td><%= item.totalTime %></td>
-                <td><a href="#"><%= item.imageCheckIn %></a></td>
-                <td><a href="#"><%= item.imageCheckOut %></a></td>
-              </tr>
-              <% total+= item.totalTime; } %>
-            </tbody>
-          </table>
-        </div>
+          <div class="row">
+            <div class="card-body" style="padding-top: 0">
+              <div class="">
+                <strong
+                  >Thời gian học (<%=total%> giờ) / Tổng thời gian
+                  (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong
+                ><br />
+                <div class="progress">
+                  <div
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    aria-valuenow=""
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style="width: <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc %>%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <div style="height : 30vh; overflow-y : auto">
+            <table id="tech-companies-1" class="table table-striped">
+              <thead>
+                <tr>
+                  <th
+                    style="position: sticky; top : -1px ;background-color: white;"
+                  >
+                    Học viên
+                  </th>
+                  <th
+                    style="position: sticky; top : -1px ;background-color: white;"
+                  >
+                    Thời gian vào
+                  </th>
+                  <th
+                    style="position: sticky; top : -1px  ;background-color: white;"
+                  >
+                    Thời gian ra
+                  </th>
+                  <th
+                    style="position: sticky; top : -1px ;background-color: white;"
+                  >
+                    Tổng thời gian (s)
+                  </th>
+                  <th
+                    style="position: sticky; top : -1px ;background-color: white;"
+                  >
+                    Ảnh lúc vào
+                  </th>
+                  <th
+                    style="position: sticky; top : -1px ;background-color: white;"
+                  >
+                    Ảnh lúc ra
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(item of log) {%>
+                <tr>
+                  <th><span class="co-name"><%= hocvien.ten %></span></th>
+                  <td><%= getdate(item.checkInAt) %></td>
+                  <td><%= getdate(item.checkOutAt) %></td>
+                  <td><%= item.totalTime %></td>
+                  <td><a href="/img/attendance/<%= item.imageCheckIn %>"><%= item.imageCheckIn %></a></td>
+                  <td><a href="/img/attendance/<%= item.imageCheckOut %>"><%= item.imageCheckOut %></a></td>
+                </tr>
+                <% total+= item.totalTime; } %>
+              </tbody>
+            </table>
+          </div>
         <% } %>
 
         <hr />
@@ -314,7 +326,7 @@ if(hocvien.embedding != null){
               class="btn btn-primary w-md waves-effect waves-light"
               ><i class="fas fa-phone-alt"></i> Liên hệ qua số điện thoại</a
             >
-            <% if(hocvien.pending) { %>
+            <% if(hocvien.status == 1) { %>
             <button
               data-toggle="modal"
               data-target=".bs-example-modal-center"
@@ -322,8 +334,7 @@ if(hocvien.embedding != null){
             >
               <i class="fas fa-calendar"></i> Đặt lịch hẹn
             </button>
-            <% }else{ %> <% if(hocvien.embedding != null) { %> <%
-            if(hocvien.idLop == null) { %>
+            <% } if(hocvien.status == 3) { %>
             <button
               data-toggle="modal"
               data-target=".bs-example-modal-center"
@@ -331,7 +342,7 @@ if(hocvien.embedding != null){
             >
               <i class="fas fa-qrcode"></i> Xếp lớp
             </button>
-            <% } %> <% } else { %>
+            <% } if(hocvien.status == 2) { %>
             <button
               data-toggle="modal"
               data-target=".bs-example-modal-center"
@@ -339,14 +350,14 @@ if(hocvien.embedding != null){
             >
               <i class="fas fa-qrcode"></i> Nhận mã QR
             </button>
-            <% } %> <% }%>
+            <% } %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<% if(hocvien.pending) { %>
+<% if(hocvien.status == 1) { %>
 <div
   class="modal fade bs-example-modal-center"
   tabindex="-1"
@@ -474,8 +485,7 @@ if(hocvien.embedding != null){
     });
   });
 </script>
-<% } else { %> <% if(hocvien.embedding != null) { %> <% if(hocvien.idLop ==
-null) { %>
+<% } if(hocvien.status == 3) { %>
 <div
   class="modal fade bs-example-modal-center"
   tabindex="-1"
@@ -597,8 +607,7 @@ null) { %>
   });
 </script>
 <!-- /.modal -->
-<% } %>
-<% } else { %>
+<% } if (hocvien.status == 2){ %>
 <div
   class="modal fade bs-example-modal-center"
   tabindex="-1"
@@ -649,7 +658,7 @@ null) { %>
     });
   };
 </script>
-<% } %> <% } %>
+<% } %> 
 
 <style>
   /* common */
@@ -737,6 +746,34 @@ null) { %>
     text-align: center;
   }
 
+  .ribbon3 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon3::before,
+  .ribbon3::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #430550;
+  }
+  .ribbon3 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #6d089c;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
   /* top left*/
   .ribbon-top-left {
     top: -10px;
@@ -763,25 +800,27 @@ null) { %>
 </style>
 
 <div id="printableArea" style="visibility: hidden">
-  <p style="text-align: center;"><strong>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM <br> Độc lập - Tự do - Hạnh phúc<br>------------------------ </strong></p>
-  <h3 style="text-align: center;"><strong>ĐƠN ĐỀ NGHỊ HỌC, SÁT HẠCH<br> ĐỂ CẤP GIẤY PHÉP LÁI XE</strong></h3>
-  <p style="text-align: center;"><strong>Kính gửi:</strong> .....................................................</p>
-  <p>Tôi là: .........................................................Quốc tịch: ............................................</p>
-  <p>Sinh ngày:......tháng .....năm .....................................................................................</p>
-  <p>Nơi đăng ký hộ khẩu thường trú:................................................................................</p>
-  <p>Nơi cư trú:...............................................................................................................</p>
-  <p>Đơn vị công tác:.......................................................................................................</p>
-  <p>Số chứng minh thư nhân dân (hoặc hộ chiếu).............................................................</p>
-  <p>Cấp ngày .......... tháng ........... năm ............. Nơi cấp: .............................................</p>
-  <p>Đã có giấy phép lái xe số:............hạng ........do.........cấp ngày .............tháng ....năm .........</p>  
-  <p>Đề nghị cho tôi được học, dự sát hạch để cấp giấy phép lái xe hạng...........................</p>
-  <p><strong>Xin gửi kèm theo:</strong></p>
-  <p>- 01 giấy chứng nhận sức khỏe</p>
-  <p>- 06 ảnh màu cỡ 3 x 4 cm</p>
-  <p>- Bản photocopy chứng minh nhân dân (hoặc hộ chiếu)</p>
-  <p>- Các tài liệu khác có liên quan gồm:......................................................................</p>
-  <p style="text-align: justify;">Tôi xin cam đoan những điều ghi trên đây là đúng sự thật, nếu sai tôi xin hoàn toàn chịu trách nhiệm.</p>
-  <table style="width: 100%;" border="0"> <tbody> <tr> <td> </td> <td style="text-align: right;"><em>............., ngày....tháng....năm....</em></td> </tr> <tr> <td> </td> <td style="text-align: center;"><strong>NGƯỜI LÀM ĐƠN</strong><br><em>(Ký và ghi rõ họ tên)</em></td> </tr> </tbody> </table>
+  <p></p>
+  <h3 style="text-align: center; font-size: 25px;"><strong>CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM <br> Độc lập - Tự do - Hạnh phúc<br>------------------------ </strong></h3>
+  <p></p>
+  <h3 style="text-align: center; font-size: 25px;"><strong>ĐƠN ĐỀ NGHỊ HỌC, SÁT HẠCH<br> ĐỂ CẤP GIẤY PHÉP LÁI XE</strong></h3>
+  <p style="text-align: center; font-size: 25px;"><strong>Kính gửi:</strong> Trung tâm dạy lái xe An toàn</p>
+  <p></p>
+  <p  style="font-size: 20px;margin-left: 50px;">Tôi là:          <%= hocvien.ten %>  <span style="margin-left: 200px;">Quốc tịch: <%= hocvien.quocTich %></span></p>
+  <p  style="font-size: 20px;margin-left: 50px;">Sinh ngày: <%= getday(hocvien.ngaySinh) %></p>
+  <p  style="font-size: 20px;margin-left: 50px;">Nơi đăng ký hộ khẩu thường trú: <%= hocvien.noiDkhktt %>  </p>
+  <p  style="font-size: 20px;margin-left: 50px;">Nơi cư trú: <%= hocvien.diaChi %></p>
+  <p  style="font-size: 20px;margin-left: 50px;">Số chứng minh thư nhân dân: <%= hocvien.cmnd %></p>
+  <p  style="font-size: 20px;margin-left: 50px;">Cấp ngày <%= getday(hocvien.ngayCapcmnd) %> Nơi cấp: <%= hocvien.noiCapcmnd %></p>
+  <p  style="font-size: 20px;margin-left: 50px;">Đã có giấy phép lái xe số: <%= hocvien.oldgplx %> hạng <%= hocvien.loaiGplx %> do <%= hocvien.noiCapgplx %> cấp<%= getday(hocvien.ngayCapgplx) %></p>  
+  <p  style="font-size: 20px;margin-left: 50px;">Đề nghị cho tôi được học, dự sát hạch để cấp giấy phép lái xe hạng B1 </p>
+  <p  style="font-size: 20px;margin-left: 50px;"><strong>Xin gửi kèm theo:</strong></p>
+  <p  style="font-size: 20px;margin-left: 50px;">- 01 giấy chứng nhận sức khỏe</p>
+  <p  style="font-size: 20px;margin-left: 50px;">- 06 ảnh màu cỡ 3 x 4 cm</p>
+  <p  style="font-size: 20px;margin-left: 50px;">- Bản photocopy chứng minh nhân dân (hoặc hộ chiếu)</p>
+  <p  style="font-size: 20px;margin-left: 50px;">- Các tài liệu khác có liên quan gồm: sơ yếu lý lịch, đơn đăng ký....</p>
+  <p style="text-align: justify; font-size: 20px;margin-left: 50px;">Tôi xin cam đoan những điều ghi trên đây là đúng sự thật, nếu sai tôi xin hoàn toàn chịu trách nhiệm.</p>
+  <table style="width: 100%;font-size: 20px;" border="0"> <tbody> <tr> <td> </td> <td style="text-align: right; float: right;"><em>Hải Phòng, <%=  getday () %> </em></td> </tr> <tr> <td> </td> <td style="text-align: center; float:right; margin-right: 50px;"><strong>NGƯỜI LÀM ĐƠN</strong><br><em>(Ký và ghi rõ họ tên)</em></td> </tr> </tbody> </table>
 </div>
 
 <script>

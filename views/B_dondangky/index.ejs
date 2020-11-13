@@ -28,12 +28,14 @@
         <div class="col-xl-3 col-sm-6">
             <div class="card text-center">
               <div class="card-body">
-                <% if(item.pending) { %>
+                <% if(item.status == 1) { %>
                   <div class="ribbon ribbon-top-left"><span>Đang chờ</span></div>
-                  <% } else if (item.embedding==null){ %>
+                  <% } if (item.status == 2){ %>
                   <div class="ribbon2 ribbon-top-left"><span>Đã hẹn</span></div>
-                  <% } else { %>
-                  <div class="ribbon1 ribbon-top-left"><span>Hoàn thành</span></div>
+                  <% } if (item.status == 3){ %>
+                    <div class="ribbon3 ribbon-top-left"><span>Chờ xếp lớp</span></div>
+                  <% } if (item.status == 4) { %>
+                  <div class="ribbon1 ribbon-top-left"><span>Học viên</span></div>
                   <% } %>
                 <div class="mb-4">
                   <img
@@ -192,6 +194,34 @@
     width: 225px;
     padding: 15px 0;
     background-color: #ffd752;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .ribbon3 {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+  }
+  .ribbon3::before,
+  .ribbon3::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #430550;
+  }
+  .ribbon3 span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #6d089c;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     color: #fff;
     font: 700 18px/1 'Lato', sans-serif;

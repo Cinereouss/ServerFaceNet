@@ -53,10 +53,18 @@ router.route('/admin').get(authController.protect, authController.restrictTo("ad
 router.route('/dondangkyonline').get(authController.protect, authController.restrictTo("admin"), backendController.showDondkoPage);
 router.route('/profile/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showProfilePage);
 router.route('/student').get(authController.protect, authController.restrictTo("admin"), backendController.showAllStudentPage);
+router.route('/dahen').get(authController.protect, authController.restrictTo("admin"), backendController.showDaHenPage);
+router.route('/choxeplop').get(authController.protect, authController.restrictTo("admin"), backendController.showXepLopPage);
 router.route('/lichhen').get(authController.protect, authController.restrictTo("admin"), backendController.showLichHenPage);
 router.route('/diemdanh').get(authController.protect, authController.restrictTo("admin"), backendController.showDiemDanhPage);
 router.route('/lophoc').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocPage);
 router.route('/lophoc/profile/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocInfoPage);
+router.route('/vechungtoi').get(authController.protect, authController.restrictTo("admin"), backendController.showInfoPage);
+router.route('/loaibang').get(authController.protect, authController.restrictTo("admin"), backendController.showLoaiBangPage);
+router.route('/thongkehocvien').get(authController.protect, authController.restrictTo("admin"), backendController.showTkHocVienPage);
+router.route('/thongkegiangvien').get(authController.protect, authController.restrictTo("admin"), backendController.showTkGiangVienPage);
+router.route('/contact').get(authController.protect, authController.restrictTo("admin"), backendController.showContactPage);
+router.route('/stop').get(authController.protect, authController.restrictTo("admin"), backendController.showStopPage);
 
 
 module.exports = router;

@@ -1,0 +1,193 @@
+<link
+  href="assets\libs\bootstrap-datepicker\css\bootstrap-datepicker.min.css"
+  rel="stylesheet"
+/>
+
+<link
+  href="assets\libs\dropzone\min\dropzone.min.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-0 font-size-18">Cấu hình website</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">
+              <a href="javascript: void(0);">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Thông tin liên hệ</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Thông tin liên hệ</h4>
+          <form>
+            <div class="form-group row mb-4">
+              <label for="projectname" class="col-form-label col-lg-2"
+                >Địa chỉ</label
+              >
+              <div class="col-lg-10">
+                <input
+                  id="address"
+                  name="diaChi"
+                  type="text"
+                  class="form-control"
+                  placeholder="Nhập địa chỉ 1..."
+                  value="<%= contact.diaChi %>"
+                />
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label for="projectdesc" class="col-form-label col-lg-2"
+                >Điểm đưa đón 1</label
+              >
+              <div class="col-lg-10">
+                <input
+                id="diemdon1"
+                name="diemdon1"
+                type="text"
+                class="form-control"
+                placeholder="Điểm đón 1..."
+                value="<%= contact.diemDon1 %>"
+              />
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="projectdesc" class="col-form-label col-lg-2"
+                  >Điểm đưa đón 2</label
+                >
+                <div class="col-lg-10">
+                  <input
+                  id="diemdon2"
+                  name="diemdon2"
+                  type="text"
+                  class="form-control"
+                  placeholder="Điểm đón 2..."
+                  value="<%= contact.diemDon2 %>"
+                />
+                </div>
+              </div>
+
+            <div class="form-group row mb-4">
+              <label class="col-form-label col-lg-2">Thời gian mở cửa</label>
+              <div class="col-lg-10">
+                <div
+                  class="input-daterange input-group"
+                >
+                  <input
+                    id="time"
+                    type="time"
+                    class="form-control"
+                    placeholder="Thời gian mở cửa"
+                    name="start"
+                    value="<%= contact.beginTime %>"
+                  />
+                  <input
+                    type="time"
+                    class="form-control"
+                    placeholder="Thời gian đóng cửa"
+                    name="end"
+                    value="<%= contact.endTime %>"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+              <label for="projectbudget" class="col-form-label col-lg-2"
+                >Số điện thoại</label
+              >
+              <div class="col-lg-10">
+                <input
+                  id="phone1"
+                  name="phone1"
+                  type="text"
+                  placeholder="Nhập số điện thoại 1..."
+                  class="form-control"
+                  value="<%= contact.phone %>"
+                />
+              </div>
+            </div>
+
+            <div class="form-group row mb-4">
+                <label for="projectbudget" class="col-form-label col-lg-2"
+                  >Email</label
+                >
+                <div class="col-lg-10">
+                  <input
+                    id="Email"
+                    name="email"
+                    type="text"
+                    placeholder="Nhập email..."
+                    class="form-control"
+                    value="<%= contact.email %>"
+                  />
+                </div>
+              </div>
+
+
+              <div class="form-group row mb-4">
+                <label for="projectbudget" class="col-form-label col-lg-2"
+                  >Map</label
+                >
+                <div class="col-lg-10">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3728.877579598303!2d106.69218831342977!3d20.836649386102753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a7a9c2ee478df%3A0x6039ffe1614ede5c!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBIw6BuZyBo4bqjaSBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1605193124878!5m2!1svi!2s" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                </div>
+              </div>
+
+
+          </form>
+          <div class="row mb-4">
+            <label class="col-form-label col-lg-2">Logo</label>
+            <div class="col-lg-10">
+              <form action="/" method="post" class="dropzone">
+                <div class="fallback">
+                  <input name="file" type="file" multiple="" value="img/<%= contact.logo %>"/>
+                </div>
+
+                <div class="dz-message needsclick">
+                  <div class="mb-3">
+                    <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                  </div>
+
+                  <h4>Kéo thả logo hoặc upload</h4>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <div class="col-lg-10">
+              <button type="submit" class="btn btn-primary">
+                Lưu và xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+</div>
+<!-- container-fluid -->
+
+<!-- bootstrap datepicker -->
+<script src="assets\libs\bootstrap-datepicker\js\bootstrap-datepicker.min.js"></script>
+
+<!-- dropzone plugin -->
+<script src="assets\libs\dropzone\min\dropzone.min.js"></script>

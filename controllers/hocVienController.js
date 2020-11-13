@@ -106,6 +106,7 @@ exports.setAppointment = catchAsync(async (req, res, next) => {
       {
         ngayHen: req.body.ngayHen,
         ghiChu: req.body.ghiChu,
+        status : 2,
         pending: false
       },
       {

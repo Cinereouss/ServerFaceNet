@@ -20,15 +20,6 @@ const hocVienSchema = new mongoose.Schema({
     gplx: {
         type: String,
     },
-    loaiGplx: {
-        type: String,
-    },
-    noiCapgplx: {
-        type: String,
-    },
-    ngayCapgplx: {
-        type: Date,
-    },
     sdt: {
         type: String,
         default: null,
@@ -110,6 +101,22 @@ const hocVienSchema = new mongoose.Schema({
     pickUpLocation: {
         type: String,
         default: null,
+    },
+    oldgplx:{
+        type: String
+    },
+    loaiGplx: {
+        type: String,
+    },
+    noiCapgplx: {
+        type: String,
+    },
+    ngayCapgplx: {
+        type: Date,
+    },
+    status: {
+        type : Number,
+        default : 1,
     }
 })
 

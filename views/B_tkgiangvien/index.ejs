@@ -1,0 +1,107 @@
+<% function getdate(date){ 
+    temp = new Date(date); 
+    return temp.getDate() + "/" + temp.getMonth() + "/" + temp.getFullYear()
+    } 
+  
+  %>
+
+<!-- DataTables -->
+<link href="assets\libs\datatables.net-bs4\css\dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+<link href="assets\libs\datatables.net-buttons-bs4\css\buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+<!-- Responsive datatable examples -->
+<link href="assets\libs\datatables.net-responsive-bs4\css\responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">     
+
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Giảng Viên</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                            <li class="breadcrumb-item active">Giảng viên</li>
+                        </ol>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title --> 
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="card-title" style="padding-bottom: 1%">Danh sách giảng viên đang giảng dạy tại trung tâm</h4>
+
+                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>Tên giảng viên</th>
+                                <th>Username</th>
+                                <th>Authencation</th>
+                                <th>Ngày sinh</th>
+                                <th>Địa chỉ</th>
+                                <th>Só điện thoại</th>
+                                <th>Email</th>
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+                            <% for(item of giangvien) {%>
+                            <tr>
+                                <td><%= item.ten %></td>
+                                <td><%= item.account.name + ' ( '+ item.account.email+ ' )' %></td>
+                                <td><%= item.account.role %></td>
+                                <td><%= getdate(item.ngaySinh) %></td>
+                                <td><%= item.diaChi %></td>
+                                <td><%= item.sdt %></td>
+                                <td><%= item.email %></td>
+                            </tr>
+                             <% }%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+
+    </div> <!-- container-fluid -->
+<!-- container-fluid -->
+<!-- Required datatable js -->
+<script src="assets\libs\datatables.net\js\jquery.dataTables.min.js"></script>
+<script src="assets\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="assets\libs\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+<script src="assets\libs\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js"></script>
+<script src="assets\libs\jszip\jszip.min.js"></script>
+<script src="assets\libs\pdfmake\build\pdfmake.min.js"></script>
+<script src="assets\libs\pdfmake\build\vfs_fonts.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.html5.min.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.print.min.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.colVis.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="assets\libs\datatables.net-responsive\js\dataTables.responsive.min.js"></script>
+<script src="assets\libs\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
+
+        <!-- Datatable init js -->
+        <script>
+$(document).ready(function() {
+    $('#datatable-buttons')
+      .DataTable({
+        lengthChange: !1,
+        buttons: ['copy', 'excel', 'pdf', 'colvis']
+      })
+      .buttons()
+      .container()
+      .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+});
+        </script>  
+</script>

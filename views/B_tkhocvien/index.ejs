@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-0 font-size-18">Thống kê học viên</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">
+              <a href="javascript: void(0);">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Thống kê học viên</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+
+  <div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title mb-4">So sánh thông tin lượng học viên</h4>
+
+        <div id="line_chart_datalabel" class="apex-charts" dir="ltr"></div>
+      </div>
+    </div>
+    <!--end card-->
+  </div>
+  <!-- end row -->
+</div>
+<!-- apexcharts -->
+<script src="assets\libs\apexcharts\apexcharts.min.js"></script>
+<script>
+  var options = {
+      chart: {
+        height: 650,
+        type: 'line',
+        zoom: { enabled: !1 },
+        toolbar: { show: !1 }
+      },
+      colors: ['#556ee6', '#34c38f', '#feb334'],
+      dataLabels: { enabled: !0 },
+      stroke: { width: [3, 3, 3], curve: 'straight' },
+      series: [
+        {
+          name: 'Hồ sơ hoàn thành',
+          data: [32, 28, 35, 34, 30, 34, 33, 29, 30, 36, 32, 12]
+        },
+        {
+          name: 'Xử lý trước hạn',
+          data: [23, 23, 20, 19, 18, 25, 26, 22, 21, 18, 24, 10]
+        },
+        {
+          name: 'Đang chờ',
+          data: [11, 17, 15, 15, 21, 14, 15, 18, 17, 12, 20, 3]
+        }
+      ],
+      title: { text: 'Average High & Low Temperature', align: 'left' },
+      grid: {
+        row: { colors: ['transparent', 'transparent'], opacity: 0.2 },
+        borderColor: '#f1f1f1'
+      },
+      markers: { style: 'inverted', size: 6 },
+      xaxis: {
+        categories: [
+          'Tháng 12',
+          'Tháng 1',
+          'Tháng 2',
+          'Tháng 3',
+          'Tháng 4',
+          'Tháng 5',
+          'Tháng 6',
+          'Tháng 7',
+          'Tháng 8',
+          'Tháng 9',
+          'Tháng 10',
+          'Tháng 11'
+        ],
+        title: { text: 'Tháng' }
+      },
+      yaxis: { title: { text: 'Học viên (người)' }, min: 5, max: 40 },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'right',
+        floating: !0,
+        offsetY: -25,
+        offsetX: -5
+      },
+      responsive: [
+        {
+          breakpoint: 600,
+          options: { chart: { toolbar: { show: !1 } }, legend: { show: !1 } }
+        }
+      ]
+    },
+    chart = new ApexCharts(
+      document.querySelector('#line_chart_datalabel'),
+      options
+    );
+  chart.render();
+</script>

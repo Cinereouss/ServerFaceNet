@@ -11,6 +11,13 @@ const loaiBangLaiSchema = new mongoose.Schema({
     },
     chuThich: {
         type: String
+    },
+    moTa: {
+        type: String
+    },
+    status: {
+        type: Boolean,
+        default : true
     }
 })
 

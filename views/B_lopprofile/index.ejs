@@ -125,32 +125,27 @@
                       <th
                         style="position: sticky; top : -1px ;background-color: white;"
                       >
-                        Học viên
+                        Họ tên học viên
                       </th>
                       <th
                         style="position: sticky; top : -1px ;background-color: white;"
                       >
-                        Thời gian vào
+                        Giới tính
                       </th>
                       <th
                         style="position: sticky; top : -1px  ;background-color: white;"
                       >
-                        Thời gian ra
+                        Thông tin liên hệ
                       </th>
                       <th
                         style="position: sticky; top : -1px ;background-color: white;"
                       >
-                        Tổng thời gian (s)
+                       Email
                       </th>
                       <th
                         style="position: sticky; top : -1px ;background-color: white;"
                       >
-                        Ảnh lúc vào
-                      </th>
-                      <th
-                        style="position: sticky; top : -1px ;background-color: white;"
-                      >
-                        Ảnh lúc ra
+                        Nơi đón
                       </th>
                     </tr>
                   </thead>
@@ -158,11 +153,10 @@
                     <% for(item of hocvien) {%>
                     <tr>
                       <th><span class="co-name"><%= item.ten %></span></th>
-                      <td><%= item.ten %></td>
+                      <td><%= item.gioiTinh ? "Nam" : "Nữ" %></td>
                       <td><%= item.sdt %></td>
-                      <td><%= item.diaChi %></td>
-                      <td><%= item.diaChi %></a></td>
-                      <td><%= item.diaChi %></a></td>
+                      <td><%= item.email %></td>
+                      <td><%= item.pickUpLocation %></a></td>
                     </tr>
                     <% } %>
                   </tbody>

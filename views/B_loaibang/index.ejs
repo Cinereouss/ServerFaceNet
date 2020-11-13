@@ -1,0 +1,76 @@
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+                <h4 class="mb-0 font-size-18">Danh sách bằng</h4>
+
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                        <li class="breadcrumb-item active">Bằng</li>
+                    </ol>
+                </div>
+                
+            </div>
+        </div>
+    </div>     
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="">
+                <div class="table-responsive">
+                    <table class="table project-list-table table-nowrap table-centered table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="width: 100px">#</th>
+                                <th scope="col">Tên bằng</th>
+                                <th scope="col">Yêu cầu tối thiểu</th>
+                                <th scope="col">Thời gian học tối thiểu</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(item of bang){%>
+                                <tr>
+                                    <td><img src="assets\images\companies\img-<%= Math.floor(Math.random() * 5) + 1 %>.png" alt="" class="avatar-sm"></td>
+                                    <td>
+                                        <h5 class="text-truncate font-size-14"><a href="#" class="text-dark"><%= item.tenBang%></a></h5>
+                                        <p class="text-muted mb-0"><%= item.moTa%></p>
+                                    </td>
+                                    <td><%= item.chuThich %></td>
+                                    <td><%= item.thoiGianHoc %> (giờ)</td>
+                                    <td><span class="badge badge-primary"><%= item.status ? "Đang mở" : "Tạm ngừng"%></span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="#">Đổi trạng thái</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <%}%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center my-3">
+                <a href="javascript:void(0);" class="text-success"><i class="bx bx-loader bx-spin font-size-18 align-middle mr-2"></i> Load more </a>
+            </div>
+        </div> <!-- end col-->
+    </div>
+    <!-- end row -->
+    
+</div> <!-- container-fluid --> 
