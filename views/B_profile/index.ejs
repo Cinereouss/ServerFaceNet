@@ -3,15 +3,20 @@
   type="text/css"
   href="\assets\libs\toastr\build\toastr.min.css"
 />
-<script src="\js\jquery.js"></script>
+<script src="\assets\libs\toastr\build\toastr.min.js"></script>
+<!-- DataTables -->
+<link href="assets\libs\datatables.net-bs4\css\dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+<link href="assets\libs\datatables.net-buttons-bs4\css\buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
 <% function getdate(date){ 
-  temp = new Date(date); 
-  return temp.getHours() + ":" + temp.getMinutes() + " " +temp.getDate() + "/" + temp.getMonth() + "/" + temp.getFullYear()
+  temp = new Date(date);
+  var month = temp.getMonth();
+  month += 1
+  return temp.getHours() + ":" + temp.getMinutes() + " " +temp.getDate() + "/" + month + "/" + temp.getFullYear()
   } 
 
   function getday(date){ 
-    var today = new Date();
+    var today = new Date(date);
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
@@ -237,27 +242,35 @@ if(hocvien.embedding != null){
           </div>
           <div class="row">
             <div class="card-body" style="padding-top: 0">
-              <div class="">
-                <strong
-                  >Thời gian học (<%=total%> giờ) / Tổng thời gian
-                  (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong
-                ><br />
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                    aria-valuenow=""
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                    style="width: <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc %>%"
-                  ></div>
+              <div class="row">
+                <div class="col-md-10">
+                  <strong
+                    >Thời gian học (<%=total%> giờ) / Tổng thời gian
+                    (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong
+                  ><br />
+                  <div class="progress">
+                    <div
+                      class="progress-bar progress-bar-striped progress-bar-animated"
+                      role="progressbar"
+                      aria-valuenow=""
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      style="width: <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc %>%"
+                    ></div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <button
+                    class="btn btn-warning waves-effect waves-light mr-1  <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc == 100 ? "" : "disabled"%>"
+                    ><i class="fas fa-award"></i> Nhập điểm thực hành</button
+                  >
                 </div>
               </div>
             </div>
           </div>
           <hr />
-          <div style="height : 30vh; overflow-y : auto">
-            <table id="tech-companies-1" class="table table-striped">
+          <div>
+            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
               <thead>
                 <tr>
                   <th
@@ -343,9 +356,17 @@ if(hocvien.embedding != null){
               <i class="fas fa-qrcode"></i> Xếp lớp
             </button>
             <% } if(hocvien.status == 2) { %>
+                <button
+              data-toggle="modal"
+              data-target="#giayto"
+              class="btn btn-warning w-md waves-effect waves-light"
+            >
+              <i class="fas fa-address-card"></i> Bổ sung giấy tờ
+            </button>
+
             <button
               data-toggle="modal"
-              data-target=".bs-example-modal-center"
+              data-target="#qr-modal"
               class="btn btn-warning w-md waves-effect waves-light"
             >
               <i class="fas fa-qrcode"></i> Nhận mã QR
@@ -538,8 +559,6 @@ if(hocvien.embedding != null){
   </div>
 </div>
 
-<script src="\assets\libs\toastr\build\toastr.min.js"></script>
-
 <script>
   $(document).ready(() => {
     $('#xeplop').on('click', () => {
@@ -608,7 +627,173 @@ if(hocvien.embedding != null){
 </script>
 <!-- /.modal -->
 <% } if (hocvien.status == 2){ %>
+
+  <div id="giayto" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+        <h5 class="modal-title mt-0">Bổ sung giấy tờ cho <%= hocvien.ten %></h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <input
+          id="code"
+          type="text"
+          value="<%= hocvien._id %>"
+          hidden
+          readonly
+        />
+      </div>
+      <div class="modal-body">
+              <div class="row">
+                <h4 class="card-title mb-4" style="padding-left: 40%">Giấy tờ yêu cầu</h4>
+              <div class="table-responsive">
+                  <table class="table table-nowrap table-centered mb-0">
+                      <tbody>
+                          <tr>
+                              <td style="width: 60px;">
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="hasGksk" <%= hocvien.hasGksk ? 'checked' : '' %>>
+                                      <label class="custom-control-label" for="hasGksk"></label>
+                                  </div>
+                              </td>
+                              <td>
+                                  <h5 class="text-truncate font-size-14 m-0"><a href="javascript:void(0)" class="text-dark">Giấy khám sức khỏe</a></h5>
+                              </td>
+        
+                              <td>
+                                  <div class="text-center">
+                                      <span class="badge badge-pill badge-soft-danger font-size-11">Chưa có</span>
+                                  </div>
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="hasSyll"  <%= hocvien.hasSyll ? 'checked' : '' %>>
+                                      <label class="custom-control-label" for="hasSyll"></label>
+                                  </div>
+                              </td>
+                              <td>
+                                  <h5 class="text-truncate font-size-14 m-0"><a href="javascript:void(0)" class="text-dark">Sơ yếu lý lịch</a></h5>
+                              </td>
+                              <td>
+                                  <div class="text-center">
+                                      <span class="badge badge-pill badge-soft-success font-size-11">Đã nộp online</span>
+                                  </div>
+                              </td>
+                          </tr>
+
+                          <tr>
+                              <td>
+                                  <div class="custom-control custom-checkbox">
+                                      <input type="checkbox" class="custom-control-input" id="hasDongdangky" <%= hocvien.hasDongdangky ? 'checked' : '' %>>
+                                      <label class="custom-control-label" for="hasDongdangky"></label>
+                                  </div>
+                              </td>
+                              <td>
+                                  <h5 class="text-truncate font-size-14 m-0"><a href="javascript:void(0)" class="text-dark">Đơn đăng ký học</a></h5>
+                              </td>
+                              <td>
+                                  <div class="text-center">
+                                      <span class="badge badge-pill badge-soft-danger font-size-11">Chưa có</span>
+                                  </div>
+                              </td>
+                          </tr>
+
+                          <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="hasAnh" <%= hocvien.hasAnh ? 'checked' : '' %>>
+                                    <label class="custom-control-label" for="hasAnh"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <h5 class="text-truncate font-size-14 m-0"><a href="javascript:void(0)" class="text-dark">Ảnh 3x4</a></h5>
+                            </td>
+                            <td>
+                                <div class="text-center">
+                                    <span class="badge badge-pill badge-soft-danger font-size-11">Chưa có</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                          <tr>
+                            <td>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="hasCmnd" <%= hocvien.hasCmnd ? 'checked' : '' %>>
+                                    <label class="custom-control-label" for="hasCmnd"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <h5 class="text-truncate font-size-14 m-0"><a href="javascript:void(0)" class="text-dark">Bản sao CMND / CCCD / Hộ chiếu</a></h5>
+                            </td>
+                            <td>
+                                <div class="text-center">
+                                    <span class="badge badge-pill badge-soft-success font-size-11">Đã nộp online</span>
+                                </div>
+                            </td>
+                        </tr>
+                      </tbody>
+                  </table>
+                  <hr/>
+                </div>
+              </div>
+              <div class="row" style="padding-top: 2vh;">
+                <h4 class="card-title mb-4" style="padding-left: 40%">Giấy tờ bổ sung</h4>
+                <div class="table-responsive">
+                    <table class="table table-nowrap table-centered mb-0">
+                        <tbody>
+                            <tr>
+                                <td style="width: 60px;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="hasGplx" <%= hocvien.hasGplx ? 'checked' : '' %> >
+                                        <label class="custom-control-label" for="hasGplx"></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5 class="text-truncate font-size-14 m-0"><a href="javascript:void(0)" class="text-dark">Giấy phép lái xe (Bản sao)</a></h5>
+                                </td>
+          
+                                <td>
+                                    <div class="text-center">
+                                        <span class="badge badge-pill badge-soft-danger font-size-11">Chưa có</span>
+                                    </div>
+                                </td>
+                            </tr>
+                          </tbody>
+                    </table>
+                </div>
+              </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="btn-close"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" id="giayto-confirm" class="btn btn-success">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
 <div
+  id="qr-modal"
   class="modal fade bs-example-modal-center"
   tabindex="-1"
   role="dialog"
@@ -657,6 +842,76 @@ if(hocvien.embedding != null){
       correctLevel: QRCode.CorrectLevel.M
     });
   };
+
+  $(document).ready(() => {
+    $('#giayto-confirm').on('click', () => {
+      $.ajax({
+        url: '/api/v1/student/giayto',
+        type: 'post',
+        data: {
+          _id: $('#code').val(),
+          hasCmnd : $('#hasCmnd').is(":checked"),
+          hasGksk : $('#hasGksk').is(":checked"),
+          hasSyll : $('#hasSyll').is(":checked"),
+          hasGplx : $('#hasGplx').is(":checked"),
+          hasAnh : $('#hasAnh').is(":checked"),
+          hasDongdangky : $('#hasDongdangky').is(":checked"),
+        },
+        success: function(data) {
+          if (data === 'success') {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['success']('Yub! Cập nhật thông tin thành công ^^', 'Thành công!');
+          } else {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.on.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['error'](
+              'Cập nhật thông tin thất bại. Kiểm tra lại!',
+              'Ops! Thất bại'
+            );
+          }
+        }
+      });
+    });
+  })
 </script>
 <% } %> 
 
@@ -834,4 +1089,35 @@ if(hocvien.embedding != null){
 
      document.body.innerHTML = originalContents;
 }  
+</script>
+
+<!-- Required datatable js -->
+<script src="assets\libs\datatables.net\js\jquery.dataTables.min.js"></script>
+<script src="assets\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="assets\libs\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+<script src="assets\libs\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js"></script>
+<script src="assets\libs\jszip\jszip.min.js"></script>
+<script src="assets\libs\pdfmake\build\pdfmake.min.js"></script>
+<script src="assets\libs\pdfmake\build\vfs_fonts.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.html5.min.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.print.min.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.colVis.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="assets\libs\datatables.net-responsive\js\dataTables.responsive.min.js"></script>
+<script src="assets\libs\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#datatable-buttons')
+      .DataTable({
+        lengthChange: !1,
+        buttons: ['copy', 'excel', 'pdf', 'colvis']
+      })
+      .buttons()
+      .container()
+      .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
+});
+
 </script>

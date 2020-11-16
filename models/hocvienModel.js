@@ -117,6 +117,10 @@ const hocVienSchema = new mongoose.Schema({
     status: {
         type : Number,
         default : 1,
+    },
+    diemLt: {
+        type : Number,
+        default : 0,
     }
 })
 

@@ -24,4 +24,8 @@ router
 
 router.route('/xeplop').post(authController.protect, authController.restrictTo("admin"),hocVienController.setLop)
 
+router.route('/giayto').post(authController.protect, authController.restrictTo("admin"),hocVienController.giayto)
+
+router.route('/getall').post(authController.protect, authController.restrictTo("admin"),hocVienController.getAll)
+
 module.exports = router;

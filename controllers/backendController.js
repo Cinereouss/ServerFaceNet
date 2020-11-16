@@ -5,6 +5,7 @@ const Lop = require('../models/lopModel')
 const GiangVien = require('../models/giangvienModel')
 const LoaiBang = require('../models/loaibangModel')
 const Contact = require('../models/contactModel')
+const Users = require('../models/userModel')
 
 const mongoose = require('mongoose')
 
@@ -114,4 +115,24 @@ exports.showContactPage = async (req, res, next) => {
 exports.showStopPage = async (req, res, next) => {    
     const pending = await HocVien.find({pending : true})
     res.render('backend', {page: "B_stop", pending: pending})
+}
+
+exports.showLopHocInfo2Page = async (req, res, next) => {    
+    const pending = await HocVien.find({pending : true})
+    const lop = await Lop.findById(req.params.id)
+    const hocvien = await HocVien.find({idLop : lop._id})
+    const hocviendk = await HocVien.find({idLop : lop._id, status : 5})
+    res.render('backend', {page: "B_lopinfo", pending: pending, lop : lop, hocvien : hocvien, hocvien2 : hocviendk})
+}
+
+exports.showTttkPage = async (req, res, next) => {    
+    const pending = await HocVien.find({pending : true})
+    const user2 = await Users.find({role : "teacher"})
+
+    res.render('backend', {page: "B_tttk", pending: pending, user2 : user2})
+}
+
+exports.showTTKPage = async (req, res, next) => {    
+    const pending = await HocVien.find({pending : true})
+    res.render('backend', {page: "B_createuser", pending: pending})
 }

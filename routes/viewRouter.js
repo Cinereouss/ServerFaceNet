@@ -59,12 +59,14 @@ router.route('/lichhen').get(authController.protect, authController.restrictTo("
 router.route('/diemdanh').get(authController.protect, authController.restrictTo("admin"), backendController.showDiemDanhPage);
 router.route('/lophoc').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocPage);
 router.route('/lophoc/profile/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocInfoPage);
+router.route('/lophoc/info/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showLopHocInfo2Page);
 router.route('/vechungtoi').get(authController.protect, authController.restrictTo("admin"), backendController.showInfoPage);
 router.route('/loaibang').get(authController.protect, authController.restrictTo("admin"), backendController.showLoaiBangPage);
 router.route('/thongkehocvien').get(authController.protect, authController.restrictTo("admin"), backendController.showTkHocVienPage);
 router.route('/thongkegiangvien').get(authController.protect, authController.restrictTo("admin"), backendController.showTkGiangVienPage);
 router.route('/contact').get(authController.protect, authController.restrictTo("admin"), backendController.showContactPage);
 router.route('/stop').get(authController.protect, authController.restrictTo("admin"), backendController.showStopPage);
-
+router.route('/thongtintaikhoan').get(authController.protect, authController.restrictTo("admin"), backendController.showTttkPage);
+router.route('/taotaikhoan').get(authController.protect, authController.restrictTo("admin"), backendController.showTTKPage);
 
 module.exports = router;
