@@ -66,7 +66,7 @@ router.route('/thongkehocvien').get(authController.protect, authController.restr
 router.route('/thongkegiangvien').get(authController.protect, authController.restrictTo("admin"), backendController.showTkGiangVienPage);
 router.route('/contact').get(authController.protect, authController.restrictTo("admin"), backendController.showContactPage);
 router.route('/stop').get(authController.protect, authController.restrictTo("admin"), backendController.showStopPage);
-router.route('/thongtintaikhoan').get(authController.protect, authController.restrictTo("admin"), backendController.showTttkPage);
+router.route('/thongtintaikhoan/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showTttkPage);
 router.route('/taotaikhoan').get(authController.protect, authController.restrictTo("admin"), backendController.showTTKPage);
-router.route('/role').get(authController.protect, authController.restrictTo("admin"), backendController.showTTKPage);
+router.route('/role').get(authController.protect, authController.restrictTo("admin"), backendController.showRolePage);
 module.exports = router;

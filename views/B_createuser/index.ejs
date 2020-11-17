@@ -112,8 +112,9 @@
                   <option value="" selected disabled hidden>
                     -- Cấp quyền --</option
                   >
-                  <option value="admin">Quản trị viên</option>
-                  <option value="teacher">Giảng viên</option>
+                  <% for (item of role) { %> 
+                  <option value="<%= item.role%>"><%= item.name %></option>
+                  <% } %> 
                 </select>
               </div>
             </div>

@@ -12,6 +12,7 @@ router.post('/confirm-phone', authController.verifyPhoneNumber)
 router.post('/confirm-capcha', authController.handleCapcha)
 router.post('/checkuser', authController.check);
 router.post('/signup2', authController.signup2);
-
+router.post('/update-active', authController.active);
+router.post('/update-role', authController.role);
 
 module.exports = router;

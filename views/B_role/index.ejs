@@ -1,1 +1,185 @@
-ok
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-0 font-size-18">Quyền và tài khoản</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">
+              <a href="javascript: void(0);">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Quyền</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <table
+            id="datatable-buttons"
+            class="table table-centered table-hover table-bordered table-striped"
+            style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+          >
+            <thead>
+              <tr>
+                <th style="width: 20px;">
+                  #
+                </th>
+                <th>ID</th>
+                <th>Chủ tài khoản</th>
+                <th>Tên đăng nhập</th>
+                <th>Role</th>
+                <th>Active</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% for(item of user){ %>
+              <tr>
+                <th style="width: 20px;">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="customCheck1"
+                    />
+                    <label class="custom-control-label" for="customCheck1"
+                      >&nbsp;</label
+                    >
+                  </div>
+                </th>
+                <td><%= item._id %></td>
+                <td><%= item.name %></td>
+                <td><%= item.email %></td>
+                <td>
+                  <div class="btn-group mr-1 mt-2">
+                    <button
+                      id="btn-<%= item._id %>"
+                      type="button"
+                      class="btn btn-success dropdown-toggle"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="true"
+                    >
+                      <%= item.role %> <i class="mdi mdi-chevron-down"></i>
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -154px, 0px);"
+                      x-placement="top-start"
+                    >
+                      <% for(item2 of role) { %>
+                      <a
+                        id="<%= item._id %>-<%= item2.role %>"
+                        class="dropdown-item update-role"
+                        ><%= item2.name %></a
+                      >
+                      <% } %>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    class="custom-control custom-switch custom-switch-lg"
+                    dir="ltr"
+                  >
+                    <input type="checkbox" class="custom-control-input
+                    active-user" id="active-<%= item._id %>" <%= item.active ===
+                    "true" ? "checked" : ""%> />
+                    <label
+                      class="custom-control-label"
+                      for="active-<%= item._id %>"
+                    ></label>
+                  </div>
+                </td>
+                <td>
+                  <a
+                    href="thongtintaikhoan/<%= item._id %> "
+                    class="btn btn-primary waves-effect waves-light btn-sm"
+                    >Xem thông tin chi tiết
+                    <i class="mdi mdi-arrow-right ml-1"></i
+                  ></a>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row -->
+</div>
+<!-- container-fluid -->
+
+<!-- Required datatable js -->
+<script src="assets\libs\datatables.net\js\jquery.dataTables.min.js"></script>
+<script src="assets\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="assets\libs\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+<script src="assets\libs\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js"></script>
+<script src="assets\libs\jszip\jszip.min.js"></script>
+<script src="assets\libs\pdfmake\build\pdfmake.min.js"></script>
+<script src="assets\libs\pdfmake\build\vfs_fonts.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.html5.min.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.print.min.js"></script>
+<script src="assets\libs\datatables.net-buttons\js\buttons.colVis.min.js"></script>
+
+<!-- Responsive examples -->
+<script src="assets\libs\datatables.net-responsive\js\dataTables.responsive.min.js"></script>
+<script src="assets\libs\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#datatable-buttons').DataTable();
+
+    $('.active-user').on('click', function() {
+      $.ajax({
+        url: '/api/v1/users/update-active',
+        method: 'POST',
+        data: {
+          id: $(this)
+            .attr('id')
+            .split('-')[1],
+          active: $(this).is(':checked')
+        },
+        success: function(data) {
+          if (data['status'] == 'true') {
+            $(this).prop('checked', !$(this).is(':checked'));
+          } else {
+            $(this).prop('checked', $(this).is(':checked'));
+          }
+        }
+      });
+    });
+
+    $('.update-role').on('click', function() {
+      var idd = $(this).attr('id').split('-')[0]
+      var role = $(this).attr('id').split('-')[1]
+      $.ajax({
+        url: '/api/v1/users/update-role',
+        method: 'POST',
+        data: {
+          id: idd,
+          role: role
+        },
+        success: function(data) {
+          if (data['status'] == 'true') {
+            $('#btn-'+ idd ).text(role)
+            $('#btn-'+ idd ).append('<i class="mdi mdi-chevron-down"></i>')
+          }
+        }
+      });
+    });
+  });
+</script>
