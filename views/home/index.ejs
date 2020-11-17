@@ -45,7 +45,7 @@ temp.getFullYear(); } %>
                 <img src="assets\images\users\avatar-1.jpg" alt="" class="img-thumbnail rounded-circle">
               </div>
               <h5 class="font-size-15 text-truncate"><%= user.name %></h5>
-              <p class="text-muted mb-0 text-truncate">Nhân viên trung tâm</p>
+              <p class="text-muted mb-0 text-truncate"><%= user.email %></p>
             </div>
 
             <div class="col-sm-8">
@@ -57,8 +57,8 @@ temp.getFullYear(); } %>
                     <p class="text-muted mb-0">Kinh nghiệm</p>
                   </div>
                   <div class="col-6">
-                    <h5 class="font-size-15">Admin</h5>
-                    <p class="text-muted mb-0">Quản trị viên</p>
+                    <h5 class="font-size-15">Vị trí làm việc</h5>
+                    <p class="text-muted mb-0"><%= user.role == 'admin' ? "Quản trị viên" : "Giảng viên hướng dẫn" %></p>
                   </div>
                 </div>
                 <div class="mt-4">

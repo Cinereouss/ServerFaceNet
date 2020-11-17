@@ -10,6 +10,8 @@ router.get('/logout', authController.logout);
 router.post('/sendsms', authController.sendMessage)
 router.post('/confirm-phone', authController.verifyPhoneNumber)
 router.post('/confirm-capcha', authController.handleCapcha)
+router.post('/checkuser', authController.check);
+router.post('/signup2', authController.signup2);
 
 
 module.exports = router;

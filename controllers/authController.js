@@ -100,7 +100,7 @@ exports.logout = (req, res) => {
         httpOnly: true
     });
 
-    res.status(200).json({ status: 'success' });
+    res.redirect('/login')
 };
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -352,3 +352,38 @@ exports.handleCapcha = (req, res, next) => {
         .then(google_response => res.json({ google_response }))
         .catch(error => res.json({ error }));
 }
+
+exports.check = catchAsync(async (req, res, next) => {
+    // Create new account
+    const user = await User.find({email : req.body.email})
+    if(user.length > 0) {
+        return res.status(200).json({
+            status: 'false'
+        });
+    }else{
+        return res.status(200).json({
+            status: 'true'
+        });
+    }
+})
+
+exports.signup2 = catchAsync(async (req, res, next) => {
+    // Create new account
+    const newUser = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        passwordConfirm: req.body.passwordConfirm,
+        role: req.body.role
+    });
+    console.log(newUser)
+    if(newUser != null) {
+        return res.status(200).json({
+            status: 'true'
+        });
+    }else{
+        return res.status(200).json({
+            status: 'false'
+        });
+    }
+});

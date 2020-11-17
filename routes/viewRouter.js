@@ -68,5 +68,5 @@ router.route('/contact').get(authController.protect, authController.restrictTo("
 router.route('/stop').get(authController.protect, authController.restrictTo("admin"), backendController.showStopPage);
 router.route('/thongtintaikhoan').get(authController.protect, authController.restrictTo("admin"), backendController.showTttkPage);
 router.route('/taotaikhoan').get(authController.protect, authController.restrictTo("admin"), backendController.showTTKPage);
-
+router.route('/role').get(authController.protect, authController.restrictTo("admin"), backendController.showTTKPage);
 module.exports = router;

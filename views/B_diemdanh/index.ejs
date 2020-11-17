@@ -81,9 +81,10 @@ temp.getFullYear(); } %>
                   </td>
                   <td>
                     <button
+                      value="<%= item._id %>"
                       type="button"
-                      class="btn btn-primary btn-sm btn-rounded"
-                      data-toggle="modal" data-target=".bs-example-modal-center"
+                      class="btn btn-primary btn-sm btn-rounded show-modal-ok"
+                      data-toggle="modal" data-target="#<%= item._id %>"
                     >
                       <i class="mdi mdi-pencil"></i> View and Edit
                     </button>
@@ -99,51 +100,17 @@ temp.getFullYear(); } %>
   </div>
   <!-- end col -->
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('.show-modal-ok').on('click', function() {
+    document.getElementById($(this).val()).showModal()
+    })
+  })
+</script>
 <!-- end row -->
 <!-- Responsive Table js -->
 <script src="assets\libs\admin-resources\rwd-table\rwd-table.min.js"></script>
-
-    <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title mt-0">Thông tin điểm danh</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6" style="border-right: 1px solid #ccc;">
-                            <div>
-
-                                Thời gian vào : <strong><%= getdate(item.checkInAt) %></strong></br>
-                                Hình ảnh lúc vào:
-                            </div>
-                            <div style="border: 5px solid #ccc;">
-                                <img class="rounded" src="/img/attendance/<%= item.imageCheckIn %>"  alt="anh-hoc-vien" width="100%">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div>
-
-                            Thời gian ra : <strong><%= getdate(item.checkOutAt) %></strong></br>
-                            Hình ảnh lúc ra: 
-                            </div>
-                            <div style="border: 5px solid #ccc;">
-                                <img class="rounded" src="/img/attendance/<%= item.imageCheckOut %>"  alt="anh-hoc-vien" width="100%">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-              </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-</div>
-
 <script src="assets\libs\datatables.net\js\jquery.dataTables.min.js"></script>
 <script src="assets\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
 <!-- Buttons examples -->
@@ -174,3 +141,45 @@ $(document).ready(function() {
 });
         </script>  
 </script>
+
+<% for(item of log) { %>
+  <div id="<%= item._id %>" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div  class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title mt-0">Thông tin điểm danh</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-6" style="border-right: 1px solid #ccc;">
+                          <div>
+
+                              Thời gian vào : <strong><%= getdate(item.checkInAt) %></strong></br>
+                              Hình ảnh lúc vào:
+                          </div>
+                          <div style="border: 5px solid #ccc;">
+                              <img class="rounded" src="/img/attendance/<%= item.imageCheckIn %>"  alt="anh-hoc-vien" width="100%">
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div>
+
+                          Thời gian ra : <strong><%= getdate(item.checkOutAt) %></strong></br>
+                          Hình ảnh lúc ra: 
+                          </div>
+                          <div style="border: 5px solid #ccc;">
+                              <img class="rounded" src="/img/attendance/<%= item.imageCheckOut %>"  alt="anh-hoc-vien" width="100%">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+            </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  <% } %>

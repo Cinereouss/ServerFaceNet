@@ -4,6 +4,12 @@
   rel="stylesheet"
   type="text/css"
 />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="\assets\libs\toastr\build\toastr.min.css"
+/>
+<script src="\assets\libs\toastr\build\toastr.min.js"></script>
 
 <div class="container-fluid">
   <!-- start page title -->
@@ -44,66 +50,72 @@
                   type="text"
                   class="form-control"
                   placeholder="Nhập tên chủ sở hữu..."
+                  required
                 />
               </div>
             </div>
 
             <div class="form-group row mb-4">
-                <label for="email" class="col-form-label col-lg-2"
-                  >Tên đăng nhập</label
-                >
-                <div class="col-lg-10">
-                  <input
-                    id="email"
-                    name="email"
-                    type="text"
-                    class="form-control"
-                    placeholder="Nhập tên đăng nhập..."
-                  />
-                </div>
+              <label for="email" class="col-form-label col-lg-2"
+                >Tên đăng nhập</label
+              >
+              <div class="col-lg-10">
+                <input
+                  id="email"
+                  name="email"
+                  type="text"
+                  class="form-control"
+                  placeholder="Nhập tên đăng nhập..."
+                  required
+                />
               </div>
+            </div>
 
-              <div class="form-group row mb-4">
-                <label for="password" class="col-form-label col-lg-2"
-                  >Mật khẩu</label
-                >
-                <div class="col-lg-10">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="form-control"
-                    placeholder="Nhập mật khẩu..."
-                  />
-                </div>
+            <div class="form-group row mb-4">
+              <label for="password" class="col-form-label col-lg-2"
+                >Mật khẩu</label
+              >
+              <div class="col-lg-10">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="Nhập mật khẩu..."
+                  required
+                />
               </div>
+            </div>
 
-              <div class="form-group row mb-4">
-                <label for="re-password" class="col-form-label col-lg-2"
-                  >Nhập lại mật khẩu</label
-                >
-                <div class="col-lg-10">
-                  <input
-                    id="re-password"
-                    name="re-password"
-                    type="password"
-                    class="form-control"
-                    placeholder="Nhập lại mật khẩu..."
-                  />
-                </div>
+            <div class="form-group row mb-4">
+              <label for="re-password" class="col-form-label col-lg-2"
+                >Nhập lại mật khẩu</label
+              >
+              <div class="col-lg-10">
+                <input
+                  id="re-password"
+                  name="passwordConfirm"
+                  type="password"
+                  class="form-control"
+                  placeholder="Nhập lại mật khẩu..."
+                  required
+                />
               </div>
+            </div>
 
-              <div class="form-group row mb-4">
-                <label for="re-password" class="col-form-label col-lg-2"
+            <div class="form-group row mb-4">
+              <label for="role" class="col-form-label col-lg-2"
                 >Authencation</label
               >
-                <div class="col-md-10">
-                    <select class="form-control">
-                        <option value="" selected disabled hidden> -- Cấp quyền --</option>
-                        <option value="admin">Quản trị viên</option>
-                        <option value="teacher">Giảng viên</option>
-                    </select>
-                </div>
+              <div class="col-md-10">
+                <select id="role" class="form-control" name="role" required>
+                  <option value="" selected disabled hidden>
+                    -- Cấp quyền --</option
+                  >
+                  <option value="admin">Quản trị viên</option>
+                  <option value="teacher">Giảng viên</option>
+                </select>
+              </div>
             </div>
           </form>
           <div class="row mb-4">
@@ -145,77 +157,86 @@
 <!-- dropzone plugin -->
 <script src="assets\libs\dropzone\min\dropzone.min.js"></script>
 
-
 <script>
-    $(document).ready(() => {
-        $('#emai').focusout(function () {
-        $.ajax({
-            type: 'POST',
-            url: 'CreateUser/checkUser',
-            data: {
-                'email' : $('#email').val()
-            },
-            success: function (data) {
-                console.log(data);
-                if (data === 'false') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Tên đăng nhập đã tồn tại !',
-                    });
-                    $('#username').val('');
-                    $('#username').focus()
-                }
-            }
-        });
-    });
-    $('#password').focusout(function () {
-        if($('#password').val().length < 8){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Mật khẩu quá ngắn, vui lòng nhập nhiều hơn 8 ký tự !',
-            });
-            $('#password').val('');
-        }
-    });
-    $('#re-password').focusout(function () {
-        if($('#password').val() !== $('#re-password').val() ){
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Mật khẩu không trùng nhau, vui lòng kiểm tra lại !',
-            });
-            $('#re-password').val('');
-        }
-    });
-    $('#form-dangky').ajaxForm({
-        url : 'CreateUser/register',
+  $(document).ready(() => {
+    toastr.options = {
+      closeButton: false,
+      debug: false,
+      newestOnTop: false,
+      progressBar: false,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: false,
+      onclick: null,
+      showDuration: 300,
+      hideDuration: 1000,
+      timeOut: 5000,
+      extendedTimeOut: 1000,
+      showEasing: 'swing',
+      hideEasing: 'linear',
+      showMethod: 'fadeIn',
+      hideMethod: 'fadeOut'
+    };
+    $('#email').focusout(function() {
+      $.ajax({
         type: 'POST',
-        success : function (data) {
-           if(data === 'true'){
-               Swal.fire({
-                   icon: 'success',
-                   title: 'Thông báo',
-                   text: 'Tạo tài khoản thành công',
-               });
-               $('#username').val('');
-               $('#email').val('');
-               $('#password').val('');
-               $('#re-password').val('');
-               $('#username').focus()
-           }else {
-               Swal.fire({
-                   icon: 'error',
-                   title: 'Oops...',
-                   text: 'Tạo tài khoản thất bại vui lòng liên hệ quản tri viên',
-               });
-               $('#username').val('');
-               $('#email').val('');
-               $('#password').val('');
-               $('#re-password').val('');
-               $('#username').focus()
-           }
+        url: '/api/v1/users/checkuser',
+        data: {
+          email: $('#email').val()
+        },
+        success: function(data) {
+          if (data['status'] === 'false') {
+            toastr['error']('Tài khoản này đã tồn tại', 'Thất bại!');
+            $('#email').val('');
+            $('#email').focus();
+          }
         }
-    })
+      });
+    });
+    $('#password').focusout(function() {
+      if ($('#password').val().length < 8) {
+        toastr['error'](
+          'Mật khẩu quá ngắn, vui lòng nhập nhiều hơn 8 ký tự !',
+          'Cảnh báo!'
+        );
+        $('#password').val('');
+      }
+    });
+    $('#re-password').focusout(function() {
+      if ($('#password').val() !== $('#re-password').val()) {
+        toastr['error'](
+          'Mật khẩu không trùng nhau, vui lòng kiểm tra lại !',
+          'Cảnh báo!'
+        );
+        $('#re-password').val('');
+      }
+    });
+    $('#submit').on('click', () => {
+      $.ajax({
+        url: '/api/v1/users/signup2',
+        type: 'POST',
+        data: {
+          name: $('#name').val(),
+          email: $('#email').val(),
+          password: $('#password').val(),
+          passwordConfirm: $('#re-password').val(),
+          role: $('#role').val()
+        },
+        success: function(data) {
+          if (data['status'] === 'true') {
+            toastr['success']('Yub! Tạo tài khoản thành công !', 'Thành công!');
+          } else {
+            toastr['error'](
+              'Tạo tài khoản thất bại, vui lòng kiểm tra lại !',
+              'Cảnh báo!'
+            );
+          }
+          $('#name').val('');
+          $('#email').val('');
+          $('#password').val('');
+          $('#re-password').val('');
+          $('#username').focus();
+        }
+      });
+    });
+  });
 </script>
