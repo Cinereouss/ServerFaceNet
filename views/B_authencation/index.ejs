@@ -1,0 +1,339 @@
+<%
+  function findRel(iprole, ipaction, iprel){
+    for(item of iprel){
+      if(item.rule == iprole && item.action == ipaction){
+        return item
+      }
+    }
+    return 0
+  }
+%> 
+
+<!-- Responsive Table css -->
+<link
+  href="assets\libs\admin-resources\rwd-table\rwd-table.min.css"
+  rel="stylesheet"
+  type="text/css"
+/>
+
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-0 font-size-18">Quyền và nhóm quyền</h4>
+
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item">
+              <a href="javascript: void(0);">Admin</a>
+            </li>
+            <li class="breadcrumb-item active">Nhóm quyền</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-rep-plugin">
+            <div class="table-responsive mb-0" data-pattern="priority-columns">
+
+              <button data-toggle="modal"
+              data-target=".group-role" type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 float-right"><i class="mdi mdi-plus mr-1"></i> Thêm nhóm quyền</button>
+              <button data-toggle="modal"
+              data-target=".group-auth"type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 float-right"><i class="mdi mdi-plus mr-1"></i> Thêm action</button>
+              <table
+                id="tech-companies-1"
+                class="table table-striped table-hover table-bordered text-center"
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th data-priority="3">Action</th>
+                    <th data-priority="3">Url</th>
+                    <th data-priority="3">Active</th>
+                    <% for (var [i, value] of role.entries()) { %>
+                    <th data-priority="3"><%= value.role %></th>
+                    <% } %>
+                  </tr>
+                </thead>
+                <tbody>
+                <% for (var [i, value] of action.entries()) { %>
+                  <tr>
+                    <th><%= i+1 %></span></th>
+                    <td><%= value.name %></td>
+                    <td><code><%= value.url %></code></td>
+                    <td><span id="active-<%= value._id%>" class="badge badge-<%= value.active ? "success" : "danger"%> font-size-10 active-span"><%= value.active ? "Kích hoạt" : "Không kích hoạt"%></span></td>
+                    <% for (item of role) { 
+                          var check = findRel(item.role, value.url, rel)
+                    %>
+                        <td><div class="custom-control custom-switch custom-switch-md mb-3" dir="ltr">
+                            <input id="<%= check._id %>" type="checkbox" class="custom-control-input update-active-role" <%= check.active ? "checked" : ""%>>
+                            <label class="custom-control-label" for="<%= check._id %>"></label>
+                        </div></td>                    
+                    <% } %>
+                  </tr>
+                <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row -->
+</div>
+<!-- container-fluid -->
+
+<div
+  class="modal fade bs-example-modal-center group-role"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Đặt lịch hẹn cho</h5>
+        <input
+          id="code"
+          type="text"
+          value=""
+          hidden
+          readonly
+        />
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="appointment" class=" col-form-label">Ngày hẹn:</label>
+        <input
+          class="form-control"
+          type="datetime-local"
+          id="appointment"
+          required
+        />
+        <label for="note" class=" col-form-label">Ghi chú:</label>
+        <textarea id="note" class="form-control" name="ghiChu"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="btn-close"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" id="datlich" class="btn btn-success">
+          Đặt lịch hẹn
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div
+  class="modal fade bs-example-modal-center group-auth"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mt-0">Auth</h5>
+        <input
+          id="code"
+          type="text"
+          value=""
+          hidden
+          readonly
+        />
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="appointment" class=" col-form-label">Ngày hẹn:</label>
+        <input
+          class="form-control"
+          type="datetime-local"
+          id="appointment"
+          required
+        />
+        <label for="note" class=" col-form-label">Ghi chú:</label>
+        <textarea id="note" class="form-control" name="ghiChu"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          id="btn-close"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Close
+        </button>
+        <button type="button" id="datlich" class="btn btn-success">
+          Đặt lịch hẹn
+        </button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<script>
+  $(document).ready(() => {
+    $('#datlich').on('click', () => {
+      $.ajax({
+        url: '/api/v1/student/setappointment',
+        type: 'post',
+        data: {
+          _id: $('#code').val(),
+          ngayHen: $('#appointment').val(),
+          ghiChu: $('#note').val()
+        },
+        success: function(data) {
+          if (data === 'success') {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['success']('Yub! Đặt lịch hẹn thành công ^^', 'Thành công!');
+          } else {
+            $('#btn-close').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.on.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['error'](
+              'Đặt lịch hẹn thất bại. Kiểm tra lại!',
+              'Ops! Thất bại'
+            );
+          }
+        }
+      });
+    });
+  });
+</script>
+
+
+
+<!-- Responsive Table js -->
+<script src="assets\libs\admin-resources\rwd-table\rwd-table.min.js"></script>
+<script src="\assets\libs\toastr\build\toastr.min.js"></script>
+
+<!-- Init js -->
+<script>
+  $(document).ready(function() {
+    $(function() {
+      $('.table-responsive').responsiveTable({
+        addDisplayAllBtn: 'btn btn-primary'
+      });
+    });
+
+    $('.update-active-role').on('click', function() {
+      var idd = $(this).attr('id')
+      var check = $(this).is(':checked')
+      $.ajax({
+        url: '/api/v1/role/active-role',
+        method: 'POST',
+        data: {
+          id: idd,
+          active: check
+        },
+        success: function(data) {
+          if (data['status'] == 'true') {
+            $(this).prop('checked', !$(this).is(':checked'));
+          } else {
+            $(this).prop('checked', $(this).is(':checked'));
+          }
+        }
+      });
+    });
+
+    $('.active-span').on('click', function() {
+      var idd = $(this).attr('id').split('-')[1]
+      var active = $(this).text() == "Kích hoạt" ? false : true
+      $.ajax({
+        url: '/api/v1/role/active-action',
+        method: 'POST',
+        data: {
+          id: idd,
+          active : active
+        },
+        success: function(data) {
+          if (data['status'] == 'true') {
+            $('#active-'+ idd ).text(active ? "Kích hoạt" : "Không kích hoạt")
+            if(active){
+              $('#active-'+ idd ).removeClass('badge-danger').addClass('badge-success')
+            }else{
+              $('#active-'+ idd ).removeClass('badge-success').addClass('badge-danger')
+            }
+            
+          }
+        }
+      });
+    });
+
+  });
+</script>

@@ -245,7 +245,7 @@ if(hocvien.embedding != null){
               <div class="row">
                 <div class="col-md-10">
                   <strong
-                    >Thời gian học (<%=total%> giờ) / Tổng thời gian
+                    >Thời gian học (<%=total.toFixed(2)%> giờ) / Tổng thời gian
                     (<%=hocvien.idLop.idLoaiBang.thoiGianHoc%> giờ) </strong
                   ><br />
                   <div class="progress">
@@ -261,8 +261,10 @@ if(hocvien.embedding != null){
                 </div>
                 <div class="col-md-2">
                   <button
+                  data-toggle="modal"
+                  data-target=".bs-example-modal-center"
                     class="btn btn-warning waves-effect waves-light mr-1  <%= (total * 100) / hocvien.idLop.idLoaiBang.thoiGianHoc == 100 ? "" : "disabled"%>"
-                    ><i class="fas fa-award"></i> Nhập điểm thực hành</button
+                    ><i class="fas fa-award"></i> Nhập điểm lý thuyết</button
                   >
                 </div>
               </div>
@@ -319,6 +321,126 @@ if(hocvien.embedding != null){
               </tbody>
             </table>
           </div>
+          <div
+          class="modal fade bs-example-modal-center"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="mySmallModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title mt-0">Nhập điểm cho <%= hocvien.ten %></h5>
+                <input
+                  id="code"
+                  type="text"
+                  value="<%= hocvien._id %>"
+                  hidden
+                  readonly
+                />
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <label for="note" class=" col-form-label">Điểm:</label>
+                  <input id="node" class="form-control" required="" type="text range" min="1" max="3" placeholder="Nhập điểm học viên...">
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  id="btn-close"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" id="datlich" class="btn btn-success">
+                  Xác nhận
+                </button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- toastr plugin -->
+        <script src="\assets\libs\toastr\build\toastr.min.js"></script>
+        
+        <script>
+          $(document).ready(() => {
+            $('#datlich').on('click', () => {
+              $.ajax({
+                url: '/api/v1/student/setdiem',
+                type: 'post',
+                data: {
+                  _id: $('#code').val(),
+                  diem: $('#node').val(),
+                },
+                success: function(data) {
+                  if (data === 'success') {
+                    $('#btn-close').click();
+                    toastr.options = {
+                      closeButton: false,
+                      debug: false,
+                      newestOnTop: false,
+                      progressBar: false,
+                      positionClass: 'toast-bottom-right',
+                      preventDuplicates: false,
+                      onclick: null,
+                      showDuration: 300,
+                      hideDuration: 1000,
+                      timeOut: 5000,
+                      extendedTimeOut: 1000,
+                      showEasing: 'swing',
+                      hideEasing: 'linear',
+                      showMethod: 'fadeIn',
+                      hideMethod: 'fadeOut'
+                    };
+                    toastr.options.onHidden = () => {
+                      location.reload();
+                    };
+                    toastr['success']('Yub! Đặt lịch hẹn thành công ^^', 'Thành công!');
+                  } else {
+                    $('#btn-close').click();
+                    toastr.options = {
+                      closeButton: false,
+                      debug: false,
+                      newestOnTop: false,
+                      progressBar: false,
+                      positionClass: 'toast-bottom-right',
+                      preventDuplicates: false,
+                      onclick: null,
+                      showDuration: 300,
+                      hideDuration: 1000,
+                      timeOut: 5000,
+                      extendedTimeOut: 1000,
+                      showEasing: 'swing',
+                      hideEasing: 'linear',
+                      showMethod: 'fadeIn',
+                      hideMethod: 'fadeOut'
+                    };
+                    toastr.on.options.onHidden = () => {
+                      location.reload();
+                    };
+                    toastr['error'](
+                      'Đặt lịch hẹn thất bại. Kiểm tra lại!',
+                      'Ops! Thất bại'
+                    );
+                  }
+                }
+              });
+            });
+          });
+        </script>
+
         <% } %>
 
         <hr />
@@ -538,7 +660,7 @@ if(hocvien.embedding != null){
         <select class="form-control" id="lop">
           <option value="" selected disabled hidden>--Chọn lớp--</option>
           <% for(item of lop) { %>
-            <option value="<%= item._id %>" ><%= item.tenLop %></option>
+            <option value="<%= item._id %>" ><%= item.tenLop + ' - GVHD: ' +item.idGiangVien.ten%></option>
           <% } %>
       </select>
       </div>

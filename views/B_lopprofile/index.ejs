@@ -150,6 +150,11 @@
                       >
                         Nơi đón
                       </th>
+                      <th
+                        style="position: sticky; top : -1px ;background-color: white;"
+                      >
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -160,6 +165,19 @@
                       <td><%= item.sdt %></td>
                       <td><%= item.email %></td>
                       <td><%= item.pickUpLocation %></a></td>
+                      <td>
+                        <ul class="list-inline font-size-20 contact-links mb-0">
+                            <li class="list-inline-item px-2">
+                                <a href="mailto: <%= item.email %>" data-toggle="tooltip" data-placement="top" title="Gửi email"><i class="bx bx-message-square-dots"></i></a>
+                            </li>
+                            <li class="list-inline-item px-2">
+                                <a href="tel: <%= item.sdt %>" data-toggle="tooltip" data-placement="top" title="Liên hệ"><i class="bx bx-phone-call"></i></a>
+                            </li>
+                            <li class="list-inline-item px-2">
+                                <a href="/profile/<%= item._id%>" data-toggle="tooltip" data-placement="top" title="Profile"><i class="bx bx-user-circle"></i></a>
+                            </li>
+                        </ul>
+                      </td>
                     </tr>
                     <% } %>
                   </tbody>

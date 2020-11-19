@@ -7,7 +7,8 @@ const roleSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        required: [true, 'Please enter name of role !']
+        required: [true, 'Please enter name of role !'],
+        unique: true
     }
 });
 

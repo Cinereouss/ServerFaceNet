@@ -54,6 +54,7 @@ router.route('/dondangkyonline').get(authController.protect, authController.rest
 router.route('/profile/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showProfilePage);
 router.route('/student').get(authController.protect, authController.restrictTo("admin"), backendController.showAllStudentPage);
 router.route('/dahen').get(authController.protect, authController.restrictTo("admin"), backendController.showDaHenPage);
+router.route('/luutru').get(authController.protect, authController.restrictTo("admin"), backendController.showLuuTruPage);
 router.route('/choxeplop').get(authController.protect, authController.restrictTo("admin"), backendController.showXepLopPage);
 router.route('/lichhen').get(authController.protect, authController.restrictTo("admin"), backendController.showLichHenPage);
 router.route('/diemdanh').get(authController.protect, authController.restrictTo("admin"), backendController.showDiemDanhPage);
@@ -69,4 +70,5 @@ router.route('/stop').get(authController.protect, authController.restrictTo("adm
 router.route('/thongtintaikhoan/:id').get(authController.protect, authController.restrictTo("admin"), backendController.showTttkPage);
 router.route('/taotaikhoan').get(authController.protect, authController.restrictTo("admin"), backendController.showTTKPage);
 router.route('/role').get(authController.protect, authController.restrictTo("admin"), backendController.showRolePage);
+router.route('/authencation').get(authController.protect, authController.restrictTo("admin"), backendController.showAuthPage);
 module.exports = router;

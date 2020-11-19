@@ -7,6 +7,8 @@ const LoaiBang = require('../models/loaibangModel')
 const Contact = require('../models/contactModel')
 const Users = require('../models/userModel')
 const Role = require('../models/groupModel')
+const Action = require('../models/actionModel')
+const Mid = require('../models/role_actionModel')
 
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
@@ -36,6 +38,12 @@ exports.showDaHenPage = async (req, res, next) => {
     res.render('backend', {page: "B_dondangky", pending: pending, hocvien: hocvien})
 }
 
+exports.showLuuTruPage = async (req, res, next) => {    
+    const pending = await HocVien.find({pending : true})
+    var hocvien = await HocVien.find({status : 5})
+    res.render('backend', {page: "B_dondangky", pending: pending, hocvien: hocvien})
+}
+
 exports.showXepLopPage = async (req, res, next) => {    
     const pending = await HocVien.find({pending : true})
     var hocvien = await HocVien.find({status : 3})
@@ -54,7 +62,7 @@ exports.showProfilePage = async (req, res, next) => {
         var log = await Log.find({
             idHocVien : hocvien._id
         });
-        var bang = await LoaiBang.find({tenBang : hocvien.loaiGplx})
+        var bang = await LoaiBang.find({tenBang : hocvien.gplx})
         var lop = await Lop.find({idLoaiBang : mongoose.Types.ObjectId(bang[0]._id)});
         res.render('backend', {page: "B_profile", hocvien: hocvien, pending: pending, log: log, lop : lop});
     }else{
@@ -74,7 +82,7 @@ exports.showDiemDanhPage = async (req, res, next) => {
 
 exports.showLopHocPage = async (req, res, next) => {    
     const pending = await HocVien.find({pending : true})
-    var lop = await Lop.find().limit(8).sort([['khaiGiang', -1]]);
+    var lop = await Lop.find().sort([['khaiGiang', -1]]);
     var loaibang = await LoaiBang.find()
     var giangvien = await GiangVien.find()
     res.render('backend', {page: "B_lophoc", pending: pending, lop : lop, loaibang : loaibang, giangvien : giangvien})
@@ -162,4 +170,23 @@ exports.showRolePage = async (req, res, next) => {
     var role = await Role.find()
     var user = await Users.find()
     res.render('backend', {page: "B_role", pending: pending, user : user, role : role})
+}
+
+exports.showAuthPage = async (req, res, next) => {    
+    const pending = await HocVien.find({pending : true})
+    var role = await Role.find()
+    var action = await Action.find()
+    for(item of role){
+        for(value of action){
+            var temp = await Mid.find({action : value.url, rule : item.role})
+            if (temp == null){             
+                Mid.create({
+                    action : value.url,
+                    rule : item.role,
+                })
+            }
+        }
+    }
+    var rel = await Mid.find()
+    res.render('backend', {page: "B_authencation", pending: pending, role: role, action : action, rel : rel})
 }

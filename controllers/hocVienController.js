@@ -156,7 +156,8 @@ exports.setLop = catchAsync(async (req, res, next) => {
     let result = await HocVien.findOneAndUpdate(
       { _id: req.body._id },
       {
-        idLop: req.body.idLop
+        idLop: req.body.idLop,
+        status : 4
       },
       {
         rawResult: true // Return the raw result from the MongoDB driver
@@ -215,3 +216,26 @@ exports.giayto = catchAsync(async (req, res, next) => {
     res.status(400).send(err);
   }
 });
+
+exports.setdiem = catchAsync(async (req, res, next) => {
+  try {
+    let result = await HocVien.findOneAndUpdate(
+      { _id: req.body._id },
+      {
+        diemLT: req.body.diem,
+        status: 5,
+      },
+      {
+        rawResult: true // Return the raw result from the MongoDB driver
+      }
+    );
+    if (result.lastErrorObject.updatedExisting) {
+      res.status(200).send('success');
+    } else {
+      res.status(400).send('update fail!');
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+})

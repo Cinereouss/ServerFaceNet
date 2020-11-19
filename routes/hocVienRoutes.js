@@ -28,4 +28,6 @@ router.route('/giayto').post(authController.protect, authController.restrictTo("
 
 router.route('/getall').post(authController.protect, authController.restrictTo("admin"),hocVienController.getAll)
 
+router.route('/setdiem').post(authController.protect, authController.restrictTo("admin"),hocVienController.setdiem)
+
 module.exports = router;

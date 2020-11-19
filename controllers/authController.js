@@ -8,6 +8,8 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const { response } = require('../app');
 const fetch = require('node-fetch');
+const Mid = require('./../models/role_actionModel')
+const Action = require('./../models/actionModel')
 
 // const Email = require('./../utils/email');
 
@@ -418,6 +420,56 @@ exports.role = catchAsync(async (req, res, next) => {
       { _id: req.body.id },
       {
         role: req.body.role
+      },
+      {
+        rawResult: true // Return the raw result from the MongoDB driver
+      }
+    );
+    if (result.lastErrorObject.updatedExisting) {
+      return res.status(200).json({
+        status: 'true'
+      });
+    } else {
+      return res.status(200).json({
+        status: 'false'
+      });
+    }
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+exports.activeRole = catchAsync(async (req, res, next) => {
+  try {
+    let result = await Mid.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        active: req.body.active
+      },
+      {
+        rawResult: true // Return the raw result from the MongoDB driver
+      }
+    );
+    if (result.lastErrorObject.updatedExisting) {
+      return res.status(200).json({
+        status: 'true'
+      });
+    } else {
+      return res.status(200).json({
+        status: 'false'
+      });
+    }
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+exports.activeAction = catchAsync(async (req, res, next) => {
+  try {
+    let result = await Action.findOneAndUpdate(
+      { _id: req.body.id },
+      {
+        active: req.body.active
       },
       {
         rawResult: true // Return the raw result from the MongoDB driver
