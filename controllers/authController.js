@@ -8,8 +8,9 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const { response } = require('../app');
 const fetch = require('node-fetch');
-const Mid = require('./../models/role_actionModel')
-const Action = require('./../models/actionModel')
+const Mid = require('./../models/role_actionModel');
+const Action = require('./../models/actionModel');
+const Role = require('../models/groupModel');
 
 // const Email = require('./../utils/email');
 
@@ -82,7 +83,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password !', 401));
   }
 
-  if (user.role === 'admin') {
+  if (user.role != 'teacher') {
     // 3. If everything is ok, send token to client
     createSendToken(user, 200, res);
   } else {
@@ -186,15 +187,29 @@ exports.isLoggedIn = async (req, res, next) => {
 exports.restrictTo = (...roles) => {
   // Because we can not pass args to middleware function, so we use wrapper function to return
   // a middleware functions
-  return (req, res, next) => {
-    // Because of closures, we has access to 'roles'
-    if (!roles.includes(req.user.role)) {
-      // In previous middleware we assign 'req.user = currentUser;', so right now we can use 'req.user.role'
-      return next(new AppError('Permission for this action is denied !', 403)); //403 Forbidden
-    }
+  // return (req, res, next) => {
+  //   // Because of closures, we has access to 'roles'
+  //   if (!roles.includes(req.user.role)) {
+  //     // In previous middleware we assign 'req.user = currentUser;', so right now we can use 'req.user.role'
+  //     return next(new AppError('Permission for this action is denied !', 403)); //403 Forbidden
+  //   }
 
-    next();
-  };
+  //   next(); okkk tks 
+  // };
+  return async (req, res, next) => {
+    var rule = await Mid.find({rule : req.user.role, action : req.originalUrl})
+      // Because of closures, we has access to 'roles'
+      console.log('length ' + rule.length)
+    
+    if (rule.length != 0 ) {
+      console.log('active ' + rule[0].active)
+      if(rule[0].active == false){
+        // In previous middleware we assign 'req.user = currentUser;', so right now we can use 'req.user.role'
+        return next(new AppError('Permission for this action is denied !', 403)); //403 Forbidden
+      }
+    }
+    next()
+  }
 };
 
 exports.forgotPassword = catchAsync(async (req, res, next) => {
@@ -413,7 +428,6 @@ exports.active = catchAsync(async (req, res, next) => {
   }
 });
 
-
 exports.role = catchAsync(async (req, res, next) => {
   try {
     let result = await User.findOneAndUpdate(
@@ -485,6 +499,41 @@ exports.activeAction = catchAsync(async (req, res, next) => {
       });
     }
   } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+exports.addAction = catchAsync(async (req, res, next) => {
+  try {
+    var newAction = await Action.create({
+      name: req.body.name,
+      url: req.body.url,
+      groupAction: req.body.groupAction
+    });
+    if (newAction != null) {
+      res.status(200).send('success');
+    } else {
+      res.status(400).send('update fail!');
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+});
+
+exports.addGroup = catchAsync(async (req, res, next) => {
+  try {
+    var newAction = await Role.create({
+      name: req.body.name,
+      role: req.body.tech
+    });
+    if (newAction != null) {
+      res.status(200).send('success');
+    } else {
+      res.status(400).send('update fail!');
+    }
+  } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 });

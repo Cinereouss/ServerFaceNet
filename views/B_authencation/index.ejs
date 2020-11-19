@@ -1,3 +1,8 @@
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="\assets\libs\toastr\build\toastr.min.css"
+/>
 <%
   function findRel(iprole, ipaction, iprel){
     for(item of iprel){
@@ -46,9 +51,9 @@
             <div class="table-responsive mb-0" data-pattern="priority-columns">
 
               <button data-toggle="modal"
-              data-target=".group-role" type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 float-right"><i class="mdi mdi-plus mr-1"></i> Thêm nhóm quyền</button>
+              data-target="#group22" type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 float-right"><i class="mdi mdi-plus mr-1"></i> Thêm nhóm quyền</button>
               <button data-toggle="modal"
-              data-target=".group-auth"type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 float-right"><i class="mdi mdi-plus mr-1"></i> Thêm action</button>
+              data-target="#auth"type="button" class="btn btn-primary btn-rounded waves-effect waves-light mb-2 mr-2 float-right"><i class="mdi mdi-plus mr-1"></i> Thêm action</button>
               <table
                 id="tech-companies-1"
                 class="table table-striped table-hover table-bordered text-center"
@@ -56,8 +61,9 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th data-priority="3">Action</th>
+                    <th data-priority="1">Action</th>
                     <th data-priority="3">Url</th>
+                    <th data-priority="3">Group</th>
                     <th data-priority="3">Active</th>
                     <% for (var [i, value] of role.entries()) { %>
                     <th data-priority="3"><%= value.role %></th>
@@ -65,22 +71,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                <% for (var [i, value] of action.entries()) { %>
-                  <tr>
-                    <th><%= i+1 %></span></th>
-                    <td><%= value.name %></td>
-                    <td><code><%= value.url %></code></td>
-                    <td><span id="active-<%= value._id%>" class="badge badge-<%= value.active ? "success" : "danger"%> font-size-10 active-span"><%= value.active ? "Kích hoạt" : "Không kích hoạt"%></span></td>
-                    <% for (item of role) { 
-                          var check = findRel(item.role, value.url, rel)
-                    %>
-                        <td><div class="custom-control custom-switch custom-switch-md mb-3" dir="ltr">
-                            <input id="<%= check._id %>" type="checkbox" class="custom-control-input update-active-role" <%= check.active ? "checked" : ""%>>
-                            <label class="custom-control-label" for="<%= check._id %>"></label>
-                        </div></td>                    
-                    <% } %>
-                  </tr>
-                <% } %>
+                  <% for (var [i, value] of action.entries()) { %>
+                    <tr>
+                      <th><%= i+1 %></span></th>
+                      <td><%= value.name %></td>
+                      <td><code><%= value.url %></code></td>
+                      <td><%= value.groupAction %></td>
+                      <td><span id="active-<%= value._id%>" class="badge badge-<%= value.active ? "success" : "danger"%> font-size-10 active-span"><%= value.active ? "Kích hoạt" : "Không kích hoạt"%></span></td>
+                      <% for (item of role) { 
+                            var check = findRel(item.role, value.url, rel)
+                      %>
+                          <td><div class="custom-control custom-switch custom-switch-md mb-3" dir="ltr">
+                              <input id="<%= check._id %>" type="checkbox" class="custom-control-input update-active-role" <%= check.active ? "checked" : ""%>>
+                              <label class="custom-control-label" for="<%= check._id %>"></label>
+                          </div></td>                    
+                      <% } %>
+                    </tr>
+                  <% } %>
                 </tbody>
               </table>
             </div>
@@ -88,30 +95,21 @@
         </div>
       </div>
     </div>
-    <!-- end col -->
   </div>
-  <!-- end row -->
 </div>
-<!-- container-fluid -->
 
 <div
-  class="modal fade bs-example-modal-center group-role"
+  id="auth"
+  class="modal fade bs-example-modal-center"
   tabindex="-1"
   role="dialog"
-  aria-labelledby="mySmallModalLabel"
+  aria-labelledby="mySmallModalLabel2"
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mt-0">Đặt lịch hẹn cho</h5>
-        <input
-          id="code"
-          type="text"
-          value=""
-          hidden
-          readonly
-        />
+        <h5 class="modal-title mt-0">Thêm action mới</h5>
         <button
           type="button"
           class="close"
@@ -122,37 +120,48 @@
         </button>
       </div>
       <div class="modal-body">
-        <label for="appointment" class=" col-form-label">Ngày hẹn:</label>
+        <label for="action" class=" col-form-label">Tên action:</label>
         <input
           class="form-control"
-          type="datetime-local"
-          id="appointment"
+          type="text"
+          id="action"
           required
         />
-        <label for="note" class=" col-form-label">Ghi chú:</label>
-        <textarea id="note" class="form-control" name="ghiChu"></textarea>
-      </div>
+        <label for="url" class=" col-form-label">Url:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="url"
+          required
+        />
+        <label for="loaiaction" class="col-form-label">Loại action: </label>
+            <select id="loaiaction" class="form-control">
+                <option value = "Backend">Backend</option>
+                <option value = "View">View</option>
+                <option value = "API">API</option>
+            </select>
       <div class="modal-footer">
         <button
           type="button"
-          id="btn-close"
+          id="btn-close-action"
           class="btn btn-secondary"
           data-dismiss="modal"
         >
           Close
         </button>
-        <button type="button" id="datlich" class="btn btn-success">
-          Đặt lịch hẹn
+        <button type="button" id="addaction-btn" class="btn btn-success">
+          Tạo mới
         </button>
       </div>
     </div>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
+</div>
 </div>
 
+<!-- end modal-->
 <div
-  class="modal fade bs-example-modal-center group-auth"
+  id="group22"
+  class="modal fade bs-example-modal-center"
   tabindex="-1"
   role="dialog"
   aria-labelledby="mySmallModalLabel"
@@ -161,14 +170,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mt-0">Auth</h5>
-        <input
-          id="code"
-          type="text"
-          value=""
-          hidden
-          readonly
-        />
+        <h5 class="modal-title mt-0">Thêm group mới</h5>
         <button
           type="button"
           class="close"
@@ -179,49 +181,53 @@
         </button>
       </div>
       <div class="modal-body">
-        <label for="appointment" class=" col-form-label">Ngày hẹn:</label>
+        <label for="action" class=" col-form-label">Tên group:</label>
         <input
           class="form-control"
-          type="datetime-local"
-          id="appointment"
+          type="text"
+          id="name"
           required
         />
-        <label for="note" class=" col-form-label">Ghi chú:</label>
-        <textarea id="note" class="form-control" name="ghiChu"></textarea>
-      </div>
+        <label for="url" class=" col-form-label">Tên kỹ thuật:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="tech"
+          required
+        />
       <div class="modal-footer">
         <button
           type="button"
-          id="btn-close"
+          id="btn-close-action"
           class="btn btn-secondary"
           data-dismiss="modal"
         >
           Close
         </button>
-        <button type="button" id="datlich" class="btn btn-success">
-          Đặt lịch hẹn
+        <button type="button" id="addgroup-btn" class="btn btn-success">
+          Tạo mới
         </button>
       </div>
     </div>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
 </div>
+</div>
+
 
 <script>
   $(document).ready(() => {
-    $('#datlich').on('click', () => {
+    $('#addaction-btn').on('click', () => {
       $.ajax({
-        url: '/api/v1/student/setappointment',
+        url: '/api/v1/role/add-action',
         type: 'post',
         data: {
-          _id: $('#code').val(),
-          ngayHen: $('#appointment').val(),
-          ghiChu: $('#note').val()
+          name: $('#action').val(),
+          url: $('#url').val(),
+          groupAction : $("#loaiaction").val()
         },
         success: function(data) {
           if (data === 'success') {
-            $('#btn-close').click();
+            $('#btn-close-action').click();
             toastr.options = {
               closeButton: false,
               debug: false,
@@ -242,9 +248,9 @@
             toastr.options.onHidden = () => {
               location.reload();
             };
-            toastr['success']('Yub! Đặt lịch hẹn thành công ^^', 'Thành công!');
+            toastr['success']('Yub! Thêm action thành công ^^', 'Thành công!');
           } else {
-            $('#btn-close').click();
+            $('#btn-close-action').click();
             toastr.options = {
               closeButton: false,
               debug: false,
@@ -266,7 +272,71 @@
               location.reload();
             };
             toastr['error'](
-              'Đặt lịch hẹn thất bại. Kiểm tra lại!',
+              'Thêm action thất bại. Kiểm tra lại!',
+              'Ops! Thất bại'
+            );
+          }
+        }
+      });
+    });
+
+    $('#addgroup-btn').on('click', () => {
+      console.log('ok')
+      $.ajax({
+        url: '/api/v1/role/add-group',
+        type: 'post',
+        data: {
+          name: $('#name').val(),
+          tech: $('#tech').val(),
+        },
+        success: function(data) {
+          if (data === 'success') {
+            $('#btn-close-action').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['success']('Yub! Thêm nhóm thành công ^^', 'Thành công!');
+          } else {
+            $('#btn-close-action').click();
+            toastr.options = {
+              closeButton: false,
+              debug: false,
+              newestOnTop: false,
+              progressBar: false,
+              positionClass: 'toast-bottom-right',
+              preventDuplicates: false,
+              onclick: null,
+              showDuration: 300,
+              hideDuration: 1000,
+              timeOut: 5000,
+              extendedTimeOut: 1000,
+              showEasing: 'swing',
+              hideEasing: 'linear',
+              showMethod: 'fadeIn',
+              hideMethod: 'fadeOut'
+            };
+            toastr.on.options.onHidden = () => {
+              location.reload();
+            };
+            toastr['error'](
+              'Thêm nhóm thất bại. Kiểm tra lại!',
               'Ops! Thất bại'
             );
           }
@@ -276,13 +346,9 @@
   });
 </script>
 
-
-
-<!-- Responsive Table js -->
 <script src="assets\libs\admin-resources\rwd-table\rwd-table.min.js"></script>
 <script src="\assets\libs\toastr\build\toastr.min.js"></script>
 
-<!-- Init js -->
 <script>
   $(document).ready(function() {
     $(function() {

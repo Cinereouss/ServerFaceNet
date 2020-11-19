@@ -16,7 +16,7 @@ const actionSchema = new mongoose.Schema({
     },
     active: {
         type: Boolean,
-        required: [true, 'Please enter status of action !']
+        default : true
     }
 });
 

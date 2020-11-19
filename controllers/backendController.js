@@ -179,8 +179,9 @@ exports.showAuthPage = async (req, res, next) => {
     for(item of role){
         for(value of action){
             var temp = await Mid.find({action : value.url, rule : item.role})
-            if (temp == null){             
-                Mid.create({
+            if (temp.length == 0){             
+                console.log('create ' + value.url + " " + item.role)
+                await Mid.create({
                     action : value.url,
                     rule : item.role,
                 })
